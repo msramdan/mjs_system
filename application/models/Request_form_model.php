@@ -18,6 +18,8 @@ class Request_form_model extends CI_Model
     // get all
     function get_all()
     {
+        $this->db->join('user','user.user_id = request_form.user_id');
+        $this->db->join('categori_request','categori_request.categori_request_id = request_form.categori_request_id');
         $this->db->order_by($this->id, $this->order);
         return $this->db->get($this->table)->result();
     }

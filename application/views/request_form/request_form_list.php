@@ -41,9 +41,9 @@
                 <tr>
 			<td><?= $no++?></td>
 			<td><?php echo $request_form->kode_request_form ?></td>
-			<td><?php echo $request_form->user_id ?></td>
+			<td><?php echo $request_form->nama_user ?></td>
 			<td><?php echo $request_form->tanggal_request ?></td>
-			<td><?php echo $request_form->categori_request_id ?></td>
+			<td><?php echo $request_form->request ?></td>
 			<td><?php echo $request_form->keterangan ?></td>
 			<td style="text-align:center" width="200px">
 				<?php 

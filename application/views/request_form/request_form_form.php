@@ -13,7 +13,7 @@
 </div>
 <div class="panel-body">
         
-            <form action="<?php echo $action; ?>" method="post">
+            <form action="<?php echo $action; ?>" method="post" enctype="multipart/form-data">
             
             <table class="table  table-bordered table-hover table-td-valign-middle">
             <thead>
@@ -33,7 +33,23 @@
 
 	    <tr><td >Categori Request<?php echo form_error('categori_request_id') ?></td><td>
 	    	<select class="form-control" id="ex-basic"  name="categori_request_id">
-				<option>-- Pilih --</option>
+				<option value="">-- Pilih --</option>
+	    		<?php
+
+	    		$cek = $classnyak->cekDataInApprovalList($this->session->userdata('userid'));
+
+	    		if ($cek) {
+	    			foreach($cek as $a)
+		    		{
+		    			?>
+		    			<option value="<?php echo $a->categori_request_id ?>"><?php echo $a->request ?></option>
+						<?php
+		    		}
+	    		} else {
+	    			echo "";
+	    		}
+	    		?>
+				<?php ?>
 			</select>
 	    </td>
 	</tr>
