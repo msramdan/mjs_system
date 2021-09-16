@@ -24,6 +24,13 @@ class Categori_request_model extends CI_Model
         return $this->db->get($this->table)->result();
     }
 
+    function get_all_approval_name_and_step($category_request_id)
+    {
+        $this->db->join('user','user.user_id = flow_approved.user_id');
+        $this->db->where('categori_request_id',$category_request_id);
+        return $this->db->get($this->table2)->result();
+    }
+
     // get data by id
     function get_by_id($id)
     {

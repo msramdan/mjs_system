@@ -56,13 +56,13 @@ class Request_form extends CI_Controller
             'kode'=>$this->Request_form_model->get_no_rf(),
             'sett_apps' =>$this->Setting_app_model->get_by_id(1),
             'action' => site_url('request_form/create_action'),
-	    'request_form_id' => set_value('request_form_id'),
-	    'kode_request_form' => set_value('kode_request_form'),
-	    'user_id' => set_value('user_id'),
-	    'tanggal_request' => set_value('tanggal_request'),
-	    'categori_request_id' => set_value('categori_request_id'),
-	    'keterangan' => set_value('keterangan'),
-	);
+    	    'request_form_id' => set_value('request_form_id'),
+    	    'kode_request_form' => set_value('kode_request_form'),
+    	    'user_id' => set_value('user_id'),
+    	    'tanggal_request' => set_value('tanggal_request'),
+    	    'categori_request_id' => set_value('categori_request_id'),
+    	    'keterangan' => set_value('keterangan'),
+    	);
         $this->template->load('template','request_form/request_form_form', $data);
     }
     
