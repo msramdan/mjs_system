@@ -70,6 +70,13 @@ class Request_form_model extends CI_Model
         $this->db->delete('berkas');
     }
 
+    function delete_berkas_form_request_by_r_id($id_request_form,$id_user)
+    {
+        $this->db->where('karyawan_id', $id_user);
+        $this->db->like('photo', $id_request_form);
+        $this->db->delete('berkas');
+    }
+
     function get_no_rf(){
         $q = $this->db->query("SELECT MAX(RIGHT(kode_request_form,4)) AS kd_max FROM request_form WHERE DATE(tanggal_request)=CURDATE()");
         $kd = "";
@@ -83,6 +90,13 @@ class Request_form_model extends CI_Model
         }
         date_default_timezone_set('Asia/Jakarta');
         return date('Ydm').$kd;
+    }
+
+    function get_berkas_list($id_request_form,$id_user)
+    {
+        $this->db->where('karyawan_id', $id_user);
+        $this->db->like('photo', $id_request_form);
+        return $this->db->get('berkas')->result();
     }
 
 }
