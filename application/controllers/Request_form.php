@@ -66,6 +66,28 @@ class Request_form extends CI_Controller
     	);
         $this->template->load('template','request_form/request_form_form', $data);
     }
+
+    function generate_approval_list($id_categori_request)
+    {
+        $data = $this->Categori_request_model->get_all_approval_name_and_step($id_categori_request);
+
+
+        $arr = array();
+        
+        foreach ($data as $key => $value) {
+            $arr[][$value->user_id] = 'false';
+        }
+
+        print_r($arr);
+
+        echo '<br>';
+
+        echo json_encode($arr);
+
+
+        // return $arr;
+
+    }
     
     function cekDataInApprovalList($id)
     {
@@ -87,66 +109,72 @@ class Request_form extends CI_Controller
         if ($this->form_validation->run() == FALSE) {
             $this->create();
         } else {
-            $data = array(
-        		'kode_request_form' => $this->input->post('kode_request_form',TRUE),
-        		'user_id' => $this->input->post('user_id',TRUE),
-        		'tanggal_request' => $this->input->post('tanggal_request',TRUE),
-        		'categori_request_id' => $this->input->post('categori_request_id',TRUE),
-        		'keterangan' => $this->input->post('keterangan',TRUE),
-    	    );
 
-            $this->Request_form_model->insert($data);
+            $approval_list = $this->generate_approval_list($this->input->post('categori_request_id',TRUE));
+
+            // print_r($approval_list);
+
+            // $data = array(
+        	// 	'kode_request_form' => $this->input->post('kode_request_form',TRUE),
+        	// 	'user_id' => $this->input->post('user_id',TRUE),
+        	// 	'tanggal_request' => $this->input->post('tanggal_request',TRUE),
+        	// 	'categori_request_id' => $this->input->post('categori_request_id',TRUE),
+        	// 	'keterangan' => $this->input->post('keterangan',TRUE),
+         //        'approval_status' =>
+    	    // );
+
+         //    $this->Request_form_model->insert($data);
             
-            $nama_berkas = $_POST['nama_berkas'];
+         //    $nama_berkas = $_POST['nama_berkas'];
 
-            if ($nama_berkas) {
-                $this->load->library('upload');
+         //    if ($nama_berkas) {
+         //        $this->load->library('upload');
                 
-                $jumlah_data = count($nama_berkas);
+         //        $jumlah_data = count($nama_berkas);
 
-                for($i = 0; $i < $jumlah_data;$i++)
-                {
-                    if($_FILES['berkas']['name'][$i]){
+         //        for($i = 0; $i < $jumlah_data;$i++)
+         //        {
+         //            if($_FILES['berkas']['name'][$i]){
                         
-                        $filenamee = 'ApprDoc-'.$this->input->post('kode_request_form').'-'.date('ymd').'-'.substr(sha1(rand()),0,10);
+         //                $filenamee = 'ApprDoc-'.$this->input->post('kode_request_form').'-'.date('ymd').'-'.substr(sha1(rand()),0,10);
 
-                        $config['upload_path']          = './assets/assets/img/berkas'; 
-                        $config['allowed_types']        = 'jpg|png|pdf|docx|doc';
-                        $config['max_size']             = 10000;
-                        $config['file_name']            = $filenamee;
+         //                $config['upload_path']          = './assets/assets/img/berkas'; 
+         //                $config['allowed_types']        = 'jpg|png|pdf|docx|doc';
+         //                $config['max_size']             = 10000;
+         //                $config['file_name']            = $filenamee;
 
-                        $_FILES['file[]']['name'] = $_FILES['berkas']['name'][$i];
-                        $_FILES['file[]']['type'] = $_FILES['berkas']['type'][$i];
-                        $_FILES['file[]']['tmp_name'] = $_FILES['berkas']['tmp_name'][$i];
-                        $_FILES['file[]']['error'] = $_FILES['berkas']['error'][$i];
-                        $_FILES['file[]']['size'] = $_FILES['berkas']['size'][$i];
+         //                $_FILES['file[]']['name'] = $_FILES['berkas']['name'][$i];
+         //                $_FILES['file[]']['type'] = $_FILES['berkas']['type'][$i];
+         //                $_FILES['file[]']['tmp_name'] = $_FILES['berkas']['tmp_name'][$i];
+         //                $_FILES['file[]']['error'] = $_FILES['berkas']['error'][$i];
+         //                $_FILES['file[]']['size'] = $_FILES['berkas']['size'][$i];
 
-                        $this->upload->initialize($config);
-                        $this->upload->do_upload('file[]');
+         //                $this->upload->initialize($config);
+         //                $this->upload->do_upload('file[]');
 
-                        $uploadData[] = $this->upload->data();
+         //                $uploadData[] = $this->upload->data();
 
-                        $data = array(
-                            'karyawan_id' => $this->session->userdata('userid'),
-                            'nama_berkas' => $nama_berkas[$i],
-                            'photo' => $uploadData[$i]['file_name'],
-                        );
+         //                $data = array(
+         //                    'karyawan_id' => $this->session->userdata('userid'),
+         //                    'nama_berkas' => $nama_berkas[$i],
+         //                    'photo' => $uploadData[$i]['file_name'],
+         //                );
 
-                        print_r($data);
+         //                print_r($data);
                         
-                        $this->db->insert('berkas',$data);
+         //                $this->db->insert('berkas',$data);
                     
-                    } else {
+         //            } else {
 
-                        echo "haha! no files for ".$nama_berkas[$i].'???'.$_FILES['berkas']['name'][$i].'???';
-                    }
+         //                echo "haha! no files for ".$nama_berkas[$i].'???'.$_FILES['berkas']['name'][$i].'???';
+         //            }
 
-                }
-            }
+         //        }
+         //   }
 
 
-            $this->session->set_flashdata('message', 'Create Record Success');
-            redirect(site_url('request_form'));
+         //   $this->session->set_flashdata('message', 'Create Record Success');
+         //   redirect(site_url('request_form'));
         }
     }
     
