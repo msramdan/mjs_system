@@ -12,7 +12,9 @@
 			</div>
 			<div class="panel-body">
 
+
 				<div style="display: flex;justify-content: center;text-align: center;">
+
 				<?php 
 					$wh = json_decode($whoisreviewing, true);
 					foreach ($wh as $key => $value) {
@@ -21,11 +23,11 @@
 							<div style="width: 25%;">
 								<div style="position: relative;">
 									<i class="fa fa-users" style="font-size: 67px;"></i>
-									<i class="fa fa-minus" style="font-size: 27px; position: absolute; bottom: 0;"></i>
+									<i class="fa fa-comments" style="font-size: 27px; position: absolute; bottom: 0;"></i>
 								</div>
-								<h3><?php echo $key ?></h3>
+								<h3><?php echo $classnyak->getusername($key)[0]->nama_user ?></h3>
 
-								<p><label class="label label-default">Dalam Review</label></p>
+								<p><button class="btn btn-primary btn-xs">Dalam Review</button></p>
 							</div>
 							<?php
 						}
@@ -37,9 +39,9 @@
 									<i class="fa fa-users" style="font-size: 67px;"></i>
 									<i class="fa fa-check-circle" style="font-size: 27px; color: green; position: absolute; bottom: 0;"></i>
 								</div>
-								<h3><?php echo $key ?></h3>
+								<h3><?php echo $classnyak->getusername($key)[0]->nama_user ?></h3>
 
-								<p><label class="label label-success">Disetujui</label></p>
+								<p><button class="btn btn-success btn-xs">Disetujui</button></p>
 							</div>
 							<?php
 						}
@@ -51,15 +53,16 @@
 									<i class="fa fa-users" style="font-size: 67px;"></i>
 									<i class="fa fa-times-circle" style="font-size: 27px; color: red; position: absolute; bottom: 0;"></i>
 								</div>
-								<h3><?php echo $key ?></h3>
+								<h3><?php echo $classnyak->getusername($key)[0]->nama_user ?></h3>
 
-								<p><label class="label label-danger">Ditolak</label></p>
+								<p><button class="btn btn-danger btn-xs">Ditolak</button></p>
 							</div>
 							<?php
 						}
 					}
 				?>
-			</div>
+				</div>
+
 
 				<table id="data-table-default" class="table table-hover table-bordered table-td-valign-middle">
 				    <tr><td>Kode Request Form</td><td><?php echo $kode_request_form; ?></td></tr>

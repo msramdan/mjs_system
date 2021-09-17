@@ -32,14 +32,16 @@ class Request_form extends CI_Controller
         $row = $this->Request_form_model->get_by_id(decrypt_url($id));
         if ($row) {
             $data = array(
-		'request_form_id' => $row->request_form_id,
-        'sett_apps' =>$this->Setting_app_model->get_by_id(1),
-		'kode_request_form' => $row->kode_request_form,
-		'user_id' => $row->user_id,
-		'tanggal_request' => $row->tanggal_request,
-		'categori_request_id' => $row->categori_request_id,
-		'keterangan' => $row->keterangan,
-	    );
+        		'request_form_id' => $row->request_form_id,
+                'sett_apps' =>$this->Setting_app_model->get_by_id(1),
+        		'kode_request_form' => $row->kode_request_form,
+        		'user_id' => $row->user_id,
+        		'tanggal_request' => $row->tanggal_request,
+        		'categori_request_id' => $row->categori_request_id,
+        		'keterangan' => $row->keterangan,
+                'whoisreviewing' => $row->approval_status,
+                'classnyak' => $this
+            );
             $this->template->load('template','request_form/request_form_read', $data);
         } else {
             $this->session->set_flashdata('error', 'Record Not Found');
@@ -75,7 +77,7 @@ class Request_form extends CI_Controller
         $arr = [];
         
         foreach ($data as $key => $value) {
-            $arr[$value->user_id] = 'false';
+            $arr[$value->user_id] = '-';
         }
 
         return json_encode($arr);
@@ -167,6 +169,13 @@ class Request_form extends CI_Controller
            $this->session->set_flashdata('message', 'Create Record Success');
            redirect(site_url('request_form'));
         }
+    }
+
+    function getusername($id)
+    {
+        $this->load->model('User_m');
+        $data = $this->User_m->get_by_id($id);
+        return $data;
     }
     
     public function update($id) 
