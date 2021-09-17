@@ -42,7 +42,9 @@
 	    			foreach($cek as $a)
 		    		{
 		    			?>
-		    			<option value="<?php echo $a->categori_request_id ?>"><?php echo $a->request ?></option>
+		    			<option <?php if ($a->categori_request_id == $categori_request_id) {
+		    				echo 'selected';
+		    			} ?> value="<?php echo $a->categori_request_id ?>"><?php echo $a->request ?></option>
 						<?php
 		    		}
 	    		} else {
@@ -54,17 +56,39 @@
 	    </td>
 	</tr>
 	    
-        <tr><td >Keterangan <?php echo form_error('keterangan') ?></td><td> <textarea class="form-control" rows="3" name="keterangan" id="keterangan" placeholder="Keterangan"><?php echo $keterangan; ?></textarea></td></tr>
+        <tr>
+        	<td >Keterangan <?php echo form_error('keterangan') ?></td><td> <textarea class="form-control" rows="3" name="keterangan" id="keterangan" placeholder="Keterangan"><?php echo $keterangan; ?></textarea></td>
+        </tr>
 
         <tr><td >Attachment File<?php echo form_error('>attachment_ile') ?></td>
         	<td>
 		        <table class="table table-bordered" id="dynamic_field">
-				            <tr style="border: none;">
-				                <td style="border: none;">
-				                	<input type="text" name="nama_berkas[]" placeholder="Nama File" class="form-control nama_berkas" required="" /></td>
-				                <td style="border: none;"><input type="file" name="berkas[]" class="form-control berkas_list" required="" /></td>
-				                <td style="border: none;"><button type="button" name="add_berkas" id="add_berkas" class="btn btn-success">Add</button></td>
-				             </tr>
+		        	<?php
+
+		        	$lo = $classnyak->find_berkas_for_this_request_form($kode_request_form,$user_id);
+
+		        	if ($lo) {
+		        		$num = 1;
+		        		foreach($lo as $k) {
+		        			?>
+		        				<tr style="border: none;" id="<?php echo encrypt_url($k->berkas_id) ?>">
+					                <td style="border: none;">
+					                	<input type="hidden" name="id_berkas_old" class="form-control id_berkas" value="<?php echo encrypt_url($k->berkas_id) ?>" required="" />
+					                	<input type="text" name="nama_berkas_old[]" placeholder="Nama File" class="form-control nama_berkas_old" required="" value="<?php echo $k->nama_berkas ?>" /></td>
+					                <td style="border: none;"><a class="btn btn-primary" target="_blank" rel="noopener noreferrer" href="<?php echo base_url().'assets/assets/img/berkas/'.$k->photo ?>" style="display: block;">Download</a></td>
+					                <td style="border: none;"><button type="button" name="remove_old_berkas" fn="<?php echo $k->photo ?>" id="<?php echo encrypt_url($k->berkas_id) ?>" class="btn btn-danger btn_remove_old_berkas">X</button></td>
+					            </tr>
+		        			<?php
+		        			$num++;
+		        		}
+		        	}
+		        	?>
+		            <tr style="border: none;">
+		                <td style="border: none;">
+		                	<input type="text" name="nama_berkas[]" placeholder="Nama File" class="form-control nama_berkas" required="" /></td>
+		                <td style="border: none;"><input type="file" name="berkas[]" class="form-control berkas_list" required="" /></td>
+		                <td style="border: none;"><button type="button" name="add_berkas" id="add_berkas" class="btn btn-success">Add</button></td>
+		            </tr>
 				</table>
 	        </td>
     	</tr>
@@ -92,8 +116,55 @@ $(document).ready(function() {
     });
 
     $(document).on('click', '.btn_remove', function() {
+        i--;
         var button_id = $(this).attr("id");
         $('#row' + button_id + '').remove();
+
+    });
+
+    $(document).on('click', '.btn_remove_old_berkas', function() {
+        var berkas_id = $(this).attr("id");
+        var filename = $(this).attr("fn");
+
+        var thisel = $(this).parents('td').parents('tr#' + berkas_id);
+
+        Swal.fire({
+		  title: 'Anda yakin?',
+		  text: "Tindakan ini akan langsung menghapus berkas",
+		  icon: 'warning',
+		  showCancelButton: true,
+		  confirmButtonColor: '#3085d6',
+		  cancelButtonColor: '#d33',
+		  confirmButtonText: 'Ya'
+		}).then((result) => {
+		  if (result.isConfirmed) {
+		  	$.ajax({
+	            type: "POST",
+	            url: "<?php echo base_url() ?>Request_form/delete_berkas",
+	            data: {
+	            	berkas_id:berkas_id,
+	            	file_name:filename
+	            },
+	            success: function(data){
+	                thisel.remove();
+	                Swal.fire(
+				      'Deleted!',
+				      'Your file has been deleted.',
+				      'success'
+				    )
+	            },
+	            error: function(e) {
+	            	Swal.fire(
+				      'Oops...',
+				      'Something went wrong!.' + e,
+				      'error'
+				    )
+	            }
+	        });
+		  }
+		})
+       
+
     });
 
 });

@@ -64,6 +64,12 @@ class Request_form_model extends CI_Model
         $this->db->delete($this->table);
     }
 
+    function delete_berkas_form_request($id_berkas)
+    {
+        $this->db->where('berkas_id', $id_berkas);
+        $this->db->delete('berkas');
+    }
+
     function get_no_rf(){
         $q = $this->db->query("SELECT MAX(RIGHT(kode_request_form,4)) AS kd_max FROM request_form WHERE DATE(tanggal_request)=CURDATE()");
         $kd = "";

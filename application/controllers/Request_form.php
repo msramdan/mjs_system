@@ -73,6 +73,12 @@ class Request_form extends CI_Controller
         return $data;
     }
 
+    function find_berkas_for_this_request_form($id,$user_id)
+    {
+        $data = $this->Categori_request_model->get_all_file_for_request_form($id,$user_id);
+        return $data;
+    }
+
     public function create_action() 
     {
         is_allowed($this->uri->segment(1),'create');
@@ -89,7 +95,7 @@ class Request_form extends CI_Controller
         		'keterangan' => $this->input->post('keterangan',TRUE),
     	    );
 
-            // $this->Request_form_model->insert($data);
+            $this->Request_form_model->insert($data);
             
             $nama_berkas = $_POST['nama_berkas'];
 
@@ -102,7 +108,7 @@ class Request_form extends CI_Controller
                 {
                     if($_FILES['berkas']['name'][$i]){
                         
-                        $filenamee = 'ApprDoc-'.date('ymd').'-'.substr(sha1(rand()),0,10);
+                        $filenamee = 'ApprDoc-'.$this->input->post('kode_request_form').'-'.date('ymd').'-'.substr(sha1(rand()),0,10);
 
                         $config['upload_path']          = './assets/assets/img/berkas'; 
                         $config['allowed_types']        = 'jpg|png|pdf|docx|doc';
@@ -128,7 +134,7 @@ class Request_form extends CI_Controller
 
                         print_r($data);
                         
-                        // $this->db->insert('berkas',$data);
+                        $this->db->insert('berkas',$data);
                     
                     } else {
 
@@ -139,8 +145,8 @@ class Request_form extends CI_Controller
             }
 
 
-            // $this->session->set_flashdata('message', 'Create Record Success');
-            // redirect(site_url('request_form'));
+            $this->session->set_flashdata('message', 'Create Record Success');
+            redirect(site_url('request_form'));
         }
     }
     
@@ -154,12 +160,13 @@ class Request_form extends CI_Controller
                 'button' => 'Update',
                 'sett_apps' =>$this->Setting_app_model->get_by_id(1),
                 'action' => site_url('request_form/update_action'),
-		'request_form_id' => set_value('request_form_id', $row->request_form_id),
-		'kode_request_form' => set_value('kode_request_form', $row->kode_request_form),
-		'user_id' => set_value('user_id', $row->user_id),
-		'tanggal_request' => set_value('tanggal_request', $row->tanggal_request),
-		'categori_request_id' => set_value('categori_request_id', $row->categori_request_id),
-		'keterangan' => set_value('keterangan', $row->keterangan),
+        		'request_form_id' => set_value('request_form_id', $row->request_form_id),
+        		'kode_request_form' => set_value('kode_request_form', $row->kode_request_form),
+        		'user_id' => set_value('user_id', $row->user_id),
+        		'tanggal_request' => set_value('tanggal_request', $row->tanggal_request),
+        		'categori_request_id' => $row->categori_request_id,
+        		'keterangan' => set_value('keterangan', $row->keterangan),
+                'classnyak' => $this
 	    );
             $this->template->load('template','request_form/request_form_form', $data);
         } else {
@@ -177,14 +184,65 @@ class Request_form extends CI_Controller
             $this->update($this->input->post('request_form_id', TRUE));
         } else {
             $data = array(
-		'kode_request_form' => $this->input->post('kode_request_form',TRUE),
-		'user_id' => $this->input->post('user_id',TRUE),
-		'tanggal_request' => $this->input->post('tanggal_request',TRUE),
-		'categori_request_id' => $this->input->post('categori_request_id',TRUE),
-		'keterangan' => $this->input->post('keterangan',TRUE),
-	    );
+        		'kode_request_form' => $this->input->post('kode_request_form',TRUE),
+        		'user_id' => $this->input->post('user_id',TRUE),
+        		'tanggal_request' => $this->input->post('tanggal_request',TRUE),
+        		'categori_request_id' => $this->input->post('categori_request_id',TRUE),
+        		'keterangan' => $this->input->post('keterangan',TRUE),
+            );
 
             $this->Request_form_model->update($this->input->post('request_form_id', TRUE), $data);
+
+            // IN CASE YOUR ADDING AGAIN
+
+            $nama_berkas = $_POST['nama_berkas'];
+
+            if ($nama_berkas) {
+                $this->load->library('upload');
+                
+                $jumlah_data = count($nama_berkas);
+
+                for($i = 0; $i < $jumlah_data;$i++)
+                {
+                    if($_FILES['berkas']['name'][$i]){
+                        
+                        $filenamee = 'ApprDoc-'.$this->input->post('kode_request_form').'-'.date('ymd').'-'.substr(sha1(rand()),0,10);
+
+                        $config['upload_path']          = './assets/assets/img/berkas'; 
+                        $config['allowed_types']        = 'jpg|png|pdf|docx|doc';
+                        $config['max_size']             = 10000;
+                        $config['file_name']            = $filenamee;
+
+                        $_FILES['file[]']['name'] = $_FILES['berkas']['name'][$i];
+                        $_FILES['file[]']['type'] = $_FILES['berkas']['type'][$i];
+                        $_FILES['file[]']['tmp_name'] = $_FILES['berkas']['tmp_name'][$i];
+                        $_FILES['file[]']['error'] = $_FILES['berkas']['error'][$i];
+                        $_FILES['file[]']['size'] = $_FILES['berkas']['size'][$i];
+
+                        $this->upload->initialize($config);
+                        $this->upload->do_upload('file[]');
+
+                        $uploadData[] = $this->upload->data();
+
+                        $data = array(
+                            'karyawan_id' => $this->session->userdata('userid'),
+                            'nama_berkas' => $nama_berkas[$i],
+                            'photo' => $uploadData[$i]['file_name'],
+                        );
+
+                        print_r($data);
+                        
+                        $this->db->insert('berkas',$data);
+                    
+                    } else {
+
+                        echo "haha! no files for ".$nama_berkas[$i].'???'.$_FILES['berkas']['name'][$i].'???';
+                    }
+
+                }
+            }
+
+
             $this->session->set_flashdata('message', 'Update Record Success');
             redirect(site_url('request_form'));
         }
@@ -203,6 +261,20 @@ class Request_form extends CI_Controller
             $this->session->set_flashdata('error', 'Record Not Found');
             redirect(site_url('request_form'));
         }
+    }
+
+    public function delete_berkas()
+    {
+        is_allowed($this->uri->segment(1),'delete');
+
+        $id = $this->input->post('berkas_id');
+        $filename = $this->input->post('file_name');
+
+        $this->Request_form_model->delete_berkas_form_request(decrypt_url($id));
+        
+        unlink("./assets/assets/img/berkas/".$filename);
+
+        echo 'ok';
     }
 
     public function _rules() 
