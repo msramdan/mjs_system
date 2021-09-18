@@ -29,7 +29,7 @@ class Request_form_model extends CI_Model
         $this->db->join('user','user.user_id = request_form.user_id');
         $this->db->join('categori_request','categori_request.categori_request_id = request_form.categori_request_id');
         
-        $this->db->like('approval_status','-');
+        $this->db->like('approval','-');
         
         $this->db->order_by($this->id, $this->order);
         return $this->db->get($this->table)->result();
@@ -40,8 +40,8 @@ class Request_form_model extends CI_Model
         // $this->db->join('user','user.user_id = request_form.user_id');
         // $this->db->join('categori_request','categori_request.categori_request_id = request_form.categori_request_id');
         // $this->db->group_start();
-        //     $this->db->like('approval_status','%false%');
-        //     $this->db->or_like('approval_status','%true%');
+        //     $this->db->like('approval','%false%');
+        //     $this->db->or_like('approval','%true%');
         // $this->db->group_end();
         // $this->db->order_by($this->id, $this->order);
         // return $this->db->get($this->table)->result();
@@ -52,8 +52,8 @@ class Request_form_model extends CI_Model
         // $this->db->join('user','user.user_id = request_form.user_id');
         // $this->db->join('categori_request','categori_request.categori_request_id = request_form.categori_request_id');
         // $this->db->group_start();
-        //     $this->db->like('approval_status','%false%');
-        //     $this->db->or_like('approval_status','%true%');
+        //     $this->db->like('approval','%false%');
+        //     $this->db->or_like('approval','%true%');
         // $this->db->group_end();
         // $this->db->order_by($this->id, $this->order);
         // return $this->db->get($this->table)->result();
@@ -132,6 +132,13 @@ class Request_form_model extends CI_Model
         $this->db->where('karyawan_id', $id_user);
         $this->db->like('photo', $id_request_form);
         return $this->db->get('berkas')->result();
+    }
+
+    function detect_dissapprove_status($id_request_form)
+    {
+        $this->db->where('request_form_id', $id_request_form);
+        $this->db->like('approval', 'false');
+        return $this->db->get($this->table)->num_rows();
     }
 
 }

@@ -11,6 +11,7 @@
 				</div>
 				<div class="modal-body">
 					<input hidden="hidden" type="text" name="kd_form_request" id="kd_form_request" value="<?php echo $kd_form_request ?>">
+					<input hidden="hidden" type="text" name="request_form_d" id="request_form_id" value="<?php echo $request_form_id ?>">
 					<input type="hidden" name="signer" id="signer" value="<?php echo $this->session->userdata('userid') ?>">
 					<p style="float: left;">Beri tanda tangan :</p>
 					<button type="button" class="btn btn-danger" onclick="tandaTangan.clear()" style="float: right;">

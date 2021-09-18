@@ -12,6 +12,18 @@
 </div>
 </div>
 <div class="panel-body">
+			<?php
+			if ($action == site_url('request_form/update_action')) {
+				if ($keterangan_tolak != '-') {
+					?>
+					<div class="alert alert-danger alert-dismissible fade show mb-2">
+						Ditolak dengan alasan berikut : <b><?php echo $keterangan_tolak ?></b>.
+						<button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+					</div>
+					<?php
+				}
+			}
+			?>
         
             <form action="<?php echo $action; ?>" method="post" enctype="multipart/form-data">
             
@@ -84,10 +96,23 @@
 		        	}
 		        	?>
 		            <tr style="border: none;">
-		                <td style="border: none;">
-		                	<input type="text" name="nama_berkas[]" placeholder="Nama File" class="form-control nama_berkas" required="" /></td>
-		                <td style="border: none;"><input type="file" name="berkas[]" class="form-control berkas_list" required="" /></td>
-		                <td style="border: none;"><button type="button" name="add_berkas" id="add_berkas" class="btn btn-success">Add</button></td>
+
+		            	<?php
+						if ($action == site_url('request_form/create_action')) {
+							?>
+							<td style="border: none;">
+			                	<input type="text" name="nama_berkas[]" placeholder="Nama File" class="form-control nama_berkas" required="" /></td>
+			                <td style="border: none;"><input type="file" name="berkas[]" class="form-control berkas_list" required="" /></td>
+			                <td style="border: none;"><button type="button" name="add_berkas" id="add_berkas" class="btn btn-success">Add</button></td>
+							<?php
+						}
+
+						if ($action == site_url('request_form/update_action')) {
+							?>
+							<td colspan="3" style="border: none;"><button style="width: 100%" type="button" name="add_berkas" id="add_berkas" class="btn btn-success">Add</button></td>
+							<?php
+						}
+						?>
 		            </tr>
 				</table>
 	        </td>

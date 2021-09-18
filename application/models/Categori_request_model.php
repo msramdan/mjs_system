@@ -104,6 +104,13 @@ class Categori_request_model extends CI_Model
         $this->db->delete($this->table2);
     }
 
+    function get_step_for_signer($user_id, $categori_request_id)
+    {
+        $this->db->where('categori_request_id',$categori_request_id);
+        $this->db->where('user_id', $user_id);
+        return $this->db->get($this->table2)->row();
+    }
+
 }
 
 /* End of file Categori_request_model.php */

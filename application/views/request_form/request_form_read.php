@@ -125,12 +125,13 @@
 							?>
 							<li class="list-inline-item event-list">
 								<div class="px-4">
-                                    <div class="event-date bg-success">
+                                    <a class="btn btn-danger event-date" data-bs-toggle="modal" href="#message-disapproved-dialog">
 										Dissaproved
-                                    </div>
+                                    </a>
                                     <h5 class="font-size-13"><?php echo explode(' ',$classnyak->getusername($value['user_id'])[0]->nama_user)[0] ?></h5>
                                 </div>
 							</li>
+                                
 							<?php
 						}
 					}
@@ -145,6 +146,7 @@
 				    <tr><td>Tanggal Request</td><td><?php echo $tanggal_request; ?></td></tr>
 				    <tr><td>Categori Request Id</td><td><?php echo $categori_request_id; ?></td></tr>
 				    <tr><td>Keterangan</td><td><?php echo $keterangan; ?></td></tr>
+				    <tr><td>Keterangan Tolak Sebelumnya</td><td><?php echo $keterangan_tolak; ?></td></tr>
 				    <tr><td></td><td>
 				    	
 				    	<a href="<?php echo site_url('request_form') ?>" class="btn btn-default">Cancel</a>

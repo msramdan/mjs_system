@@ -39,7 +39,8 @@ class Request_form extends CI_Controller
         		'tanggal_request' => $row->tanggal_request,
         		'categori_request_id' => $row->categori_request_id,
         		'keterangan' => $row->keterangan,
-                'whoisreviewing' => $row->approval_status,
+                'whoisreviewing' => $row->approval,
+                'keterangan_tolak' => $row->keterangan_tolak,
                 'classnyak' => $this
             );
             $this->template->load('template','request_form/request_form_read', $data);
@@ -132,7 +133,9 @@ class Request_form extends CI_Controller
         		'tanggal_request' => $this->input->post('tanggal_request',TRUE),
         		'categori_request_id' => $this->input->post('categori_request_id',TRUE),
         		'keterangan' => $this->input->post('keterangan',TRUE),
-                'approval_status' => $approval_list
+                'status' => 'Dalam Review',
+                'approval' => $approval_list,
+                'keterangan_tolak' => '-'
     	    );
 
             $this->Request_form_model->insert($data);
@@ -201,20 +204,27 @@ class Request_form extends CI_Controller
     {
         $data = $this->Request_form_model->get_by_id(decrypt_url($id_request_form));
 
-        $arr = json_decode($data->approval_status, TRUE);
+        if($data->status == 'Dalam Review')
+        {
+            $arr = json_decode($data->approval, TRUE);
 
-        $stillonreview = 0;
+            $stillonreview = 0;
 
-        foreach ($arr as $value) {
-            if ($value === '-') {
-                $stillonreview++;
+            foreach ($arr as $value) {
+                if ($value['status'] === '-') {
+                    $stillonreview++;
+                }
+            }
+
+            if ($stillonreview == count($arr)) {
+                return 'allowed';
+            } else {
+                return 'not allowed';
             }
         }
 
-        if ($stillonreview == count($arr)) {
+        if ($data->status == 'Ditolak') {
             return 'allowed';
-        } else {
-            return 'not allowed';
         }
     }
 
@@ -237,8 +247,9 @@ class Request_form extends CI_Controller
                     'tanggal_request' => set_value('tanggal_request', $row->tanggal_request),
                     'categori_request_id' => $row->categori_request_id,
                     'keterangan' => set_value('keterangan', $row->keterangan),
+                    'keterangan_tolak' => $row->keterangan_tolak,
                     'classnyak' => $this
-               );
+                );
                 $this->template->load('template','request_form/request_form_form', $data);
             } else {
                 $this->session->set_flashdata('message', 'Tidak dapat diedit karena sudah direview');
@@ -258,15 +269,21 @@ class Request_form extends CI_Controller
         if ($this->form_validation->run() == FALSE) {
             $this->update($this->input->post('request_form_id', TRUE));
         } else {
-            $data = array(
-        		'kode_request_form' => $this->input->post('kode_request_form',TRUE),
-        		'user_id' => $this->input->post('user_id',TRUE),
-        		'tanggal_request' => $this->input->post('tanggal_request',TRUE),
-        		'categori_request_id' => $this->input->post('categori_request_id',TRUE),
-        		'keterangan' => $this->input->post('keterangan',TRUE),
-            );
+            $row = $this->Request_form_model->get_by_id($this->input->post('request_form_id', TRUE));
 
-            $this->Request_form_model->update($this->input->post('request_form_id', TRUE), $data);
+            if ($row->status == 'Ditolak' || $row->status == 'Dalam Review') {
+                $data = array(
+                    'kode_request_form' => $this->input->post('kode_request_form',TRUE),
+                    'user_id' => $this->input->post('user_id',TRUE),
+                    'tanggal_request' => $this->input->post('tanggal_request',TRUE),
+                    'categori_request_id' => $this->input->post('categori_request_id',TRUE),
+                    'keterangan' => $this->input->post('keterangan',TRUE),
+                    'approval' => $this->generate_approval_list($this->input->post('categori_request_id',TRUE)),
+                    'status' => 'Dalam Review'
+                );
+                //print_r($data);
+                $this->Request_form_model->update($this->input->post('request_form_id', TRUE), $data);
+            }
 
             // IN CASE YOUR ADDING AGAIN
 
