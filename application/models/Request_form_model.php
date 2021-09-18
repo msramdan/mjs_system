@@ -24,6 +24,41 @@ class Request_form_model extends CI_Model
         return $this->db->get($this->table)->result();
     }
 
+    function get_all_active_request()
+    {
+        $this->db->join('user','user.user_id = request_form.user_id');
+        $this->db->join('categori_request','categori_request.categori_request_id = request_form.categori_request_id');
+        
+        $this->db->like('approval_status','-');
+        
+        $this->db->order_by($this->id, $this->order);
+        return $this->db->get($this->table)->result();
+    }
+
+    function get_all_dissaproved_request()
+    {
+        // $this->db->join('user','user.user_id = request_form.user_id');
+        // $this->db->join('categori_request','categori_request.categori_request_id = request_form.categori_request_id');
+        // $this->db->group_start();
+        //     $this->db->like('approval_status','%false%');
+        //     $this->db->or_like('approval_status','%true%');
+        // $this->db->group_end();
+        // $this->db->order_by($this->id, $this->order);
+        // return $this->db->get($this->table)->result();
+    }
+
+    function get_all_approved_request()
+    {
+        // $this->db->join('user','user.user_id = request_form.user_id');
+        // $this->db->join('categori_request','categori_request.categori_request_id = request_form.categori_request_id');
+        // $this->db->group_start();
+        //     $this->db->like('approval_status','%false%');
+        //     $this->db->or_like('approval_status','%true%');
+        // $this->db->group_end();
+        // $this->db->order_by($this->id, $this->order);
+        // return $this->db->get($this->table)->result();
+    }
+
     // get data by id
     function get_by_id($id)
     {

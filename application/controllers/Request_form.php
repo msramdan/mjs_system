@@ -73,14 +73,28 @@ class Request_form extends CI_Controller
     {
         $data = $this->Categori_request_model->get_all_approval_name_and_step($id_categori_request);
 
-
         $arr = [];
+
+        $i = 0;
         
         foreach ($data as $key => $value) {
-            $arr[$value->user_id] = '-';
+
+            $arr[$i]['user_id'] = $value->user_id;
+            $arr[$i]['status'] = '-';
+            
+            if ($i == 0) {
+            
+                $arr[$i]['tanda_tangan'] = 'sekarang';
+            } else {
+                $arr[$i]['tanda_tangan'] = 'belum';
+            }
+            
+            $i++;
         }
 
         return json_encode($arr);
+
+        //return json_encode($arr);
 
     }
     
@@ -106,6 +120,11 @@ class Request_form extends CI_Controller
         } else {
 
             $approval_list = $this->generate_approval_list($this->input->post('categori_request_id',TRUE));
+
+            // foreach($approval_list as $k)
+            // {
+            //     echo $k['tanda_tangan'];
+            // }
 
             $data = array(
         		'kode_request_form' => $this->input->post('kode_request_form',TRUE),
@@ -178,25 +197,53 @@ class Request_form extends CI_Controller
         return $data;
     }
     
+    function is_allowed_toedit($id_request_form)
+    {
+        $data = $this->Request_form_model->get_by_id(decrypt_url($id_request_form));
+
+        $arr = json_decode($data->approval_status, TRUE);
+
+        $stillonreview = 0;
+
+        foreach ($arr as $value) {
+            if ($value === '-') {
+                $stillonreview++;
+            }
+        }
+
+        if ($stillonreview == count($arr)) {
+            return 'allowed';
+        } else {
+            return 'not allowed';
+        }
+    }
+
     public function update($id) 
     {
         is_allowed($this->uri->segment(1),'update');
+
         $row = $this->Request_form_model->get_by_id(decrypt_url($id));
 
         if ($row) {
-            $data = array(
-                'button' => 'Update',
-                'sett_apps' =>$this->Setting_app_model->get_by_id(1),
-                'action' => site_url('request_form/update_action'),
-        		'request_form_id' => set_value('request_form_id', $row->request_form_id),
-        		'kode_request_form' => set_value('kode_request_form', $row->kode_request_form),
-        		'user_id' => set_value('user_id', $row->user_id),
-        		'tanggal_request' => set_value('tanggal_request', $row->tanggal_request),
-        		'categori_request_id' => $row->categori_request_id,
-        		'keterangan' => set_value('keterangan', $row->keterangan),
-                'classnyak' => $this
-	    );
-            $this->template->load('template','request_form/request_form_form', $data);
+
+            if ($this->is_allowed_toedit($id) == 'allowed') {
+                $data = array(
+                    'button' => 'Update',
+                    'sett_apps' =>$this->Setting_app_model->get_by_id(1),
+                    'action' => site_url('request_form/update_action'),
+                    'request_form_id' => set_value('request_form_id', $row->request_form_id),
+                    'kode_request_form' => set_value('kode_request_form', $row->kode_request_form),
+                    'user_id' => set_value('user_id', $row->user_id),
+                    'tanggal_request' => set_value('tanggal_request', $row->tanggal_request),
+                    'categori_request_id' => $row->categori_request_id,
+                    'keterangan' => set_value('keterangan', $row->keterangan),
+                    'classnyak' => $this
+               );
+                $this->template->load('template','request_form/request_form_form', $data);
+            } else {
+                $this->session->set_flashdata('message', 'Tidak dapat diedit karena sudah direview');
+                redirect(site_url('request_form'));
+            }
         } else {
             $this->session->set_flashdata('error', 'Record Not Found');
             redirect(site_url('request_form'));

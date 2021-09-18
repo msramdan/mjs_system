@@ -28,6 +28,7 @@ class Categori_request_model extends CI_Model
     {
         $this->db->join('user','user.user_id = flow_approved.user_id');
         $this->db->where('categori_request_id',$category_request_id);
+        $this->db->order_by('step','ASC');
         return $this->db->get($this->table2)->result();
     }
 

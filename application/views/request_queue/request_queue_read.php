@@ -146,12 +146,42 @@
 				    <tr><td>Categori Request Id</td><td><?php echo $categori_request_id; ?></td></tr>
 				    <tr><td>Keterangan</td><td><?php echo $keterangan; ?></td></tr>
 				    <tr><td></td><td>
-				    	
 				    	<a href="<?php echo site_url('request_form') ?>" class="btn btn-default">Cancel</a>
 
+				    	<?php
+
+				    	$x = 'sekarang';
+						$result; // initialize results
+
+						foreach ($wh as $key => $value) {
+						    if (array_search($x, $value)) {
+						        $result[] = $wh[$key]; // push to result if found
+						    }
+						}
+
+						if ($this->session->userdata('userid') === $result[0]['user_id']) {
+							echo 'TADAAAAAAAAAAAAA';
+							?>
+							<!-- <button type="button" class="btn btn-success" data-toggle="modal" data-target="#approve-modal">Approve</button>
+			    			<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#dissaprove-modal">Disapprove</button> -->
+							<?php
+						}
+
+				    	?>
+				    	
 				    </td></tr>
 				</table>
 			</div>
         </div>
     </div>
 </div>
+
+<?php 
+$data = array(
+	'kd_form_request' => encrypt_url($kode_request_form)
+);
+
+$this->load->view('request_queue/approve_signature',$data);
+$this->load->view('request_queue/dissaprove_modal',$data);
+
+?>
