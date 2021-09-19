@@ -117,9 +117,13 @@ class Request_queue extends CI_Controller
         $kd_form_request = $this->input->post('kd_form_request');
         $id_request_form = $this->input->post('request_form_id');
         $categori_request_id = $this->input->post('categori_request_id');
-        $signer = $this->input->post('signer');
+        $signer = $this->session->userdata('userid');
 
         $disapprove_reason = $this->input->post('disapprove_reason');
+
+        // $output_file = "assets/assets/img/berkas/signature" . date("Y-m-d-H-i-s-").time(). ".png";
+        // $this->base64_to_jpeg($_POST["image"], $output_file);
+        // $this->add_mark($output_file, $output_file);
 
         $approval_list = $this->Request_form_model->get_by_id(decrypt_url($id_request_form))->approval;
 
@@ -127,7 +131,7 @@ class Request_queue extends CI_Controller
 
         $detectstepforthissigner = $this->Categori_request_model->get_step_for_signer($signer, $categori_request_id)->step;
 
-        $realstep = intval($detectstepforthissigner) - 1;
+        $realstep = $detectstepforthissigner;
 
         echo 'before <br>';
         echo '<pre>';
@@ -135,21 +139,79 @@ class Request_queue extends CI_Controller
         echo '</pre>';
 
 
-        $init = $arr_appr;
-
-        $init[$realstep]['status'] = 'true';
-        $init[$realstep]['tanda_tangan'] = 'sudah';
-
-        $counted = count($init);
+        
+        $counted = count($arr_appr);
 
         if ($realstep <= $counted) {
-            $init[$realstep + 1]['tanda_tangan'] = 'sekarang';
+            
+            $init = $arr_appr;
+
+            $init[$realstep - 1]['status'] = 'true';
+            $init[$realstep - 1]['tanda_tangan'] = 'sudah';
+            
+            $stepforupcomersigner = $this->Categori_request_model->get_step_for_signer($init[$realstep - 1]['user_id'], $categori_request_id)->step;
+
+            $init[$stepforupcomersigner]['tanda_tangan'] = 'sekarang';
+
+            //$init[$realstep - 1]['tanda_tangan'] = 'sekarang';
         }
+
 
         echo '<br><br>aFTER';
         echo '<pre>';
             print_r($init);
         echo '</pre>';
+
+        // $a = 'Dalam Review';
+
+        // if ($realstep > $counted) {
+        //     $a = 'Diterima';
+        // }
+
+        // $data = array(
+        //     'status' => $a,
+        //     'approval' => json_encode($init),
+        //     'keterangan_tolak' => '-',
+        // );
+
+        // $this->Request_form_model->update(decrypt_url($id_request_form), $data);
+
+        // $this->session->set_flashdata('message', 'Approve berhasil di inisialisasi');
+        // redirect(site_url('request_queue'));
+    }
+
+    function base64_to_jpeg($base64_string, $output_file) {
+        $ifp = @fopen($output_file, "wb");
+
+        $data = explode(',', $base64_string);
+
+        @fwrite($ifp, base64_decode($data[1]));
+        @fclose($ifp);
+        return $output_file;
+    }
+
+    function add_mark($inputfile, $outputfile) {
+
+    //    var_dump(gd_info());
+        $im = @imagecreatefrompng($inputfile);
+
+        $bg = @imagecolorallocate($im, 255, 255, 255);
+        $textcolor = @imagecolorallocate($im, 110, 110, 110);
+
+        list($x, $y, $type) = getimagesize($inputfile);
+
+        $txtpos_x = $x - 145;
+        $txtpos_y = 20;
+
+        @imagestring($im, 3, $txtpos_x, $txtpos_y, date("Y-m-d H:i:s"), $textcolor);
+
+        @imagepng($im, $outputfile);
+
+        // Output the image
+        //imagejpeg($im);
+
+        @imagedestroy($im);
+
     }
 
 }
