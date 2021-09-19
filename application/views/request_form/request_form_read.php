@@ -161,6 +161,25 @@
 				    <tr><td>User Id</td><td><?php echo $user_id; ?></td></tr>
 				    <tr><td>Tanggal Request</td><td><?php echo $tanggal_request; ?></td></tr>
 				    <tr><td>Categori Request Id</td><td><?php echo $categori_request_id; ?></td></tr>
+				    <tr><td>Status Request</td><td><?php 
+				    if ($status == 'Dalam Review') {
+				    	?>
+				    	<button class="btn btn-xs btn-primary"><?php echo $status; ?></button>
+				    	<?php
+				    }
+
+				    if ($status == 'Ditolak') {
+				    	?>
+				    	<button class="btn btn-xs btn-danger" data-bs-toggle="modal" href="#message-disapproved-dialog"><?php echo $status; ?></button>
+				    	<?php
+				    }
+
+				    if ($status == 'Diterima') {
+				    	?>
+				    	<button class="btn btn-xs btn-success"><?php echo $status; ?></button>
+				    	<?php
+				    }
+					?></td></tr>
 				    <tr><td>Keterangan</td><td><?php echo $keterangan; ?></td></tr>
 				    <tr><td>Keterangan Tolak Sebelumnya</td><td><?php echo $keterangan_tolak; ?></td></tr>
 				    <tr><td></td><td>

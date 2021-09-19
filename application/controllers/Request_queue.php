@@ -133,15 +133,17 @@ class Request_queue extends CI_Controller
 
         $realstep = $detectstepforthissigner;
 
-        echo 'before <br>';
-        echo '<pre>';
-            print_r($arr_appr);
-        echo '</pre>';
+        // echo 'before <br>';
+        // echo '<pre>';
+        //     print_r($arr_appr);
+        // echo '</pre>';
 
 
         
         $counted = count($arr_appr);
 
+        $a = 'Dalam Review';
+        
         if ($realstep <= $counted) {
             
             $init = $arr_appr;
@@ -151,22 +153,27 @@ class Request_queue extends CI_Controller
             
             $stepforupcomersigner = $this->Categori_request_model->get_step_for_signer($init[$realstep - 1]['user_id'], $categori_request_id)->step;
 
-            $init[$stepforupcomersigner]['tanda_tangan'] = 'sekarang';
+
+
+            if ($stepforupcomersigner > $counted - 1) {
+                $a = 'Diterima';
+                //echo $a;
+            }
+            else
+            {
+                $init[$stepforupcomersigner]['tanda_tangan'] = 'sekarang';
+            }
 
             //$init[$realstep - 1]['tanda_tangan'] = 'sekarang';
         }
 
 
-        echo '<br><br>aFTER';
-        echo '<pre>';
-            print_r($init);
-        echo '</pre>';
+        // echo '<br><br>aFTER';
+        // echo '<pre>';
+        //     print_r($init);
+        // echo '</pre>';
 
-        $a = 'Dalam Review';
 
-        if ($realstep > $counted) {
-            $a = 'Diterima';
-        }
 
         $data = array(
             'status' => $a,

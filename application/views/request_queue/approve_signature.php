@@ -10,9 +10,9 @@
 					<button type="button" class="btn-close" data-dismiss="modal" aria-hidden="true"></button>
 				</div>
 				<div class="modal-body">
-					<input type="text" name="kd_form_request" id="kd_form_request" value="<?php echo $kd_form_request ?>">
-					<input type="text" name="request_form_id" id="request_form_id" value="<?php echo $request_form_id ?>">
-					<input type="text" name="categori_request_id" id="categori_request_id" value="<?php echo $categori_request_id ?>">
+					<input type="hidden" name="kd_form_request" id="kd_form_request" value="<?php echo $kd_form_request ?>">
+					<input type="hidden" name="request_form_id" id="request_form_id" value="<?php echo $request_form_id ?>">
+					<input type="hidden" name="categori_request_id" id="categori_request_id" value="<?php echo $categori_request_id ?>">
 					<p style="float: left;">Beri tanda tangan :</p>
 					<button type="button" class="btn btn-danger" onclick="tandaTangan.clear()" style="float: right;">
 						<i class="fa fa-eraser fa-fw"></i>Hapus

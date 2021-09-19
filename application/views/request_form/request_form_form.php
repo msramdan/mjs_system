@@ -48,7 +48,7 @@
 				<option value="">-- Pilih --</option>
 	    		<?php
 
-	    		$cek = $classnyak->cekDataInApprovalList($this->session->userdata('userid'));
+	    		$cek = $classnyak->cekDataInApprovalListAvailability();
 
 	    		if ($cek) {
 	    			foreach($cek as $a)

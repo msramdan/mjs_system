@@ -14,7 +14,7 @@
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fa fa-times-circle"></i> Batal</button>
-					<button type="submit" class="btn btn-primary"><i class="fa fa-check-circle"></i>Approve</button>
+					<button type="submit" class="btn btn-danger"><i class="fa fa-check-circle"></i>Disapprove</button>
 				</div>
 			</form>
     </div>

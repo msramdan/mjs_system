@@ -39,6 +39,7 @@ class Request_form extends CI_Controller
         		'tanggal_request' => $row->tanggal_request,
         		'categori_request_id' => $row->categori_request_id,
         		'keterangan' => $row->keterangan,
+                'status' => $row->status,
                 'whoisreviewing' => $row->approval,
                 'keterangan_tolak' => $row->keterangan_tolak,
                 'classnyak' => $this
@@ -99,9 +100,9 @@ class Request_form extends CI_Controller
 
     }
     
-    function cekDataInApprovalList($id)
+    function cekDataInApprovalListAvailability()
     {
-        $data = $this->Categori_request_model->get_request_approve_for($id);
+        $data = $this->Categori_request_model->get_request_approve_availability($id);
         return $data;
     }
 
