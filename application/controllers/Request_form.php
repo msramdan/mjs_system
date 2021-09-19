@@ -346,18 +346,26 @@ class Request_form extends CI_Controller
         $row = $this->Request_form_model->get_by_id(decrypt_url($id));
 
         if ($row) {
-            
-            $getberkas = $this->Request_form_model->get_berkas_list($row->kode_request_form,$row->user_id);
 
-            foreach ($getberkas as $value) {
-                $this->Request_form_model->delete_berkas_form_request($value->berkas_id);
-                unlink('./assets/assets/img/berkas/'.$value->photo);
+            if ($this->is_allowed_toedit($id) == 'allowed') {
+                $getberkas = $this->Request_form_model->get_berkas_list($row->kode_request_form,$row->user_id);
+
+                foreach ($getberkas as $value) {
+                    $this->Request_form_model->delete_berkas_form_request($value->berkas_id);
+                    unlink('./assets/assets/img/berkas/'.$value->photo);
+                }
+
+                $this->Request_form_model->delete(decrypt_url($id));
+
+                $this->session->set_flashdata('message', 'Delete Record Success');
+                redirect(site_url('request_form'));
             }
-
-            $this->Request_form_model->delete(decrypt_url($id));
-
-            $this->session->set_flashdata('message', 'Delete Record Success');
-            redirect(site_url('request_form'));
+            else
+            {
+                $this->session->set_flashdata('message', 'Tidak dapat dihapus karena sudah dalam proses review');
+                redirect(site_url('request_form'));   
+            }
+            
         } else {
             $this->session->set_flashdata('error', 'Record Not Found');
             redirect(site_url('request_form'));

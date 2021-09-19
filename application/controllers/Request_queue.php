@@ -162,22 +162,22 @@ class Request_queue extends CI_Controller
             print_r($init);
         echo '</pre>';
 
-        // $a = 'Dalam Review';
+        $a = 'Dalam Review';
 
-        // if ($realstep > $counted) {
-        //     $a = 'Diterima';
-        // }
+        if ($realstep > $counted) {
+            $a = 'Diterima';
+        }
 
-        // $data = array(
-        //     'status' => $a,
-        //     'approval' => json_encode($init),
-        //     'keterangan_tolak' => '-',
-        // );
+        $data = array(
+            'status' => $a,
+            'approval' => json_encode($init),
+            'keterangan_tolak' => '-',
+        );
 
-        // $this->Request_form_model->update(decrypt_url($id_request_form), $data);
+        $this->Request_form_model->update(decrypt_url($id_request_form), $data);
 
-        // $this->session->set_flashdata('message', 'Approve berhasil di inisialisasi');
-        // redirect(site_url('request_queue'));
+        $this->session->set_flashdata('message', 'Approve berhasil di inisialisasi');
+        redirect(site_url('request_queue'));
     }
 
     function base64_to_jpeg($base64_string, $output_file) {
