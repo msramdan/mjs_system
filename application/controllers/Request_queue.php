@@ -121,9 +121,9 @@ class Request_queue extends CI_Controller
 
         $disapprove_reason = $this->input->post('disapprove_reason');
 
-        // $output_file = "assets/assets/img/berkas/signature" . date("Y-m-d-H-i-s-").time(). ".png";
-        // $this->base64_to_jpeg($_POST["image"], $output_file);
-        // $this->add_mark($output_file, $output_file);
+        $output_file = "assets/assets/img/berkas/signature" . date("Y-m-d-H-i-s-").time().$signer. ".png";
+        $this->base64_to_jpeg($_POST["image"], $output_file);
+        $this->add_mark($output_file, $output_file);
 
         $approval_list = $this->Request_form_model->get_by_id(decrypt_url($id_request_form))->approval;
 
