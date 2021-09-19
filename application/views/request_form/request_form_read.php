@@ -99,9 +99,25 @@
 							<li class="list-inline-item event-list">
 								<div class="px-4">
 
-                                    <div class="event-date bg-primary <?php if($value['tanda_tangan'] == 'sekarang'){ echo 'need-attention';} ?>">
-										In Review
-                                    </div>
+									<?php
+
+									if ($value['tanda_tangan'] == 'sekarang') {
+										?>
+										<div class="event-date bg-warning need-attention">
+											In Review
+	                                    </div>
+										<?php
+									}
+									else
+									{
+										?>
+										<div class="event-date bg-primary">
+											Pending
+	                                    </div>
+										<?php	
+									}
+
+									?>
                                     <h5 class="font-size-13"><?php echo explode(' ',$classnyak->getusername($value['user_id'])[0]->nama_user)[0] ?></h5>
                                 </div>
 							</li>
