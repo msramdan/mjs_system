@@ -23,6 +23,13 @@ class User_m extends CI_Model {
         return $query;
     }
 
+    public function get_by_id($id = null)
+    {
+        $this->db->where('user_id', $id);
+        $query = $this->db->get('user')->result();
+        return $query;
+    }
+
 
 
     public function addHistory($user_id, $info, $user_agent) {

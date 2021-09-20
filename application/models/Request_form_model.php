@@ -18,8 +18,45 @@ class Request_form_model extends CI_Model
     // get all
     function get_all()
     {
+        $this->db->join('user','user.user_id = request_form.user_id');
+        $this->db->join('categori_request','categori_request.categori_request_id = request_form.categori_request_id');
         $this->db->order_by($this->id, $this->order);
         return $this->db->get($this->table)->result();
+    }
+
+    function get_all_active_request()
+    {
+        $this->db->join('user','user.user_id = request_form.user_id');
+        $this->db->join('categori_request','categori_request.categori_request_id = request_form.categori_request_id');
+        
+        $this->db->like('approval','-');
+        
+        $this->db->order_by($this->id, $this->order);
+        return $this->db->get($this->table)->result();
+    }
+
+    function get_all_dissaproved_request()
+    {
+        // $this->db->join('user','user.user_id = request_form.user_id');
+        // $this->db->join('categori_request','categori_request.categori_request_id = request_form.categori_request_id');
+        // $this->db->group_start();
+        //     $this->db->like('approval','%false%');
+        //     $this->db->or_like('approval','%true%');
+        // $this->db->group_end();
+        // $this->db->order_by($this->id, $this->order);
+        // return $this->db->get($this->table)->result();
+    }
+
+    function get_all_approved_request()
+    {
+        // $this->db->join('user','user.user_id = request_form.user_id');
+        // $this->db->join('categori_request','categori_request.categori_request_id = request_form.categori_request_id');
+        // $this->db->group_start();
+        //     $this->db->like('approval','%false%');
+        //     $this->db->or_like('approval','%true%');
+        // $this->db->group_end();
+        // $this->db->order_by($this->id, $this->order);
+        // return $this->db->get($this->table)->result();
     }
 
     // get data by id
@@ -62,6 +99,19 @@ class Request_form_model extends CI_Model
         $this->db->delete($this->table);
     }
 
+    function delete_berkas_form_request($id_berkas)
+    {
+        $this->db->where('berkas_id', $id_berkas);
+        $this->db->delete('berkas');
+    }
+
+    function delete_berkas_form_request_by_r_id($id_request_form,$id_user)
+    {
+        $this->db->where('karyawan_id', $id_user);
+        $this->db->like('photo', $id_request_form);
+        $this->db->delete('berkas');
+    }
+
     function get_no_rf(){
         $q = $this->db->query("SELECT MAX(RIGHT(kode_request_form,4)) AS kd_max FROM request_form WHERE DATE(tanggal_request)=CURDATE()");
         $kd = "";
@@ -75,6 +125,20 @@ class Request_form_model extends CI_Model
         }
         date_default_timezone_set('Asia/Jakarta');
         return date('Ydm').$kd;
+    }
+
+    function get_berkas_list($id_request_form,$id_user)
+    {
+        $this->db->where('karyawan_id', $id_user);
+        $this->db->like('photo', $id_request_form);
+        return $this->db->get('berkas')->result();
+    }
+
+    function detect_dissapprove_status($id_request_form)
+    {
+        $this->db->where('request_form_id', $id_request_form);
+        $this->db->like('approval', 'false');
+        return $this->db->get($this->table)->num_rows();
     }
 
 }

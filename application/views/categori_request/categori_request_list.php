@@ -75,7 +75,7 @@
         <input style="color: #000; border-color: #C0C0C0" type="hidden" class="form-control" name="categori_request_id" id="categori_request_id" />
         <div class="form-group">
                       <label for="barcode">Step</label>
-                      <input style="color: #000; border-color: #C0C0C0" type="number" class="form-control" name="step" id="step" required="" />
+                      <input style="color: #000; border-color: #C0C0C0" type="number" class="form-control" name="step" id="step" required="" min="1" max="10" />
                     </div>
         <div class="form-group">
             <label for="barcode">User Approved</label>
@@ -96,50 +96,59 @@
   </div>
 </div>
 
+
 <!-- #modal-dialog -->
-<div class="modal fade" id="modal-graph">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title">Flow Graph</h4>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
-      </div>
-      <div class="modal-body">
+<?php $no = 1; foreach ($categori_request_data as $categori_request) { ?>
+        <div class="modal fade" id="modal-graph-<?php echo $categori_request->categori_request_id ?>">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title">Flow Graph</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
+              </div>
+              <div class="modal-body">
+                    <?php
+                    $e = $classnyak->getAllApprovalNameAndStep($categori_request->categori_request_id);
+                    $n = 1;
 
-                <div class="hori-timeline" dir="ltr">
-                    <ul class="list-inline events">
-                        <li class="list-inline-item event-list">
-                            <div class="px-4">
-                                <div class="event-date bg-soft-primary text-primary">Step 1</div>
-                                <h5 class="font-size-16">Approved By Engge</h5>
-                            </div>
-                        </li>
-                        <li class="list-inline-item event-list">
-                            <div class="px-4">
-                                <div class="event-date bg-soft-success text-success">Step 2</div>
-                                <h5 class="font-size-16">Approved By Erun</h5>
-                            </div>
-                        </li>
-                        <li class="list-inline-item event-list">
-                            <div class="px-4">
-                                <div class="event-date bg-soft-danger text-danger">Step 3</div>
-                                <h5 class="font-size-16">Approved By Yunus</h5>
-                            </div>
-                        </li>
-                        <li class="list-inline-item event-list">
-                            <div class="px-4">
-                                <div class="event-date bg-soft-warning text-warning">Step 4</div>
-                                <h5 class="font-size-16">Approved By Erun</h5>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-</div>
-      </div>
-    </div>
-  </div>
-</div>
+                    if ($e) {
+                        ?>
+                        <div class="hori-timeline" dir="ltr">
+                            <ul class="list-inline events">
+                        <?php
+                        foreach ($e as $owo) {
 
+                            $nu = explode(' ',$owo->nama_user);
+
+                            ?>
+                            <li class="list-inline-item event-list">
+                                <div class="px-4">
+                                    <div class="event-date bg-soft-primary text-primary">Step <?php echo $n ?></div>
+                                    <h5 class="font-size-16">Approve by <?php echo $nu[0] ?></h5>
+                                </div>
+                            </li>
+                            <?php
+                            ++$n;
+                        } 
+                        ?>
+                            </ul>
+                        </div>
+                        <?php
+                    } else {
+                        ?>
+                        <p>
+                          Tidak ada user yang memiliki hak approve disini, coba mulai tambahkan user dengan urutannya.
+                        </p>
+                        <?php
+                    }
+                    ?>
+                    </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+    <?php } ?>
 
 <div id="content" class="app-content">
             <h1 class="page-header">KELOLA CATEGORI REQUEST</h1>  
@@ -179,6 +188,7 @@
     <div class="tab-pane fade active show" id="default-tab-1">
         <div class="accordion" id="accordion">
             <?php $no = 1; foreach ($categori_request_data as $categori_request) { ?>
+
                 <div class="accordion-item border-0">
                 <div class="accordion-header" id="headingOne">
                 <button class="accordion-button bg-gray-900 text-white px-3 py-10px pointer-cursor collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#<?php echo $categori_request->kd_request ?>" aria-expanded="false">
@@ -196,8 +206,10 @@
                         class="btn btn-primary" data-bs-toggle="modal"> <i class="fas fa-plus-square" aria-hidden="true"></i> Add</a>
                         <a
                        id="tambah_approved"
-                       href="#modal-graph"
+                       href="#modal-graph-<?php echo $categori_request->categori_request_id ?>"
                         class="btn btn-success" data-bs-toggle="modal"> View Graph</a>
+
+
                     </div>
                     <table class="table table-bordered table-hover table-td-valign-middle text-white">
                      <thead>   
