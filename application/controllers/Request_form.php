@@ -35,9 +35,9 @@ class Request_form extends CI_Controller
         		'request_form_id' => $row->request_form_id,
                 'sett_apps' =>$this->Setting_app_model->get_by_id(1),
         		'kode_request_form' => $row->kode_request_form,
-        		'user_id' => $row->user_id,
+        		'nama_user' => $row->nama_user,
         		'tanggal_request' => $row->tanggal_request,
-        		'categori_request_id' => $row->categori_request_id,
+        		'request' => $row->request,
         		'keterangan' => $row->keterangan,
                 'status' => $row->status,
                 'whoisreviewing' => $row->approval,
@@ -253,7 +253,7 @@ class Request_form extends CI_Controller
                 );
                 $this->template->load('template','request_form/request_form_form', $data);
             } else {
-                $this->session->set_flashdata('message', 'Tidak dapat diedit karena sudah direview');
+                $this->session->set_flashdata('error', 'Tidak dapat diedit karena sudah direview');
                 redirect(site_url('request_form'));
             }
         } else {
@@ -363,7 +363,7 @@ class Request_form extends CI_Controller
             }
             else
             {
-                $this->session->set_flashdata('message', 'Tidak dapat dihapus karena sudah dalam proses review');
+                $this->session->set_flashdata('error', 'Tidak dapat dihapus karena sudah dalam proses review');
                 redirect(site_url('request_form'));   
             }
             

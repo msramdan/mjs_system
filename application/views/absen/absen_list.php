@@ -60,7 +60,6 @@
                       <option  style="color: black">Masuk</option>
                       <option  style="color: black">Sakit</option>
                       <option  style="color: black">Izin</option>
-                      <option  style="color: black">Cuti</option>
                       <option  style="color: black">Alfa</option>
                     </select>
                   </div>

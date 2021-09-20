@@ -185,8 +185,24 @@
 				    }
 					?></td></tr>
 				    <tr><td>Keterangan</td><td><?php echo $keterangan; ?></td></tr>
+				    <tr>
+				    	<td>Attachment File</td>
+				    	<td>
+				    		<table class="table table-sm table-bordered">	    		
+				    			
+				    				<tr>
+					                  <th>Nama File</th>
+					                  <th>Download</th>
+					                  <th>Hapus</th>
+					                </tr>
+				    		</table>  		
+				    	</td>
+	    			</tr>		    
+
+				    <tr><td>Keterangan Tolak Sebelumnya</td><td><?php echo $keterangan_tolak; ?></td></tr>
 				    <tr><td></td><td>
-				    	<a href="<?php echo site_url('request_form') ?>" class="btn btn-default">Cancel</a>
+				    	<a href="<?php echo site_url('karyawan/pdf/'.encrypt_url($request_form_id)) ?>" class="btn btn-warning" target="_blank"><i class="fas fa-print" aria-hidden="true"></i> Print</a>
+				    	<a href="<?php echo site_url('request_queue') ?>" class="btn btn-default">Cancel</a>
 
 				    	<?php
 
@@ -211,7 +227,6 @@
 				    	?>
 				    	
 				    </td></tr>
-				    <tr><td>Keterangan Tolak Sebelumnya</td><td><?php echo $keterangan_tolak; ?></td></tr>
 				</table>
 			</div>
         </div>

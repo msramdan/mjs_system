@@ -62,6 +62,9 @@ class Request_form_model extends CI_Model
     // get data by id
     function get_by_id($id)
     {
+        $this->db->join('user','user.user_id = request_form.user_id');
+        $this->db->join('categori_request','categori_request.categori_request_id = request_form.categori_request_id');
+        $this->db->order_by($this->id, $this->order);
         $this->db->where($this->id, $id);
         return $this->db->get($this->table)->row();
     }

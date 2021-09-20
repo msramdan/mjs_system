@@ -21,9 +21,9 @@
                 <option value="">-- Pilih -- </option>
                 <?php foreach ($menu as $key => $data) { ?>
                   <?php if ($menu_id == $data->menu_id) { ?>
-                    <option value="<?php echo $data->menu_id ?>" selected><?php echo $data->menu ?></option>
+                    <option style="color: black" value="<?php echo $data->menu_id ?>" selected><?php echo $data->menu ?></option>
                   <?php } else { ?>
-                    <option value="<?php echo $data->menu_id ?>"><?php echo $data->menu ?></option>
+                    <option style="color: black" value="<?php echo $data->menu_id ?>"><?php echo $data->menu ?></option>
                   <?php } ?>
                 <?php } ?>
               </select></td>

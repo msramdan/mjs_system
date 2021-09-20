@@ -54,7 +54,7 @@
 	    			foreach($cek as $a)
 		    		{
 		    			?>
-		    			<option <?php if ($a->categori_request_id == $categori_request_id) {
+		    			<option style="color: black" <?php if ($a->categori_request_id == $categori_request_id) {
 		    				echo 'selected';
 		    			} ?> value="<?php echo $a->categori_request_id ?>"><?php echo $a->request ?></option>
 						<?php
@@ -69,7 +69,7 @@
 	</tr>
 	    
         <tr>
-        	<td >Keterangan <?php echo form_error('keterangan') ?></td><td> <textarea class="form-control" rows="3" name="keterangan" id="keterangan" placeholder="Keterangan"><?php echo $keterangan; ?></textarea></td>
+        	<td >Keterangan <?php echo form_error('keterangan') ?></td><td> <textarea class="form-control" id="wysihtml5" rows="10" name="keterangan" id="keterangan" placeholder="Keterangan"><?php echo $keterangan; ?></textarea></td>
         </tr>
 
         <tr><td >Attachment File<?php echo form_error('>attachment_ile') ?></td>
