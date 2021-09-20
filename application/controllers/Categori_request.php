@@ -23,6 +23,7 @@ class Categori_request extends CI_Controller
             'categori_request_data' => $categori_request,
             'user_data' =>$this->User_model->get_all(),
              'sett_apps' =>$this->Setting_app_model->get_by_id(1),
+             'classnyak' => $this
         );
         $this->template->load('template','categori_request/categori_request_list', $data);
     }
@@ -79,14 +80,14 @@ class Categori_request extends CI_Controller
     public function create_action_approved() 
     {
         is_allowed($this->uri->segment(1),'create');
-            $data = array(
-        'step' => $this->input->post('step',TRUE),
-        'categori_request_id' => $this->input->post('categori_request_id',TRUE),
-        'user_id' => $this->input->post('user_id',TRUE),
+        $data = array(
+            'step' => $this->input->post('step',TRUE),
+            'categori_request_id' => $this->input->post('categori_request_id',TRUE),
+            'user_id' => $this->input->post('user_id',TRUE),
         );
-            $this->Categori_request_model->insert_approved($data);
-            $this->session->set_flashdata('message', 'Create Record Success');
-            redirect(site_url('categori_request'));
+        $this->Categori_request_model->insert_approved($data);
+        $this->session->set_flashdata('message', 'Create Record Success');
+        redirect(site_url('categori_request'));
     }
     
     public function update($id) 
@@ -156,6 +157,12 @@ class Categori_request extends CI_Controller
             $this->session->set_flashdata('error', 'Record Not Found');
             redirect(site_url('categori_request'));
         }
+    }
+
+    public function getAllApprovalNameAndStep($id)
+    {
+        $data = $this->Categori_request_model->get_all_approval_name_and_step($id);
+        return $data;
     }
 
     public function _rules() 

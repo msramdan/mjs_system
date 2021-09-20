@@ -6,11 +6,15 @@
 
 @keyframes glow {
   from {
-    box-shadow: 0 0 3px -3px #066cff;
+    box-shadow: 0 0 5px -5px #ff7b01;
   }
   to {
-    box-shadow: 0 0 3px 3px #066cff;
+    box-shadow: 0 0 5px 5px #ff7b01;
   }
+}
+
+.hori-timeline {
+	margin-top: 15px;
 }
 
 .hori-timeline .events {
@@ -181,14 +185,58 @@
 				    }
 					?></td></tr>
 				    <tr><td>Keterangan</td><td><?php echo $keterangan; ?></td></tr>
-				    <tr><td>Keterangan Tolak Sebelumnya</td><td><?php echo $keterangan_tolak; ?></td></tr>
 				    <tr><td></td><td>
-				    	
 				    	<a href="<?php echo site_url('request_form') ?>" class="btn btn-default">Cancel</a>
 
+				    	<?php
+
+				    	if ($status == 'Dalam Review') {
+				    		$x = 'sekarang';
+							$result = []; // initialize results
+
+							foreach ($wh as $key => $value) {
+							    if (array_search($x, $value)) {
+							        $result[] = $wh[$key]; // push to result if found
+							    }
+							}
+
+							if ($this->session->userdata('userid') === $result[0]['user_id']) {
+								?>
+								<button type="button" class="btn btn-success" data-toggle="modal" data-target="#approve-modal">Approve</button>
+				    			<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#dissaprove-modal">Disapprove</button>
+								<?php
+							}
+				    	}
+
+				    	?>
+				    	
 				    </td></tr>
+				    <tr><td>Keterangan Tolak Sebelumnya</td><td><?php echo $keterangan_tolak; ?></td></tr>
 				</table>
 			</div>
         </div>
     </div>
 </div>
+
+<?php 
+
+if ($status == 'Dalam Review') {
+	// code...
+	if ($this->session->userdata('userid') === $result[0]['user_id']) {
+		$data = array(
+			'kd_form_request' => encrypt_url($kode_request_form),
+			'request_form_id' => encrypt_url($request_form_id)
+		);
+
+		$this->load->view('request_queue/approve_signature',$data);
+		$this->load->view('request_queue/dissaprove_modal',$data);
+	}
+}
+
+if ($status == 'Ditolak') {
+	$d = array(
+		'message' => $classnyak->get_keterangan_tolak($request_form_id)->keterangan_tolak
+	);
+	$this->load->view('request_queue/disapprove_message',$d);     
+}
+?>

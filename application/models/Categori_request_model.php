@@ -24,6 +24,30 @@ class Categori_request_model extends CI_Model
         return $this->db->get($this->table)->result();
     }
 
+    function get_all_approval_name_and_step($category_request_id)
+    {
+        $this->db->join('user','user.user_id = flow_approved.user_id');
+        $this->db->where('categori_request_id',$category_request_id);
+        $this->db->order_by('step','ASC');
+        return $this->db->get($this->table2)->result();
+    }
+
+    function get_request_approve_availability()
+    {
+        $this->db->distinct()
+            ->select("flow_approved.categori_request_id as 'categori_request_id', categori_request.request as 'request'")
+            ->from('flow_approved')
+            ->join('categori_request','categori_request.categori_request_id = flow_approved.categori_request_id');
+        return $this->db->get()->result();
+    }
+
+    function get_all_file_for_request_form($request_form_id,$user_id)
+    {
+        $this->db->where('karyawan_id', $user_id);
+        $this->db->like('photo', $request_form_id);
+        return $this->db->get('berkas')->result();
+    }
+
     // get data by id
     function get_by_id($id)
     {
@@ -79,6 +103,13 @@ class Categori_request_model extends CI_Model
     {
         $this->db->where($this->id2, $id);
         $this->db->delete($this->table2);
+    }
+
+    function get_step_for_signer($user_id, $categori_request_id)
+    {
+        $this->db->where('categori_request_id',$categori_request_id);
+        $this->db->where('user_id', $user_id);
+        return $this->db->get($this->table2)->row();
     }
 
 }
