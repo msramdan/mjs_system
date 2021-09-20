@@ -41,11 +41,10 @@ class Categori_request_model extends CI_Model
         return $this->db->get()->result();
     }
 
-    function get_all_file_for_request_form($request_form_id,$user_id)
+    function get_all_file_for_request_form($request_form_id)
     {
-        $this->db->where('karyawan_id', $user_id);
-        $this->db->like('photo', $request_form_id);
-        return $this->db->get('berkas')->result();
+        $this->db->where('request_form_id', $request_form_id);
+        return $this->db->get('file_rf')->result();
     }
 
     // get data by id

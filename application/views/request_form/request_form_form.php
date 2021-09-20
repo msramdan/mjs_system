@@ -37,6 +37,7 @@
 			<input type="hidden" class="form-control" name="user_id" readonly="" id="user_id" placeholder="User Id" value="<?= $this->fungsi->user_login()->user_id; ?>" />
 			<tr><td >Tanggal Request <?php echo form_error('tanggal_request') ?></td><td><input type="text" class="form-control" name="tanggal_request" id="tanggal_request" placeholder="Tanggal Request" readonly="" value="<?php echo date('Y-m-d')?>" /></td></tr>
 	    <?php }else{ ?>
+	    	<input type="hidden" readonly="" class="form-control" name="request_form_id" readonly="" id="request_form_id" placeholder="Kode Request Form" value="<?php echo $request_form_id; ?>" />
 	    	<tr><td >Kode Request Form <?php echo form_error('kode_request_form') ?></td><td><input type="text" readonly="" class="form-control" name="kode_request_form" readonly="" id="kode_request_form" placeholder="Kode Request Form" value="<?php echo $kode_request_form; ?>" /></td></tr>
 	    	<input type="hidden" class="form-control" name="user_id" readonly="" id="user_id" placeholder="User Id" value="<?php echo $user_id; ?>" />
 	    	<tr><td >Tanggal Request <?php echo form_error('tanggal_request') ?></td><td><input type="text" class="form-control" name="tanggal_request" id="tanggal_request" placeholder="Tanggal Request" readonly="" value="<?php echo $tanggal_request; ?>"  /></td></tr>
@@ -77,18 +78,17 @@
 		        <table class="table table-bordered" id="dynamic_field">
 		        	<?php
 
-		        	$lo = $classnyak->find_berkas_for_this_request_form($kode_request_form,$user_id);
-
+		        	$lo = $classnyak->find_berkas_for_this_request_form($request_form_id);
 		        	if ($lo) {
 		        		$num = 1;
 		        		foreach($lo as $k) {
 		        			?>
-		        				<tr style="border: none;" id="<?php echo encrypt_url($k->berkas_id) ?>">
+		        				<tr style="border: none;" id="<?php echo encrypt_url($k->file_rf_id ) ?>">
 					                <td style="border: none;">
-					                	<input type="hidden" name="id_berkas_old" class="form-control id_berkas" value="<?php echo encrypt_url($k->berkas_id) ?>" required="" />
+					                	<input type="hidden" name="id_berkas_old" class="form-control id_berkas" value="<?php echo encrypt_url($k->file_rf_id ) ?>" required="" />
 					                	<input type="text" name="nama_berkas_old[]" placeholder="Nama File" class="form-control nama_berkas_old" required="" value="<?php echo $k->nama_berkas ?>" /></td>
-					                <td style="border: none;"><a class="btn btn-primary" target="_blank" rel="noopener noreferrer" href="<?php echo base_url().'assets/assets/img/berkas/'.$k->photo ?>" style="display: block;">Download</a></td>
-					                <td style="border: none;"><button type="button" name="remove_old_berkas" fn="<?php echo $k->photo ?>" id="<?php echo encrypt_url($k->berkas_id) ?>" class="btn btn-danger btn_remove_old_berkas">X</button></td>
+					                <td style="border: none;"><a class="btn btn-primary" target="_blank" rel="noopener noreferrer" href="<?php echo base_url().'assets/assets/img/file_rf/'.$k->photo ?>" style="display: block;">Download</a></td>
+					                <td style="border: none;"><button type="button" name="remove_old_berkas" fn="<?php echo $k->photo ?>" id="<?php echo encrypt_url($k->file_rf_id ) ?>" class="btn btn-danger btn_remove_old_berkas">X</button></td>
 					            </tr>
 		        			<?php
 		        			$num++;
@@ -148,10 +148,10 @@ $(document).ready(function() {
     });
 
     $(document).on('click', '.btn_remove_old_berkas', function() {
-        var berkas_id = $(this).attr("id");
+        var file_rf_id  = $(this).attr("id");
         var filename = $(this).attr("fn");
 
-        var thisel = $(this).parents('td').parents('tr#' + berkas_id);
+        var thisel = $(this).parents('td').parents('tr#' + file_rf_id );
 
         Swal.fire({
 		  title: 'Anda yakin?',
@@ -167,7 +167,7 @@ $(document).ready(function() {
 	            type: "POST",
 	            url: "<?php echo base_url() ?>Request_form/delete_berkas",
 	            data: {
-	            	berkas_id:berkas_id,
+	            	file_rf_id :file_rf_id ,
 	            	file_name:filename
 	            },
 	            success: function(data){

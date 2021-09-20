@@ -16,24 +16,12 @@
                                 <div class="box-body">
                                     <div class='row'>
                                         <h4 style="color: red">Data absen tanggal : </h4>
-                                        <div class='col-md-12 pull-right'>
-                                             <div class='col-md-2' style="float: left;margin-left: 5px; margin-right: 5px; margin-top: 5px; margin-bottom: 20px">
-                                                <select name='tgl' class='form-control'>
-                                                    <option>-- Pilih --</option>
-                                                </select>
+                                        <div class='col-md-12'>
+                                             <div class='col-md-3' style="float: left;margin-left: 5px; margin-right: 5px; margin-top: 5px; margin-bottom: 20px">
+                                                <input type="date" name="" class="form-control">
                                             </div>
                                             <div class='col-md-3' style="float: left;margin-left: 5px; margin-right: 5px; margin-top: 5px; margin-bottom: 20px">
-                                                <select name='tgl' class='form-control'>
-                                                    <option>-- Pilih --</option>
-                                                </select>
-                                            </div>
-                                            <div class='col-md-2' style="float: left;margin-left: 5px; margin-right: 5px; margin-top: 5px; margin-bottom: 20px">
-                                                <select name='tgl' class='form-control'>
-                                                    <option>-- Pilih --</option>
-                                                </select>
-                                            </div>
-                                            <div class='col-md-2' style="float: left;margin-left: 5px; margin-right: 5px; margin-top: 5px; margin-bottom: 20px">
-                                                <input name='lihat' class='btn btn-success' type='submit' value='Lihat Absen'>
+                                                <input name='lihat' class='btn btn-success' type='submit' value='Filter'>
                                         </div>
         </div>    
         <div class="box-body" style="overflow-x: scroll; ">
