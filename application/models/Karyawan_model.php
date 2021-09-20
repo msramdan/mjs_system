@@ -28,6 +28,18 @@ class Karyawan_model extends CI_Model
         return $this->db->get($this->table)->result();
     }
 
+    // get lokasi
+    function by_lokasi($lokasi_id)
+    {
+        $this->db->join('jabatan', 'jabatan.jabatan_id = karyawan.jabatan_id', 'left');
+        $this->db->join('lokasi', 'lokasi.lokasi_id = karyawan.lokasi_id', 'left');
+        $this->db->join('divisi', 'divisi.divisi_id = karyawan.divisi_id', 'left');
+        $this->db->join('status_karyawan', 'status_karyawan.status_karyawan_id = karyawan.status_karyawan_id', 'left');
+        $this->db->where('karyawan.lokasi_id', $lokasi_id);
+        $this->db->order_by($this->id, $this->order);
+        return $this->db->get($this->table)->result();
+    }
+
     function get_berkas ($id){
         $this->db->select('berkas.*');
         $this->db->from('berkas');

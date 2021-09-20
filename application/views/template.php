@@ -1,3 +1,6 @@
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -44,9 +47,11 @@
 <div class="app-cover"></div>
 
 
+
 <div id="loader" class="app-loader">
 <span class="spinner"></span>
 </div>
+
 
 
 <div id="app" class="app app-header-fixed app-sidebar-fixed">
@@ -61,6 +66,7 @@
 <span class="icon-bar"></span>
 </button>
 </div>
+
 
 
 <div class="navbar-nav">
@@ -143,7 +149,13 @@
 <div class="menu-text">Settings App</div>
 </a>
 </div>
+
+
 <div class="menu-item pb-5px">
+
+	<a href="#bannerformmodal" class="menu-link" data-toggle="modal" data-target="#bannerformmodal">Load me</a>
+
+
 <a href="javascript:;" class="menu-link">
 <div class="menu-icon"><i class="fa fa-question-circle"></i></div>
 <div class="menu-text"> About Application</div>
