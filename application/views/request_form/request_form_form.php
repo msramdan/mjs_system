@@ -24,10 +24,10 @@
 				}
 			}
 			?>
-        
+        	<div class="table-responsive form-inline">
             <form action="<?php echo $action; ?>" method="post" enctype="multipart/form-data">
             
-            <table class="table  table-bordered table-hover table-td-valign-middle">
+            <table class="table table-bordered table-hover table-td-valign-middle">
             <thead>
 	    
 
@@ -70,7 +70,7 @@
 	</tr>
 	    
         <tr>
-        	<td >Keterangan <?php echo form_error('keterangan') ?></td><td> <textarea class="form-control" id="wysihtml5" rows="10" name="keterangan" id="keterangan" placeholder="Keterangan"><?php echo $keterangan; ?></textarea></td>
+        	<td  >Keterangan <?php echo form_error('keterangan') ?></td><td> <textarea class="textarea form-control" id="wysihtml5" rows="5" name="keterangan" id="keterangan" placeholder="Keterangan"><?php echo $keterangan; ?></textarea></td>
         </tr>
 
         <tr><td >Attachment File<?php echo form_error('>attachment_ile') ?></td>
@@ -125,7 +125,8 @@
 	    <button type="submit" class="btn btn-danger"><i class="fas fa-save"></i> <?php echo $button ?></button> 
 	    <a href="<?php echo site_url('request_form') ?>" class="btn btn-info"><i class="fas fa-undo"></i> Kembali</a></td></tr>
 </thead>
-	</table></form>        </div>
+	</table></form>
+	</div>        </div>
 </div>
 </div>
 </div>
