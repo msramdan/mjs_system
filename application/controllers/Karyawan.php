@@ -454,7 +454,7 @@ class Karyawan extends CI_Controller
        ob_end_clean();
        
        $this->dompdf->stream("laporan_data_karyawan.pdf", array('Attachment' =>0));
-   }
+        }
+    }
 
-}
 }

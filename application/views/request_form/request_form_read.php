@@ -214,7 +214,7 @@
 				    <tr><td>Keterangan Tolak Sebelumnya</td><td><?php echo $keterangan_tolak; ?></td></tr>  
 				    <tr><td></td><td>
 				    	<?php echo anchor(site_url('request_form/update/'.encrypt_url($request_form_id)),'<i class="fas fa-pencil-alt" aria-hidden="true"></i> Edit','class="btn btn-primary update_data"');  ?>
-				    	<a href="<?php echo site_url('karyawan/pdf/'.encrypt_url($request_form_id)) ?>" class="btn btn-warning" target="_blank"><i class="fas fa-print" aria-hidden="true"></i> Print</a>
+				    	<a href="<?php echo site_url('request_form/pdf/'.encrypt_url($request_form_id)) ?>" class="btn btn-warning" target="_blank"><i class="fas fa-print" aria-hidden="true"></i> Print</a>
 				    	<a href="<?php echo site_url('request_form') ?>" class="btn btn-default">Cancel</a>
 
 				    </td></tr>
