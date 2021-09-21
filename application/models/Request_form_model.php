@@ -102,17 +102,22 @@ class Request_form_model extends CI_Model
         $this->db->delete($this->table);
     }
 
-    function delete_berkas_form_request($id_berkas)
+    function get_berkas_list($id_request_form)
     {
-        $this->db->where('berkas_id', $id_berkas);
-        $this->db->delete('berkas');
+        $this->db->where('request_form_id', $id_request_form);
+        return $this->db->get('file_rf')->result();
     }
 
-    function delete_berkas_form_request_by_r_id($id_request_form,$id_user)
+    function delete_berkas_form_request($file_rf_id)
     {
-        $this->db->where('karyawan_id', $id_user);
-        $this->db->like('photo', $id_request_form);
-        $this->db->delete('berkas');
+        $this->db->where('file_rf_id', $file_rf_id);
+        $this->db->delete('file_rf');
+    }
+
+    function delete_berkas_form_request_by_r_id($id_request_form)
+    {
+        $this->db->where('request_form_id', $id_request_form);
+        $this->db->delete('file_rf');
     }
 
     function get_no_rf(){
@@ -128,13 +133,6 @@ class Request_form_model extends CI_Model
         }
         date_default_timezone_set('Asia/Jakarta');
         return date('Ydm').$kd;
-    }
-
-    function get_berkas_list($id_request_form,$id_user)
-    {
-        $this->db->where('karyawan_id', $id_user);
-        $this->db->like('photo', $id_request_form);
-        return $this->db->get('berkas')->result();
     }
 
     function detect_dissapprove_status($id_request_form)
