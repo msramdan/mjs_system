@@ -221,6 +221,12 @@ class Request_queue extends CI_Controller
 
     }
 
+    function find_berkas_for_this_request_form($id)
+    {
+        $data = $this->Categori_request_model->get_all_file_for_request_form($id);
+        return $data;
+    }
+
 }
 
 /* End of file Request_form.php */
