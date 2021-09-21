@@ -450,8 +450,11 @@ class Karyawan extends CI_Controller
        $this->dompdf->set_paper($paper_size, $orientation);
        $this->dompdf->load_html($html);
        $this->dompdf->render();
+       
+       ob_end_clean();
+       
        $this->dompdf->stream("laporan_data_karyawan.pdf", array('Attachment' =>0));
-   }
+        }
+    }
 
-}
 }

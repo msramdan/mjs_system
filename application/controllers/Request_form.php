@@ -108,9 +108,9 @@ class Request_form extends CI_Controller
         return $data;
     }
 
-    function find_berkas_for_this_request_form($request_form_id)
+    function find_berkas_for_this_request_form($id)
     {
-        $data = $this->Categori_request_model->get_all_file_for_request_form($request_form_id);
+        $data = $this->Categori_request_model->get_all_file_for_request_form($id);
         return $data;
     }
 
@@ -124,11 +124,6 @@ class Request_form extends CI_Controller
         } else {
 
             $approval_list = $this->generate_approval_list($this->input->post('categori_request_id',TRUE));
-
-            // foreach($approval_list as $k)
-            // {
-            //     echo $k['tanda_tangan'];
-            // }
 
             $data = array(
         		'kode_request_form' => $this->input->post('kode_request_form',TRUE),
@@ -177,13 +172,13 @@ class Request_form extends CI_Controller
                             'photo' => $uploadData[$i]['file_name'],
                         );
 
-                        print_r($data);
+                        //print_r($data);
                         
                         $this->db->insert('file_rf',$data);
                     
                     } else {
 
-                        echo "haha! no files for ".$nama_berkas[$i].'???'.$_FILES['berkas']['name'][$i].'???';
+                        echo "no files for ".$nama_berkas[$i].'???'.$_FILES['berkas']['name'][$i].'???';
                     }
 
                 }
@@ -318,18 +313,16 @@ class Request_form extends CI_Controller
 
                         $uploadData[] = $this->upload->data();
                         $data = array(
-                            'request_form_id' =>$request_form_id,
+                            'request_form_id' => $this->input->post('request_form_id', TRUE),
                             'nama_berkas' => $nama_berkas[$i],
                             'photo' => $uploadData[$i]['file_name'],
                         );
                         //ramdan
-
-                        print_r($data);
                         $this->db->insert('file_rf',$data);
                     
                     } else {
 
-                        echo "haha! no files for ".$nama_berkas[$i].'???'.$_FILES['berkas']['name'][$i].'???';
+                        echo "no files for ".$nama_berkas[$i].'???'.$_FILES['berkas']['name'][$i].'???';
                     }
 
                 }
@@ -370,7 +363,7 @@ class Request_form extends CI_Controller
         }
     }
 
-    public function delete_berkas()
+    public function delete_berkas_request_file()
     {
         is_allowed($this->uri->segment(1),'delete');
 
@@ -446,6 +439,43 @@ class Request_form extends CI_Controller
 
     public function download($gambar){
         force_download('assets/assets/img/file_rf/'.$gambar,NULL);
+    }
+
+    public function pdf($id)
+    {
+        is_allowed($this->uri->segment(1),'read');
+        $this->load->library('dompdf_gen');
+
+        $row = $this->Request_form_model->get_by_id(decrypt_url($id));
+        if ($row) {
+            $data = array(
+                'request_form_id' => $row->request_form_id,
+                'sett_apps' =>$this->Setting_app_model->get_by_id(1),
+                'kode_request_form' => $row->kode_request_form,
+                'nama_user' => $row->nama_user,
+                'tanggal_request' => $row->tanggal_request,
+                'request' => $row->request,
+                'keterangan' => $row->keterangan,
+                'status' => $row->status,
+                'whoisreviewing' => $row->approval,
+                'keterangan_tolak' => $row->keterangan_tolak,
+                'classnyak' => $this
+            );
+            $this->load->view('request_form/request_form_pdf',$data);
+           $paper_size = 'A4';
+           $orientation = 'portrait';
+           $html = $this->output->get_output();
+           $this->dompdf->set_paper($paper_size, $orientation);
+           $this->dompdf->load_html($html);
+           $this->dompdf->render();
+           
+           ob_end_clean();
+           
+           $this->dompdf->stream("request_form".$id.".pdf", array('Attachment' =>0));
+        } else {
+            $this->session->set_flashdata('error', 'Record Not Found');
+            redirect(site_url('request_form'));
+        }
     }
 
 }

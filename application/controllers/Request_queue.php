@@ -64,20 +64,6 @@ class Request_queue extends CI_Controller
         return $data;
     }
 
-    // function detectdisapprovedrequest($id_request_form)
-    // {
-    //     $data = $this->Request_form_model->detect_dissapprove_status($id_request_form);
-
-    //     if($data > 0)
-    //     {
-    //         return 'not active';
-    //     }
-    //     else
-    //     {
-    //         return 'active';
-    //     }
-    // }
-
     function disapprove()
     {
         $kd_form_request = $this->input->post('kd_form_request');
@@ -219,6 +205,49 @@ class Request_queue extends CI_Controller
 
         @imagedestroy($im);
 
+    }
+
+    function find_berkas_for_this_request_form($id)
+    {
+        $data = $this->Categori_request_model->get_all_file_for_request_form($id);
+        return $data;
+    }
+
+    public function pdf($id)
+    {
+        is_allowed($this->uri->segment(1),'read');
+        $this->load->library('dompdf_gen');
+
+        $row = $this->Request_form_model->get_by_id(decrypt_url($id));
+        if ($row) {
+            $data = array(
+                'request_form_id' => $row->request_form_id,
+                'sett_apps' =>$this->Setting_app_model->get_by_id(1),
+                'kode_request_form' => $row->kode_request_form,
+                'nama_user' => $row->nama_user,
+                'tanggal_request' => $row->tanggal_request,
+                'request' => $row->request,
+                'keterangan' => $row->keterangan,
+                'status' => $row->status,
+                'whoisreviewing' => $row->approval,
+                'keterangan_tolak' => $row->keterangan_tolak,
+                'classnyak' => $this
+            );
+            $this->load->view('request_form/request_form_pdf',$data);
+           $paper_size = 'A4';
+           $orientation = 'portrait';
+           $html = $this->output->get_output();
+           $this->dompdf->set_paper($paper_size, $orientation);
+           $this->dompdf->load_html($html);
+           $this->dompdf->render();
+           
+           ob_end_clean();
+           
+           $this->dompdf->stream("request_form".$id.".pdf", array('Attachment' =>0));
+        } else {
+            $this->session->set_flashdata('error', 'Record Not Found');
+            redirect(site_url('request_form'));
+        }
     }
 
 }
