@@ -29,7 +29,7 @@ class Request_form_model extends CI_Model
         $this->db->from('file_rf');
         $this->db->where('request_form_id', $id);
         $query = $this->db->get();
-        return $query;
+        return $query->result();
     }
 
     function get_all_active_request()
