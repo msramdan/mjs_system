@@ -76,19 +76,37 @@
         <tr><td >Attachment File<?php echo form_error('>attachment_ile') ?></td>
         	<td>
 		        <table class="table table-bordered" id="dynamic_field">
+		        	<tr>
+		        		<td>Nama File</td>
+		        		<td>File</td>
+		        		<td>Tindakan</td>
+		        	</tr>
 		        	<?php
 
 		        	$lo = $classnyak->find_berkas_for_this_request_form($request_form_id);
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/main
 		        	if ($lo) {
 		        		$num = 1;
 		        		foreach($lo as $k) {
 		        			?>
+<<<<<<< HEAD
 		        				<tr style="border: none;" id="<?php echo encrypt_url($k->file_rf_id ) ?>">
 					                <td style="border: none;">
 					                	<input type="hidden" name="id_berkas_old" class="form-control id_berkas" value="<?php echo encrypt_url($k->file_rf_id ) ?>" required="" />
 					                	<input type="text" name="nama_berkas_old[]" placeholder="Nama File" class="form-control nama_berkas_old" required="" value="<?php echo $k->nama_berkas ?>" /></td>
 					                <td style="border: none;"><a class="btn btn-primary" target="_blank" rel="noopener noreferrer" href="<?php echo base_url().'assets/assets/img/file_rf/'.$k->photo ?>" style="display: block;">Download</a></td>
 					                <td style="border: none;"><button type="button" name="remove_old_berkas" fn="<?php echo $k->photo ?>" id="<?php echo encrypt_url($k->file_rf_id ) ?>" class="btn btn-danger btn_remove_old_berkas">X</button></td>
+=======
+		        				<tr style="border: none;" id="<?php echo encrypt_url($k->file_rf_id) ?>">
+					                <td style="border: none;">
+					                	<input type="hidden" name="id_berkas_old" class="form-control id_berkas" value="<?php echo encrypt_url($k->file_rf_id) ?>" required="" />
+					                	<input type="text" name="nama_berkas_old[]" placeholder="Nama File" class="form-control nama_berkas_old" required="" value="<?php echo $k->nama_berkas ?>" /></td>
+					                <td style="border: none;"><a class="btn btn-primary" target="_blank" rel="noopener noreferrer" href="<?php echo base_url().'assets/assets/img/berkas/'.$k->photo ?>" style="display: block;">Download</a></td>
+					                <td style="border: none;"><button type="button" name="remove_old_berkas" fn="<?php echo $k->photo ?>" id="<?php echo encrypt_url($k->file_rf_id) ?>" class="btn btn-danger btn_remove_old_berkas">X</button></td>
+>>>>>>> origin/main
 					            </tr>
 		        			<?php
 		        			$num++;
@@ -166,7 +184,7 @@ $(document).ready(function() {
 		  if (result.isConfirmed) {
 		  	$.ajax({
 	            type: "POST",
-	            url: "<?php echo base_url() ?>Request_form/delete_berkas",
+	            url: "<?php echo base_url() ?>Request_form/delete_berkas_request_file",
 	            data: {
 	            	file_rf_id :file_rf_id ,
 	            	file_name:filename
