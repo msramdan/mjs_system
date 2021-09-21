@@ -187,17 +187,6 @@
 				    		<table class="table table-sm table-bordered">	    		
 				    			
 				    				<tr>
-<<<<<<< HEAD
-					                  <th>Nama Berkas</th>
-					                  <th>Download</th>
-					                </tr>
-					                <?php foreach ($berkas->result() as $key => $data) { ?>
-					    			<tr>
-					    				<td> <?php echo $data->nama_berkas ?></td>
-					    				<td><a href="<?php echo base_url(); ?>request_form/download/<?php echo $data->photo ?>"><i class="ace-icon fa fa-download"></i> Download</a></td>
-					    			</tr>
-				    			<?php } ?>
-=======
 					                  <th>Nama File</th>
 					                  <th>Tindakan</th>
 					                </tr>
@@ -218,7 +207,6 @@
 						        		}
 						        	}
 						        	?>
->>>>>>> origin/main
 				    		</table>  		
 				    		
 				    	

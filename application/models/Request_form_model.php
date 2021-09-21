@@ -110,31 +110,15 @@ class Request_form_model extends CI_Model
         $this->db->delete($this->table);
     }
 
-<<<<<<< HEAD
     function delete_berkas_form_request($file_rf_id)
     {
-=======
-    function get_berkas_list($id_request_form)
-    {
-        $this->db->where('request_form_id', $id_request_form);
-        return $this->db->get('file_rf')->result();
-    }
-
-    function delete_berkas_form_request($file_rf_id)
-    {
->>>>>>> origin/main
         $this->db->where('file_rf_id', $file_rf_id);
         $this->db->delete('file_rf');
     }
 
     function delete_berkas_form_request_by_r_id($id_request_form)
     {
-<<<<<<< HEAD
-        $this->db->where('karyawan_id', $id_user);
-        $this->db->like('photo', $id_request_form);
-=======
         $this->db->where('request_form_id', $id_request_form);
->>>>>>> origin/main
         $this->db->delete('file_rf');
     }
 
@@ -153,15 +137,6 @@ class Request_form_model extends CI_Model
         return date('Ydm').$kd;
     }
 
-<<<<<<< HEAD
-    function get_berkas_list($request_form_id)
-    {
-        $this->db->where('request_form_id',$request_form_id);
-        return $this->db->get('file_rf')->result();
-    }
-
-=======
->>>>>>> origin/main
     function detect_dissapprove_status($id_request_form)
     {
         $this->db->where('request_form_id', $id_request_form);

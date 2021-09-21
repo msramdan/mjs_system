@@ -64,20 +64,6 @@ class Request_queue extends CI_Controller
         return $data;
     }
 
-    // function detectdisapprovedrequest($id_request_form)
-    // {
-    //     $data = $this->Request_form_model->detect_dissapprove_status($id_request_form);
-
-    //     if($data > 0)
-    //     {
-    //         return 'not active';
-    //     }
-    //     else
-    //     {
-    //         return 'active';
-    //     }
-    // }
-
     function disapprove()
     {
         $kd_form_request = $this->input->post('kd_form_request');
