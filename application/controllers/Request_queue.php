@@ -32,12 +32,14 @@ class Request_queue extends CI_Controller
         $row = $this->Request_form_model->get_by_id(decrypt_url($id));
         if ($row) {
             $data = array(
+                'berkas' =>$this->Request_form_model->get_berkas(decrypt_url($id)),
         		'request_form_id' => $row->request_form_id,
                 'sett_apps' =>$this->Setting_app_model->get_by_id(1),
         		'kode_request_form' => $row->kode_request_form,
-        		'user_id' => $row->user_id,
+        		'nama_user' => $row->nama_user,
         		'tanggal_request' => $row->tanggal_request,
-        		'categori_request_id' => $row->categori_request_id,
+        		'request' => $row->request,
+                'categori_request_id' => $row->categori_request_id,
         		'keterangan' => $row->keterangan,
                 'keterangan_tolak' => $row->keterangan_tolak,
                 'status' => $row->status,
@@ -68,6 +70,7 @@ class Request_queue extends CI_Controller
     {
         $kd_form_request = $this->input->post('kd_form_request');
         $id_request_form = $this->input->post('request_form_id');
+
         $categori_request_id = $this->input->post('categori_request_id');
         $signer = $this->session->userdata('userid');
 
