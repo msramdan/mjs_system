@@ -192,16 +192,31 @@
 				    			
 				    				<tr>
 					                  <th>Nama File</th>
-					                  <th>Download</th>
-					                  <th>Hapus</th>
+					                  <th>Tindakan</th>
 					                </tr>
+					                <?php
+
+						        	$lo = $classnyak->find_berkas_for_this_request_form($request_form_id);
+
+						        	if ($lo) {
+						        		$num = 1;
+						        		foreach($lo as $k) {
+						        			?>
+						        				<tr id="<?php echo encrypt_url($k->file_rf_id) ?>">
+									                <td><?php echo $k->nama_berkas ?></td>
+									                <td><a class="btn btn-primary" target="_blank" rel="noopener noreferrer" href="<?php echo base_url().'assets/assets/img/berkas/'.$k->photo ?>" style="display: block;">Download</a></td>
+									            </tr>
+						        			<?php
+						        			$num++;
+						        		}
+						        	}
+						        	?>
 				    		</table>  		
 				    	</td>
-	    			</tr>		    
-
+	    			</tr> 
 				    <tr><td>Keterangan Tolak Sebelumnya</td><td><?php echo $keterangan_tolak; ?></td></tr>
 				    <tr><td></td><td>
-				    	<a href="<?php echo site_url('karyawan/pdf/'.encrypt_url($request_form_id)) ?>" class="btn btn-warning" target="_blank"><i class="fas fa-print" aria-hidden="true"></i> Print</a>
+				    	<a href="<?php echo site_url('request_form/pdf/'.encrypt_url($request_form_id)) ?>" class="btn btn-warning" target="_blank"><i class="fas fa-print" aria-hidden="true"></i> Print</a>
 				    	<a href="<?php echo site_url('request_queue') ?>" class="btn btn-default">Cancel</a>
 
 				    	<?php

@@ -6,10 +6,10 @@
 
 @keyframes glow {
   from {
-    box-shadow: 0 0 3px -3px #066cff;
+    box-shadow: 0 0 5px -5px #ff7b01;
   }
   to {
-    box-shadow: 0 0 3px 3px #066cff;
+    box-shadow: 0 0 5px 5px #ff7b01;
   }
 }
 
@@ -188,16 +188,33 @@
 				    			
 				    				<tr>
 					                  <th>Nama File</th>
-					                  <th>Download</th>
-					                  <th>Hapus</th>
+					                  <th>Tindakan</th>
 					                </tr>
+					                <?php
+
+						        	$lo = $classnyak->find_berkas_for_this_request_form($request_form_id);
+
+						        	if ($lo) {
+						        		$num = 1;
+						        		foreach($lo as $k) {
+						        			?>
+						        				<tr id="<?php echo encrypt_url($k->file_rf_id) ?>">
+									                <td><?php echo $k->nama_berkas ?></td>
+									                <td><a class="btn btn-primary" target="_blank" rel="noopener noreferrer" href="<?php echo base_url().'assets/assets/img/berkas/'.$k->photo ?>" style="display: block;">Download</a></td>
+									            </tr>
+						        			<?php
+						        			$num++;
+						        		}
+						        	}
+						        	?>
 				    		</table>  		
 				    	</td>
 	    			</tr>
 
 				    <tr><td>Keterangan Tolak Sebelumnya</td><td><?php echo $keterangan_tolak; ?></td></tr>  
 				    <tr><td></td><td>
-				    	<a href="<?php echo site_url('karyawan/pdf/'.encrypt_url($request_form_id)) ?>" class="btn btn-warning" target="_blank"><i class="fas fa-print" aria-hidden="true"></i> Print</a>
+				    	<?php echo anchor(site_url('request_form/update/'.encrypt_url($request_form_id)),'<i class="fas fa-pencil-alt" aria-hidden="true"></i> Edit','class="btn btn-primary update_data"');  ?>
+				    	<a href="<?php echo site_url('request_form/pdf/'.encrypt_url($request_form_id)) ?>" class="btn btn-warning" target="_blank"><i class="fas fa-print" aria-hidden="true"></i> Print</a>
 				    	<a href="<?php echo site_url('request_form') ?>" class="btn btn-default">Cancel</a>
 
 				    </td></tr>
