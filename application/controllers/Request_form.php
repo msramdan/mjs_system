@@ -341,7 +341,6 @@ class Request_form extends CI_Controller
         if ($row) {
             if ($this->is_allowed_toedit($id) == 'allowed') {
                 $getberkas = $this->Request_form_model->get_berkas_list(decrypt_url($id));
-                //ramdan
 
                 foreach ($getberkas as $value) {
                     $this->Request_form_model->delete_berkas_form_request($value->file_rf_id);

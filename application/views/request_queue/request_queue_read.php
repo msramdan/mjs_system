@@ -162,9 +162,9 @@
 
 				<table id="data-table-default" class="table table-hover table-bordered table-td-valign-middle">
 				    <tr><td>Kode Request Form</td><td><?php echo $kode_request_form; ?></td></tr>
-				    <tr><td>User Id</td><td><?php echo $user_id; ?></td></tr>
+				    <tr><td>User Penginput</td><td><?php echo $nama_user; ?></td></tr>
 				    <tr><td>Tanggal Request</td><td><?php echo $tanggal_request; ?></td></tr>
-				    <tr><td>Categori Request Id</td><td><?php echo $categori_request_id; ?></td></tr>
+				    <tr><td>Categori Request</td><td><?php echo $request; ?></td></tr>
 				    <tr><td>Status Request</td><td><?php 
 				    if ($status == 'Dalam Review') {
 				    	?>
