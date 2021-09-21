@@ -108,15 +108,9 @@ class Request_form extends CI_Controller
         return $data;
     }
 
-<<<<<<< HEAD
-    function find_berkas_for_this_request_form($request_form_id)
-    {
-        $data = $this->Categori_request_model->get_all_file_for_request_form($request_form_id);
-=======
     function find_berkas_for_this_request_form($id)
     {
         $data = $this->Categori_request_model->get_all_file_for_request_form($id);
->>>>>>> origin/main
         return $data;
     }
 
@@ -143,12 +137,7 @@ class Request_form extends CI_Controller
     	    );
 
             $this->Request_form_model->insert($data);
-<<<<<<< HEAD
             $request_id_ramdan = $this->db->insert_id();
-=======
-
-            $form_request_id = $this->db->insert_id();
->>>>>>> origin/main
             
             $nama_berkas = $_POST['nama_berkas'];
 
@@ -178,11 +167,7 @@ class Request_form extends CI_Controller
                         $uploadData[] = $this->upload->data();
 
                         $data = array(
-<<<<<<< HEAD
                             'request_form_id' =>$request_id_ramdan,
-=======
-                            'request_form_id' => $form_request_id,
->>>>>>> origin/main
                             'nama_berkas' => $nama_berkas[$i],
                             'photo' => $uploadData[$i]['file_name'],
                         );
@@ -328,21 +313,11 @@ class Request_form extends CI_Controller
 
                         $uploadData[] = $this->upload->data();
                         $data = array(
-<<<<<<< HEAD
-                            'request_form_id' =>$request_form_id,
-=======
                             'request_form_id' => $this->input->post('request_form_id', TRUE),
->>>>>>> origin/main
                             'nama_berkas' => $nama_berkas[$i],
                             'photo' => $uploadData[$i]['file_name'],
                         );
                         //ramdan
-
-                        print_r($data);
-<<<<<<< HEAD
-=======
-                        
->>>>>>> origin/main
                         $this->db->insert('file_rf',$data);
                     
                     } else {
@@ -365,20 +340,12 @@ class Request_form extends CI_Controller
         $row = $this->Request_form_model->get_by_id(decrypt_url($id));
         if ($row) {
             if ($this->is_allowed_toedit($id) == 'allowed') {
-<<<<<<< HEAD
                 $getberkas = $this->Request_form_model->get_berkas_list(decrypt_url($id));
                 //ramdan
 
                 foreach ($getberkas as $value) {
                     $this->Request_form_model->delete_berkas_form_request($value->file_rf_id);
                     unlink('./assets/assets/img/file_rf/'.$value->photo);
-=======
-                $getberkas = $this->Request_form_model->get_berkas_list($row->request_form_id);
-
-                foreach ($getberkas as $value) {
-                    $this->Request_form_model->delete_berkas_form_request_by_r_id($value->request_form_id);
-                    unlink('./assets/assets/img/berkas/'.$value->photo);
->>>>>>> origin/main
                 }
                 $this->Request_form_model->delete(decrypt_url($id));
                 $this->session->set_flashdata('message', 'Delete Record Success');
@@ -470,10 +437,10 @@ class Request_form extends CI_Controller
         exit();
     }
 
-<<<<<<< HEAD
     public function download($gambar){
         force_download('assets/assets/img/file_rf/'.$gambar,NULL);
-=======
+    }
+
     public function pdf($id)
     {
         is_allowed($this->uri->segment(1),'read');
@@ -509,7 +476,6 @@ class Request_form extends CI_Controller
             $this->session->set_flashdata('error', 'Record Not Found');
             redirect(site_url('request_form'));
         }
->>>>>>> origin/main
     }
 
 }
