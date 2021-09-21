@@ -107,7 +107,7 @@ class Request_queue extends CI_Controller
 
         $disapprove_reason = $this->input->post('disapprove_reason');
 
-        $output_file = "assets/assets/img/berkas/signature" . date("Y-m-d-H-i-s-").time().$signer. ".png";
+        $output_file = "assets/assets/img/file_rf/signature-".$signer.'-'.$kd_form_request.'-'.$id_request_form.".png";
         $this->base64_to_jpeg($_POST["image"], $output_file);
         $this->add_mark($output_file, $output_file);
 
@@ -216,7 +216,7 @@ class Request_queue extends CI_Controller
     public function pdf($id)
     {
         is_allowed($this->uri->segment(1),'read');
-        $this->load->library('dompdf_gen');
+        //$this->load->library('dompdf_gen');
 
         $row = $this->Request_form_model->get_by_id(decrypt_url($id));
         if ($row) {
@@ -234,16 +234,16 @@ class Request_queue extends CI_Controller
                 'classnyak' => $this
             );
             $this->load->view('request_form/request_form_pdf',$data);
-           $paper_size = 'A4';
-           $orientation = 'portrait';
-           $html = $this->output->get_output();
-           $this->dompdf->set_paper($paper_size, $orientation);
-           $this->dompdf->load_html($html);
-           $this->dompdf->render();
+           // $paper_size = 'A4';
+           // $orientation = 'portrait';
+           // $html = $this->output->get_output();
+           // $this->dompdf->set_paper($paper_size, $orientation);
+           // $this->dompdf->load_html($html);
+           // $this->dompdf->render();
            
-           ob_end_clean();
+           // ob_end_clean();
            
-           $this->dompdf->stream("request_form".$id.".pdf", array('Attachment' =>0));
+           // $this->dompdf->stream("request_form".$id.".pdf", array('Attachment' =>0));
         } else {
             $this->session->set_flashdata('error', 'Record Not Found');
             redirect(site_url('request_form'));

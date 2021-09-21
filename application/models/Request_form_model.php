@@ -15,6 +15,12 @@ class Request_form_model extends CI_Model
         parent::__construct();
     }
 
+    function get_berkas_list($id_request_form)
+    {
+        $this->db->where('request_form_id', $id_request_form);
+        return $this->db->get('file_rf')->result();
+    }
+
     // get all
     function get_all()
     {

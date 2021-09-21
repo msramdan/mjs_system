@@ -478,6 +478,12 @@ class Request_form extends CI_Controller
         }
     }
 
+    function get_signature($request_form_id, $kd_form_request, $user_id)
+    {
+        $data = 'signature-'.$user_id.'-'.encrypt_url($kd_form_request).'-'.encrypt_url($request_form_id).'.png';
+        return $data;
+    }
+
 }
 
 /* End of file Request_form.php */

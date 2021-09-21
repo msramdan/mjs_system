@@ -200,7 +200,7 @@
 						        			?>
 						        				<tr id="<?php echo encrypt_url($k->file_rf_id) ?>">
 									                <td><?php echo $k->nama_berkas ?></td>
-									                <td><a class="btn btn-primary" target="_blank" rel="noopener noreferrer" href="<?php echo base_url().'assets/assets/img/berkas/'.$k->photo ?>" style="display: block;">Download</a></td>
+									                <td><a class="btn btn-primary" target="_blank" rel="noopener noreferrer" href="<?php echo base_url().'assets/assets/img/file_rf/'.$k->photo ?>" style="display: block;">Download</a></td>
 									            </tr>
 						        			<?php
 						        			$num++;
