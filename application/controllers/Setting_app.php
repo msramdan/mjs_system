@@ -28,6 +28,7 @@ class Setting_app extends CI_Controller
 		'alamat' => set_value('alamat', $row->alamat),
         'author' => set_value('author', $row->author),
 		'favicon' => set_value('favicon', $row->favicon),
+        'captcha' => set_value('captcha', $row->captcha),
 	    );
             $this->template->load('template','setting_app/setting_app_form', $data);
         } else {
@@ -63,11 +64,19 @@ class Setting_app extends CI_Controller
                 $favicon = $this->input->post('favicon_lama');
             }
 
+            $captcha = $this->input->post('captcha');
+            if ($captcha==null || $captcha=='' ) {
+                $a = 'N';
+            }else{
+                $a ='Y';
+            }
+
             $data = array(
     		'nama_aplikasi' => $this->input->post('nama_aplikasi',TRUE),
     		'company' => $this->input->post('company',TRUE),
             'alamat' => $this->input->post('alamat',TRUE),
     		'author' => $this->input->post('author',TRUE),
+            'captcha' => $a,
     		'favicon' => $favicon,
     	    );
 

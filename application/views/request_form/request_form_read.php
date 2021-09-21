@@ -187,13 +187,20 @@
 				    		<table class="table table-sm table-bordered">	    		
 				    			
 				    				<tr>
-					                  <th>Nama File</th>
+					                  <th>Nama Berkas</th>
 					                  <th>Download</th>
-					                  <th>Hapus</th>
 					                </tr>
+					                <?php foreach ($berkas->result() as $key => $data) { ?>
+					    			<tr>
+					    				<td> <?php echo $data->nama_berkas ?></td>
+					    				<td><a href="<?php echo base_url(); ?>request_form/download/<?php echo $data->photo ?>"><i class="ace-icon fa fa-download"></i> Download</a></td>
+					    			</tr>
+				    			<?php } ?>
 				    		</table>  		
+				    		
+				    	
 				    	</td>
-	    			</tr>
+				    </tr>
 
 				    <tr><td>Keterangan Tolak Sebelumnya</td><td><?php echo $keterangan_tolak; ?></td></tr>  
 				    <tr><td></td><td>

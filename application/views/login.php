@@ -63,12 +63,26 @@
 <input type="password" required="" name="password" autocomplete="off" id="password" class="form-control fs-13px h-45px border-0" placeholder="Password" />
 <label for="password" class="d-flex align-items-center text-gray-300 fs-13px">Password</label>
 </div>
+
+<?php
+
+if ( $sett_apps->captcha=='Y') { ?>
+    <table class="table table-borderless">
+    <tr>
+        <td><?=$image;?></td>
+        <td><input type="text" name="captcha_code" class="form-control fs-13px h-45px border-0" id="captcha_code" placeholder="Kode Captcha" required="" /></td>
+    </tr>
+</table>
+
+<?php } ?>
+
 <div class="form-check mb-20px">
 <input class="form-check-input border-0" type="checkbox" value="1" id="rememberMe" onclick="myFunction()" />
 <label class="form-check-label fs-13px text-gray-500" for="rememberMe">
 Show Password
 </label>
 </div>
+
 <div class="mb-20px">
 <button type="submit" name="login" class="btn btn-success d-block w-100 h-45px btn-lg">Sign me in</button>
 <div class="text-gray-500">

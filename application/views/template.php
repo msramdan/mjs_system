@@ -42,12 +42,29 @@
 
 </head>
 <body>
+
+	             <!-- #modal-dialog -->
+    <div class="modal fade" id="modal-dialog2" >
+      <div class="modal-dialog  modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">About Application</h4>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
+          </div>
+          <div class="modal-body">
+            <p style="text-align: justify;">
+            	Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+            </p>
+          </div>
+          <div class="modal-footer">
+            <a href="javascript:;" class="btn btn-white" data-bs-dismiss="modal">Close</a>
+          </div>
+        </div>
+      </div>
+    </div>
 	 
 
 <div class="app-cover"></div>
-
-
-
 <div id="loader" class="app-loader">
 <span class="spinner"></span>
 </div>
@@ -152,11 +169,11 @@
 
 
 <div class="menu-item pb-5px">
+<a id="view_gambar"
+                href="#modal-dialog2"
+                data-bs-toggle="modal"
 
-	<a href="#bannerformmodal" class="menu-link" data-toggle="modal" data-target="#bannerformmodal">Load me</a>
-
-
-<a href="javascript:;" class="menu-link">
+                class="menu-link">
 <div class="menu-icon"><i class="fa fa-question-circle"></i></div>
 <div class="menu-text"> About Application</div>
 </a>

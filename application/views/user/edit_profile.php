@@ -91,7 +91,7 @@
 	<tr class="divider">
 		<td colspan="2"></td>
 	</tr>
-	<tr class="highlight"><td class="field"'>Alamat User <?php echo form_error('alamat_user') ?></td><td>
+	<tr class="highlight"><td class="field">Alamat User <?php echo form_error('alamat_user') ?></td><td>
           <textarea class="textarea form-control" id="wysihtml5" name="alamat_user" placeholder="Alamat User" rows="5"><?php echo $alamat_user; ?></textarea>
         </td></tr>
 	<tr class="divider">

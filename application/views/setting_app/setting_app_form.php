@@ -22,8 +22,6 @@
 
 
 	    <tr><td >Author <?php echo form_error('author') ?></td><td><input type="text" class="form-control" name="author" id="author" placeholder="Author" value="<?php echo $author; ?>" /></td></tr>  
-
-
                     <tr>
                         <td >Favicon <?php echo form_error('favicon') ?></td>
                         <td>
@@ -33,8 +31,20 @@
                             <input type="file" class="form-control" name="favicon" id="favicon" placeholder="favicon" value="" onchange="return validasiEkstensi_fav()" />
                         </td>
                     </tr>
-
                     
+        <tr>
+            <td >Login Captcha <?php echo form_error('captcha') ?></td><td>
+                    <?php if ($captcha=='Y') { ?>
+                        <input class="form-check-input" type="checkbox" id="captcha" value="Y" name="captcha" checked ="checked">
+                        <label class="form-check-label" for="captcha">YA</label>
+                    <?php }else{ ?>
+                      <input class="form-check-input" type="checkbox" id="captcha" value="Y" name="captcha" >
+                      <label class="form-check-label" for="captcha">YA</label>
+                      
+
+                    <?php } ?>
+            </td>
+        </tr>  
 
 
 	    <tr><td></td><td><input type="hidden" name="id" value="<?php echo $id; ?>" /> 

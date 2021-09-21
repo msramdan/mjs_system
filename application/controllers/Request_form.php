@@ -32,6 +32,7 @@ class Request_form extends CI_Controller
         $row = $this->Request_form_model->get_by_id(decrypt_url($id));
         if ($row) {
             $data = array(
+                'berkas' =>$this->Request_form_model->get_berkas(decrypt_url($id)),
         		'request_form_id' => $row->request_form_id,
                 'sett_apps' =>$this->Setting_app_model->get_by_id(1),
         		'kode_request_form' => $row->kode_request_form,
@@ -102,13 +103,14 @@ class Request_form extends CI_Controller
     
     function cekDataInApprovalListAvailability()
     {
-        $data = $this->Categori_request_model->get_request_approve_availability($id);
+        // $data = $this->Categori_request_model->get_request_approve_availability($id);
+        $data = $this->Categori_request_model->get_request_approve_availability();
         return $data;
     }
 
-    function find_berkas_for_this_request_form($id,$user_id)
+    function find_berkas_for_this_request_form($request_form_id)
     {
-        $data = $this->Categori_request_model->get_all_file_for_request_form($id,$user_id);
+        $data = $this->Categori_request_model->get_all_file_for_request_form($request_form_id);
         return $data;
     }
 
@@ -140,6 +142,7 @@ class Request_form extends CI_Controller
     	    );
 
             $this->Request_form_model->insert($data);
+            $request_id_ramdan = $this->db->insert_id();
             
             $nama_berkas = $_POST['nama_berkas'];
 
@@ -154,7 +157,7 @@ class Request_form extends CI_Controller
                         
                         $filenamee = 'ApprDoc-'.$this->input->post('kode_request_form').'-'.date('ymd').'-'.substr(sha1(rand()),0,10);
 
-                        $config['upload_path']          = './assets/assets/img/berkas'; 
+                        $config['upload_path']          = './assets/assets/img/file_rf'; 
                         $config['allowed_types']        = 'jpg|png|pdf|docx|doc';
                         $config['max_size']             = 10000;
                         $config['file_name']            = $filenamee;
@@ -164,21 +167,19 @@ class Request_form extends CI_Controller
                         $_FILES['file[]']['tmp_name'] = $_FILES['berkas']['tmp_name'][$i];
                         $_FILES['file[]']['error'] = $_FILES['berkas']['error'][$i];
                         $_FILES['file[]']['size'] = $_FILES['berkas']['size'][$i];
-
                         $this->upload->initialize($config);
                         $this->upload->do_upload('file[]');
-
                         $uploadData[] = $this->upload->data();
 
                         $data = array(
-                            'karyawan_id' => $this->session->userdata('userid'),
+                            'request_form_id' =>$request_id_ramdan,
                             'nama_berkas' => $nama_berkas[$i],
                             'photo' => $uploadData[$i]['file_name'],
                         );
 
                         print_r($data);
                         
-                        $this->db->insert('berkas',$data);
+                        $this->db->insert('file_rf',$data);
                     
                     } else {
 
@@ -287,8 +288,8 @@ class Request_form extends CI_Controller
             }
 
             // IN CASE YOUR ADDING AGAIN
-
             $nama_berkas = $_POST['nama_berkas'];
+            $request_form_id = $_POST['request_form_id'];
 
             if ($nama_berkas) {
                 $this->load->library('upload');
@@ -301,7 +302,7 @@ class Request_form extends CI_Controller
                         
                         $filenamee = 'ApprDoc-'.$this->input->post('kode_request_form').'-'.date('ymd').'-'.substr(sha1(rand()),0,10);
 
-                        $config['upload_path']          = './assets/assets/img/berkas'; 
+                        $config['upload_path']          = './assets/assets/img/file_rf'; 
                         $config['allowed_types']        = 'jpg|png|pdf|docx|doc';
                         $config['max_size']             = 10000;
                         $config['file_name']            = $filenamee;
@@ -316,16 +317,15 @@ class Request_form extends CI_Controller
                         $this->upload->do_upload('file[]');
 
                         $uploadData[] = $this->upload->data();
-
                         $data = array(
-                            'karyawan_id' => $this->session->userdata('userid'),
+                            'request_form_id' =>$request_form_id,
                             'nama_berkas' => $nama_berkas[$i],
                             'photo' => $uploadData[$i]['file_name'],
                         );
+                        //ramdan
 
                         print_r($data);
-                        
-                        $this->db->insert('berkas',$data);
+                        $this->db->insert('file_rf',$data);
                     
                     } else {
 
@@ -345,19 +345,16 @@ class Request_form extends CI_Controller
     {
         is_allowed($this->uri->segment(1),'delete');
         $row = $this->Request_form_model->get_by_id(decrypt_url($id));
-
         if ($row) {
-
             if ($this->is_allowed_toedit($id) == 'allowed') {
-                $getberkas = $this->Request_form_model->get_berkas_list($row->kode_request_form,$row->user_id);
+                $getberkas = $this->Request_form_model->get_berkas_list(decrypt_url($id));
+                //ramdan
 
                 foreach ($getberkas as $value) {
-                    $this->Request_form_model->delete_berkas_form_request($value->berkas_id);
-                    unlink('./assets/assets/img/berkas/'.$value->photo);
+                    $this->Request_form_model->delete_berkas_form_request($value->file_rf_id);
+                    unlink('./assets/assets/img/file_rf/'.$value->photo);
                 }
-
                 $this->Request_form_model->delete(decrypt_url($id));
-
                 $this->session->set_flashdata('message', 'Delete Record Success');
                 redirect(site_url('request_form'));
             }
@@ -377,12 +374,12 @@ class Request_form extends CI_Controller
     {
         is_allowed($this->uri->segment(1),'delete');
 
-        $id = $this->input->post('berkas_id');
+        $id = $this->input->post('file_rf_id');
         $filename = $this->input->post('file_name');
 
         $this->Request_form_model->delete_berkas_form_request(decrypt_url($id));
         
-        unlink("./assets/assets/img/berkas/".$filename);
+        unlink("./assets/assets/img/file_rf/".$filename);
 
         echo 'ok';
     }
@@ -445,6 +442,10 @@ class Request_form extends CI_Controller
 
         xlsEOF();
         exit();
+    }
+
+    public function download($gambar){
+        force_download('assets/assets/img/file_rf/'.$gambar,NULL);
     }
 
 }
