@@ -47,13 +47,7 @@
                                 <td><?php echo $karyawan->nama_karyawan ?></td>
                                 <td><?php echo $karyawan->no_hp ?></td>
                                 <td style="text-align:center">
-                                    <?php 
-                                        $data['karyawan'] = $karyawan;
-                                        $data['classnyak'] = $classnyak;
-                                        $data['date'] = date("Y-m-d");
-
-                                        $this->load->view('absen/absen_data_dropdown',$data);
-                                    ?>
+                                    <i class="fas fa-sync fa-spin"></i>
                                 </td>
                             </tr>
                     <?php } ?>
@@ -105,6 +99,21 @@
         <?php } ?>
 
         <script type="text/javascript">
+
+            $(document).ready(function() {
+                var now = new Date();
+
+                //asw besok ae lah
+                
+                var day = ("0" + now.getDate()).slice(-2)
+                var month = ("0" + (now.getMonth() + 1)).slice(-2)
+
+                var today = now.getFullYear()+"-"+(month)+"-"+(day)
+
+                $('#tanggal_filter').val(today)
+                $('#btn-filter-date').click()
+
+            })
             
             $('#btn-filter-date').click(function() {
                 const date = $('#tanggal_filter').val()

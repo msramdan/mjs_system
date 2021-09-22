@@ -43,10 +43,10 @@ class Absen extends CI_Controller
     {
         $cek = $this->Karyawan_model->by_lokasi_and_date(decrypt_url($lokasi_id), $date, decrypt_url($karyawan_id));
 
-        if ($cek->status) {
-            return $cek->status;
+        if ($cek) {
+            return $cek[0]->status;
         } else {
-            return '-';
+            return 'Masuk';
         }
     }
 
@@ -54,7 +54,7 @@ class Absen extends CI_Controller
     {
         is_allowed($this->uri->segment(1),null);
 
-        $lokasi_id = $this->input->post('lokasi_id');
+        $lokasi_id = $this->input->post('id_lokasi');
         $date = $this->input->post('date');
         $karyawan_id = $this->input->post('karyawan_id');
 
@@ -63,9 +63,11 @@ class Absen extends CI_Controller
         $data = array(
             'karyawan' => $karyawan,
             'classnyak' => $this,
-            'date' => $date
+            'date' => $date,
+            'lokasi_id' => $lokasi_id
         );
 
+        //print_r($data['karyawan']);
         $this->load->view('absen/absen_data_dropdown', $data);
     }
 
