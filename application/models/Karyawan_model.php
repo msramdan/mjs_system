@@ -40,6 +40,17 @@ class Karyawan_model extends CI_Model
         return $this->db->get($this->table)->result();
     }
 
+    function by_lokasi_and_date($lokasi_id, $date, $karyawan_id)
+    {
+        $this->db->join('lokasi', 'lokasi.lokasi_id = karyawan.lokasi_id', 'left');
+        $this->db->join('absen', 'absen.karyawan_id = karyawan.karyawan_id', 'left');
+        $this->db->where('karyawan.karyawan_id', $karyawan_id);
+        $this->db->where('karyawan.lokasi_id', $lokasi_id);
+        $this->db->where('absen.tanggal',$date);
+        $this->db->order_by('karyawan.karyawan_id', $this->order);
+        return $this->db->get($this->table)->result();
+    }
+
     function get_berkas ($id){
         $this->db->select('berkas.*');
         $this->db->from('berkas');

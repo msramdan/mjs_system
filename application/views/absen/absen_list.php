@@ -1,3 +1,4 @@
+
 <div id="content" class="app-content">
             <div class="panel panel-inverse">
               <div class="panel-heading">
@@ -18,47 +19,48 @@
                                         <h4 style="color: red">Data absen tanggal : </h4>
                                         <div class='col-md-12'>
                                              <div class='col-md-3' style="float: left;margin-left: 5px; margin-right: 5px; margin-top: 5px; margin-bottom: 20px">
-                                                <input type="date" name="" class="form-control">
+                                                <input type="date" name="" class="form-control" id="tanggal_filter" value="<?php echo date("d/m/Y") ?>">
                                             </div>
                                             <div class='col-md-3' style="float: left;margin-left: 5px; margin-right: 5px; margin-top: 5px; margin-bottom: 20px">
-                                                <input name='lihat' class='btn btn-success' type='submit' value='Filter'>
+                                                <button class="btn btn-success" id="btn-filter-date">Filter</button>
                                         </div>
         </div>    
-        <div class="box-body" style="overflow-x: scroll; ">
-        <table id="" class="table table-bordered table-hover table-td-valign-middle text-white">
-         <thead>
-            <tr>
-        <th width="1%">No</th>
-        <th>NIK</th>
-		<th>Nama Karyawan</th>
-        <th>No Hp</th>
-		<th>Action</th>
-            </tr></thead><tbody><?php $no = 1;
-            foreach ($karyawan as $karyawan)
-            {
-                ?>
-                <tr>
-			<td><?= $no++?></td>
-            <td><?php echo $karyawan->nik ?></td>
-			<td><?php echo $karyawan->nama_karyawan ?></td>
-            <td><?php echo $karyawan->no_hp ?></td>
-			<td style="text-align:center">
-                <div class="form-group">
-                    <select class="form-control">
-                      <option  style="color: black">Masuk</option>
-                      <option  style="color: black">Sakit</option>
-                      <option  style="color: black">Izin</option>
-                      <option  style="color: black">Alfa</option>
-                    </select>
-                  </div>
+        <div class="box-body" id="tabel-absensi-wrapper" style="overflow-x: scroll; ">
+            <table id="tbl-absen-list" class="table table-bordered table-hover table-td-valign-middle text-white">
+                <thead>
+                    <tr>
+                        <th width="1%">No</th>
+                        <th>NIK</th>
+                        <th>Nama Karyawan</th>
+                        <th>No Hp</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php $no = 1;
+                        foreach ($karyawan as $karyawan)
+                        {
+                            ?>
+                            <tr id="<?php echo encrypt_url($karyawan->karyawan_id) ?>">
+                                <td><?= $no++?></td>
+                                <td><?php echo $karyawan->nik ?></td>
+                                <td><?php echo $karyawan->nama_karyawan ?></td>
+                                <td><?php echo $karyawan->no_hp ?></td>
+                                <td style="text-align:center">
+                                    <?php 
+                                        $data['karyawan'] = $karyawan;
+                                        $data['classnyak'] = $classnyak;
+                                        $data['date'] = date("Y-m-d");
 
-			</td>
-		</tr>
-                <?php } ?>
-            </tbody>
-        </table>
-        <a style="margin: 5px; float: right;" href="<?php echo site_url('absen') ?>" class="btn btn-info"><i class="fas fa-undo"></i> Kembali</a></td></tr>
-         <button type="submit" class="btn btn-danger" style="margin: 5px; float: right;"><i class="fas fa-save"></i> Simpan Data</button>
+                                        $this->load->view('absen/absen_data_dropdown',$data);
+                                    ?>
+                                </td>
+                            </tr>
+                    <?php } ?>
+                </tbody>
+            </table>
+            <a style="margin: 5px; float: right;" href="<?php echo site_url('absen') ?>" class="btn btn-info"><i class="fas fa-undo"></i> Kembali</a></td></tr>
+             <button type="button" class="btn btn-danger" id="btn-save-absen" style="margin: 5px; float: right;"><i class="fas fa-save"></i> Simpan Data</button>
                 
 	  </div>
         </div>
@@ -101,3 +103,44 @@
                     $('.delete_data').css('display','none')
             </script>
         <?php } ?>
+
+        <script type="text/javascript">
+            
+            $('#btn-filter-date').click(function() {
+                const date = $('#tanggal_filter').val()
+                const lokasi = "<?php echo $lokasi_id ?>"
+
+                //$('#tabel-absensi-wrapper').html('Loading...')
+
+                $('table#tbl-absen-list > tbody > tr').each(function(index) {
+                    const karyawan_id = $(this).attr('id')
+
+                    const elem_td = $(this).children('td:eq(4)');
+
+                    elem_td.html('<i class="fas fa-sync fa-spin"></i>')
+
+
+                    $.ajax({
+                        type: "POST",
+                        url: "<?php echo base_url() ?>absen/refreshtampilKaryawan",
+                        data: {
+                            id_lokasi:lokasi,
+                            date:date,
+                            karyawan_id: karyawan_id
+                        },
+                        success: function(data){
+                            elem_td.html(data)
+                        },
+                        error: function(e) {
+                            elem_td.html('error')
+                        }
+                    });
+                })
+            })
+
+            $(document).on('click','#btn-save-absen', function() {
+                alert('ayyy')
+            })
+
+
+        </script>
