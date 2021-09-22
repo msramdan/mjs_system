@@ -31,10 +31,50 @@ class Absen extends CI_Controller
         is_allowed($this->uri->segment(1),null);
         $karyawan = $this->Karyawan_model->by_lokasi(decrypt_url($lokasi_id));
         $data = array(
+            'lokasi_id' => $lokasi_id,
             'karyawan' => $karyawan,
             'sett_apps' =>$this->Setting_app_model->get_by_id(1),
+            'classnyak' => $this
         );
         $this->template->load('template','absen/absen_list', $data);
+    }
+
+    function deteksiKehadiran($lokasi_id, $date, $karyawan_id)
+    {
+        $cek = $this->Karyawan_model->by_lokasi_date_karyawan_id(decrypt_url($lokasi_id), $date, $karyawan_id);
+
+        if ($cek) {
+            return $cek[0]->status;
+        } else {
+            return 'Masuk';
+        }
+    }
+
+    function refreshtabelabsen()
+    {
+        is_allowed($this->uri->segment(1),null);
+
+        $lokasi_id = $this->input->post('id_lokasi');
+        $date = $this->input->post('date');
+
+        $karyawan = $this->Karyawan_model->by_lokasi(decrypt_url($lokasi_id));
+        
+        $data = array(
+            'karyawan' => $karyawan,
+            'classnyak' => $this,
+            'date' => $date,
+            'lokasi_id' => $lokasi_id
+        );
+
+        //print_r($data['karyawan']);
+        $this->load->view('absen/tabel_absen_karyawan_list', $data);
+    }
+
+    function get_dataKehadiran($lokasi_id, $date, $karyawan_id)
+    {
+        $cek = $this->Karyawan_model->by_lokasi_date_karyawan_id(decrypt_url($lokasi_id), $date, $karyawan_id);
+
+        return $cek;
     }
 
 }
