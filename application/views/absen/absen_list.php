@@ -26,37 +26,13 @@
                                         </div>
         </div>    
         <div class="box-body" id="tabel-absensi-wrapper" style="overflow-x: scroll; ">
-            <table id="tbl-absen-list" class="table table-bordered table-hover table-td-valign-middle text-white">
-                <thead>
-                    <tr>
-                        <th width="1%">No</th>
-                        <th>NIK</th>
-                        <th>Nama Karyawan</th>
-                        <th>No Hp</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php $no = 1;
-                        foreach ($karyawan as $karyawan)
-                        {
-                            ?>
-                            <tr id="<?php echo encrypt_url($karyawan->karyawan_id) ?>">
-                                <td><?= $no++?></td>
-                                <td><?php echo $karyawan->nik ?></td>
-                                <td><?php echo $karyawan->nama_karyawan ?></td>
-                                <td><?php echo $karyawan->no_hp ?></td>
-                                <td style="text-align:center">
-                                    <i class="fas fa-sync fa-spin"></i>
-                                </td>
-                            </tr>
-                    <?php } ?>
-                </tbody>
-            </table>
-            <a style="margin: 5px; float: right;" href="<?php echo site_url('absen') ?>" class="btn btn-info"><i class="fas fa-undo"></i> Kembali</a></td></tr>
-             <button type="button" class="btn btn-danger" id="btn-save-absen" style="margin: 5px; float: right;"><i class="fas fa-save"></i> Simpan Data</button>
+            <div style="display: flex; height: 50vh; justify-content: center; flex-direction: column;">
+              
+              <i class="fas fa-sync fa-spin fa-3x" style="margin: auto;"></i>
+              <p>Mempersiapkan data...</p>
                 
-	  </div>
+            </div>
+	   </div>
         </div>
         </div>
         </div>
@@ -104,7 +80,7 @@
                 var now = new Date();
 
                 //asw besok ae lah
-                
+
                 var day = ("0" + now.getDate()).slice(-2)
                 var month = ("0" + (now.getMonth() + 1)).slice(-2)
 
@@ -121,30 +97,41 @@
 
                 //$('#tabel-absensi-wrapper').html('Loading...')
 
-                $('table#tbl-absen-list > tbody > tr').each(function(index) {
-                    const karyawan_id = $(this).attr('id')
+                const karyawan_id = $(this).attr('id')
 
-                    const elem_td = $(this).children('td:eq(4)');
+                const elem_tbl = $('#tabel-absensi-wrapper')
 
-                    elem_td.html('<i class="fas fa-sync fa-spin"></i>')
+                elem_tbl.html(`<div style="display: flex; height: 50vh; justify-content: center; flex-direction: column;">
+              
+              <i class="fas fa-sync fa-spin fa-3x" style="margin: auto;"></i>
+              <p>Mempersiapkan data...</p>
+                
+            </div>`)
 
 
-                    $.ajax({
-                        type: "POST",
-                        url: "<?php echo base_url() ?>absen/refreshtampilKaryawan",
-                        data: {
-                            id_lokasi:lokasi,
-                            date:date,
-                            karyawan_id: karyawan_id
-                        },
-                        success: function(data){
-                            elem_td.html(data)
-                        },
-                        error: function(e) {
-                            elem_td.html('error')
-                        }
-                    });
-                })
+                $.ajax({
+                    type: "POST",
+                    url: "<?php echo base_url() ?>absen/refreshtabelabsen",
+                    data: {
+                        id_lokasi:lokasi,
+                        date:date
+                    },
+                    success: function(data){
+                        elem_tbl.html(data)
+                    },
+                    error: function(e) {
+                        elem_tbl.html(`<div style="display: flex; height: 50vh; justify-content: center; flex-direction: column;">
+              
+              <i class="fas fa-sync fa-spin fa-3x" style="margin: auto;"></i>
+              <p>Terjadi Masalah tersambung dengan server, cek koneksi internet anda, pastikan rekan dapat mengaksesnya, jika masih terjadi, hubungi admin IT</p>
+                
+            </div>`)
+                    }
+                });
+
+                // $('table#tbl-absen-list > tbody > tr').each(function(index) {
+                    
+                // })
             })
 
             $(document).on('click','#btn-save-absen', function() {
