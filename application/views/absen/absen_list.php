@@ -134,9 +134,36 @@
                 // })
             })
 
+            $(document).on('change','.select_status', function() {
+                const this_el = $(this)
+
+                const val = this_el.val()
+
+                const tbalasan = this_el.parents('td').next('td')
+                const tblampiran = this_el.parents('td').next('td').next('td')
+                
+                if (val === 'Sakit' || val === 'Izin') {
+
+                    tbalasan.html(`
+                        <input type="text" name="alasan[]" value="enter something here" required="">
+                        `)
+
+                    tblampiran.html(`
+                        <input type="file" name="lampiran[]"  required="">
+                        `)
+
+                } else {
+                    tbalasan.html(`N/A`)
+
+                    tblampiran.html(`N/A`)                    
+                }
+
+            })
+
             $(document).on('click','#btn-save-absen', function() {
                 alert('ayyy')
             })
+
 
 
         </script>

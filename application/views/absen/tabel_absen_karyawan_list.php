@@ -8,8 +8,8 @@
             <th>Status</th>
             <th>Alasan</th>
             <th>Lampiran</th>
-            <th>Jam Masuk</th>
-            <th>Jam Keluar</th>
+            <th hidden="">Jam Masuk</th>
+            <th hidden="">Jam Keluar</th>
         </tr>
     </thead>
     <tbody>
@@ -24,7 +24,7 @@
                     <td><?php echo $karyawan->no_hp ?></td>
                     <td style="text-align:center">
                         <div class="form-group">
-                            <select class="form-control" id="select_status" name="select_status[]" style="width: 94px;">
+                            <select class="form-control select_status" id="select_status" name="select_status[]" style="width: 94px;">
                                 <?php
 
                                 $cek = $classnyak->deteksiKehadiran($lokasi_id, $date, $karyawan->karyawan_id);
@@ -48,20 +48,29 @@
                     <?php
 
                     if ($dataKehadiran) {
+                        if ($cek === 'Masuk' || $cek === 'Alfa') {
+                            ?>
+                                <td>N/A</td>
+                                <td>N/A</td>
+                            <?php
+                        } else {
+                            ?>
+                                <td><input type="text" name="alasan[]" value="enter something here" required=""></td>
+                                <td><input type="file" name="lampiran[]"  required=""></td>
+                            <?php
+                        }
                         ?>
-                        <td><?php echo $dataKehadiran[0]->alasan ?></td>
-                        <td><?php echo $dataKehadiran[0]->photo ?></td>
-                        <td><?php echo $dataKehadiran[0]->jam_masuk ?></td>
-                        <td><?php echo $dataKehadiran[0]->jam_pulang ?></td>
+                        <td hidden=""><?php echo $dataKehadiran[0]->jam_masuk ?></td>
+                        <td hidden=""><?php echo $dataKehadiran[0]->jam_pulang ?></td>
                         <?php
                     }
                     else
                     {
                         ?>
-                        <td><input type="text" name="alasan[]" value="enter something here" required=""></td>
-                        <td><input type="file" name="lampiran[]"  required=""></td>
-                        <td><input type="text" name="jam_masuk[]" value="enter something here" required=""></td>
-                        <td><input type="text" name="jam_keluar[]" value="enter something here" required=""></td>
+                        <td>N/A</td>
+                        <td>N/A</td>
+                        <td hidden=""><input type="text" name="jam_masuk[]" value="enter something here" required=""></td>
+                        <td hidden=""><input type="text" name="jam_keluar[]" value="enter something here" required=""></td>
                         <?php
                     }
 
