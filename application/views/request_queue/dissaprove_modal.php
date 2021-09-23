@@ -10,7 +10,7 @@
 					<input type="hidden" name="kd_form_request" id="kd_form_request" value="<?php echo $kd_form_request ?>">
 					<input type="hidden" name="request_form_id" id="request_form_id" value="<?php echo $request_form_id ?>">
 					<input type="hidden" name="categori_request_id" id="categori_request_id" value="<?php echo $categori_request_id ?>">
-					<textarea name="disapprove_reason" class="form-control" id="disapprove_reason"></textarea>
+					<textarea style="color: black" name="disapprove_reason" class="form-control" id="disapprove_reason"></textarea>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fa fa-times-circle"></i> Batal</button>

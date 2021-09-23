@@ -22,7 +22,66 @@
 		<?php echo anchor(site_url('cuti/excel'), '<i class="far fa-file-excel" aria-hidden="true"></i> Export Ms Excel', 'class="btn btn-success btn-sm export_data"'); ?>
                 </div>
             </div>
-        </div>    
+        </div>  
+
+        <form method="get" style="margin-bottom: 10px">
+                              <div style="display: inline-block; width:20%; margin: 0px 5px;" class="form-group">
+                                <input type="date" class="form-control" name="tanggal_awal" id="tanggal_awal"
+
+                                <?php if(isset($_GET['tanggal_awal']) && isset($_GET['tanggal_akhir'])){ ?>
+                                        value="<?= $_GET['tanggal_awal'] ?>"
+                                    <?php } ?> 
+                                    <?php if(!isset($_GET['tanggal_awal']) && !isset($_GET['tanggal_akhir'])){ ?>
+                                        required
+                                    <?php } ?>  
+                                 />
+                              </div>
+
+                              <div style="width:20%; display: inline-block; margin: 0px 5px;" class="form-group">
+                                <input type="date" class="form-control" name="tanggal_akhir" id="tanggal_akhir"
+
+                                <?php if(isset($_GET['tanggal_awal']) && isset($_GET['tanggal_akhir'])){ ?>
+                                        value="<?= $_GET['tanggal_akhir'] ?>"
+                                    <?php } ?> 
+
+
+
+                                <?php if(!isset($_GET['tanggal_awal']) && !isset($_GET['tanggal_akhir'])){ ?>
+                                        required
+                                    <?php } ?> 
+                                 />
+                              </div>
+
+                              <div style="width:20%; display: inline-block; margin: 0px 5px;" class="form-group">
+                                <button class="btn btn-primary btn-tampil-laporan" type="submit" >Filter</button>
+                                <?php if(isset($_GET['tanggal_awal']) && isset($_GET['tanggal_akhir'])){ ?>
+                                    <?php echo anchor(site_url('cuti'), 'Reset', 'class="btn btn-warning"'); ?>
+
+                                <?php } ?>
+                                    
+                              </div>
+                    </form>
+
+                    <?php
+                                if(isset($_GET['tanggal_awal']) && isset($_GET['tanggal_akhir'])){
+                                    $tgl1 = $_GET['tanggal_awal'];
+                                    $tgl2 = $_GET['tanggal_akhir'];
+                                    $sql = "select cuti.*,karyawan.nama_karyawan
+                                    from cuti
+                                    join karyawan on karyawan.karyawan_id=cuti.karyawan_id
+                                    WHERE tanggal BETWEEN '$tgl1' AND '$tgl2'"
+                                    ;
+                                }else{
+                                    $sql = "select cuti.*,karyawan.nama_karyawan
+                                    from cuti
+                                    join karyawan on karyawan.karyawan_id=cuti.karyawan_id"
+                                    ;
+                                }
+                        $cuti_data = $this->db->query($sql)->result();
+                    ?>
+
+
+
         <div class="box-body" style="overflow-x: scroll; ">
         <table id="data-table-default" class="table table-bordered table-hover table-td-valign-middle text-white">
          <thead>
@@ -51,7 +110,7 @@
 
                 <button class="btn btn-success btn-xs" href="<?php echo base_url(); ?>cuti/download/<?php echo $cuti->photo?>"><i class="ace-icon fa fa-info"></i> <?php echo $cuti->status_cuti ?></button>
 
-            <?php }else if ($cuti->status_cuti=="Reject") { ?>
+            <?php }else if ($cuti->status_cuti=="Disapprove") { ?>
 
                 <button class="btn btn-danger btn-xs" href="<?php echo base_url(); ?>cuti/download/<?php echo $cuti->photo?>"><i class="ace-icon fa fa-info"></i> <?php echo $cuti->status_cuti ?></button>
 
@@ -62,7 +121,7 @@
             <?php } ?>
         </td>
 			<td style="text-align:center" width="200px">
-				<?php 
+				<?php
 				echo anchor(site_url('cuti/read/'.encrypt_url($cuti->cuti_id)),'<i class="fas fa-eye" aria-hidden="true"></i>','class="btn btn-success btn-sm read_data"'); 
 				echo '  '; 
 				echo anchor(site_url('cuti/update/'.encrypt_url($cuti->cuti_id)),'<i class="fas fa-pencil-alt" aria-hidden="true"></i>','class="btn btn-primary btn-sm update_data"'); 

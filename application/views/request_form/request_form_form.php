@@ -33,18 +33,18 @@
 
 
 	    <?php if ($button =="Create") { ?>
-	    	<tr><td >Kode Request Form <?php echo form_error('kode_request_form') ?></td><td><input type="text" readonly="" class="form-control" name="kode_request_form" id="kode_request_form" placeholder="Kode Request Form" value="RF<?php echo $kode; ?>" /></td></tr>
+	    	<tr><td  style="vertical-align: middle;">Kode Request Form <?php echo form_error('kode_request_form') ?></td><td><input type="text" readonly="" class="form-control" name="kode_request_form" id="kode_request_form" placeholder="Kode Request Form" value="RF<?php echo $kode; ?>" /></td></tr>
 			<input type="hidden" class="form-control" name="user_id" readonly="" id="user_id" placeholder="User Id" value="<?= $this->fungsi->user_login()->user_id; ?>" />
-			<tr><td >Tanggal Request <?php echo form_error('tanggal_request') ?></td><td><input type="text" class="form-control" name="tanggal_request" id="tanggal_request" placeholder="Tanggal Request" readonly="" value="<?php echo date('Y-m-d')?>" /></td></tr>
+			<tr><td  style="vertical-align: middle;" >Tanggal Request <?php echo form_error('tanggal_request') ?></td><td><input type="text" class="form-control" name="tanggal_request" id="tanggal_request" placeholder="Tanggal Request" readonly="" value="<?php echo date('Y-m-d')?>" /></td></tr>
 	    <?php }else{ ?>
 	    	<input type="hidden" readonly="" class="form-control" name="request_form_id" readonly="" id="request_form_id" placeholder="Kode Request Form" value="<?php echo $request_form_id; ?>" />
-	    	<tr><td >Kode Request Form <?php echo form_error('kode_request_form') ?></td><td><input type="text" readonly="" class="form-control" name="kode_request_form" readonly="" id="kode_request_form" placeholder="Kode Request Form" value="<?php echo $kode_request_form; ?>" /></td></tr>
+	    	<tr><td  style="vertical-align: middle;" >Kode Request Form <?php echo form_error('kode_request_form') ?></td><td><input type="text" readonly="" class="form-control" name="kode_request_form" readonly="" id="kode_request_form" placeholder="Kode Request Form" value="<?php echo $kode_request_form; ?>" /></td></tr>
 	    	<input type="hidden" class="form-control" name="user_id" readonly="" id="user_id" placeholder="User Id" value="<?php echo $user_id; ?>" />
-	    	<tr><td >Tanggal Request <?php echo form_error('tanggal_request') ?></td><td><input type="text" class="form-control" name="tanggal_request" id="tanggal_request" placeholder="Tanggal Request" readonly="" value="<?php echo $tanggal_request; ?>"  /></td></tr>
+	    	<tr><td  style="vertical-align: middle;" >Tanggal Request <?php echo form_error('tanggal_request') ?></td><td><input type="text" class="form-control" name="tanggal_request" id="tanggal_request" placeholder="Tanggal Request" readonly="" value="<?php echo $tanggal_request; ?>"  /></td></tr>
 
 	    <?php } ?>  
 
-	    <tr><td >Categori Request<?php echo form_error('categori_request_id') ?></td><td>
+	    <tr><td  style="vertical-align: middle;">Categori Request<?php echo form_error('categori_request_id') ?></td><td>
 	    	<select class="form-control" id="ex-basic"  name="categori_request_id">
 				<option value="">-- Pilih --</option>
 	    		<?php
@@ -70,10 +70,10 @@
 	</tr>
 	    
         <tr>
-        	<td  >Keterangan <?php echo form_error('keterangan') ?></td><td> <textarea class="textarea form-control" id="wysihtml5" rows="5" name="keterangan" id="keterangan" placeholder="Keterangan"><?php echo $keterangan; ?></textarea></td>
+        	<td style="vertical-align: middle;"  >Berita Acara <?php echo form_error('keterangan') ?></td><td> <textarea class="textarea form-control" id="wysihtml5" rows="10" name="keterangan" id="keterangan" placeholder="Keterangan"><?php echo $keterangan; ?></textarea></td>
         </tr>
 
-        <tr><td >Attachment File<?php echo form_error('>attachment_ile') ?></td>
+        <tr><td style="vertical-align: middle;">Attachment File<?php echo form_error('>attachment_ile') ?></td>
         	<td>
 		        <table class="table table-bordered" id="dynamic_field">
 		        	<tr>

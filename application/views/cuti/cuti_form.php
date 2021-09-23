@@ -20,12 +20,12 @@
 	    <tr>
             <td >Karyawan <?php echo form_error('karyawan_id') ?></td>
             <td><select name="karyawan_id" class="form-control">
-                <option value="">-- Pilih -- </option>
+                <option style="color: black" value="">-- Pilih -- </option>
                 <?php foreach ($karyawan as $key => $data) { ?>
                   <?php if ($karyawan_id == $data->karyawan_id) { ?>
-                    <option value="<?php echo $data->karyawan_id ?>" selected><?php echo $data->nama_karyawan ?></option>
+                    <option style="color: black" value="<?php echo $data->karyawan_id ?>" selected><?php echo $data->nama_karyawan ?></option>
                   <?php } else { ?>
-                    <option value="<?php echo $data->karyawan_id ?>"><?php echo $data->nama_karyawan ?></option>
+                    <option style="color:black" value="<?php echo $data->karyawan_id ?>"><?php echo $data->nama_karyawan ?></option>
                   <?php } ?>
                 <?php } ?>
               </select></td>
@@ -63,7 +63,7 @@
                 <option style="color: black" value="">- Pilih -</option>
                 <option style="color: black"  value="Waiting Review" <?php echo $status_cuti == 'Waiting Review' ? 'selected' : 'null' ?>>Waiting Review</option>
                 <option style="color: black"  value="Approved" <?php echo $status_cuti == 'Approved' ? 'selected' : 'null' ?>>Approved</option>
-                <option style="color: black"  value="Reject" <?php echo $status_cuti == 'Reject' ? 'selected' : 'null' ?>>Reject</option>
+                <option style="color: black"  value="Disapprove" <?php echo $status_cuti == 'Disapprove' ? 'selected' : 'null' ?>>Disapprove</option>
               </select>
             </td>
           </tr>

@@ -18,9 +18,7 @@ class Cuti extends CI_Controller
     public function index()
     {
         is_allowed($this->uri->segment(1),null);
-        $cuti = $this->Cuti_model->get_all();
         $data = array(
-            'cuti_data' => $cuti,
             'sett_apps' =>$this->Setting_app_model->get_by_id(1),
         );
         $this->template->load('template','cuti/cuti_list', $data);
@@ -74,29 +72,37 @@ class Cuti extends CI_Controller
         if ($this->form_validation->run() == FALSE) {
             $this->create();
         } else {
+        $tanggal = $this->input->post('tanggal');
+        $karyawan_id = $this->input->post('karyawan_id');
 
-        $config['upload_path']      = './assets/assets/img/absen'; 
-        $config['allowed_types']    = 'jpg|png|jpeg|pdf|doc|docx'; 
-        $config['max_size']         = 10048; 
-        $config['file_name']        = 'File-'.date('ymd').'-'.substr(sha1(rand()),0,10); 
-        $this->load->library('upload',$config);
-        $this->upload->initialize($config);
-        $this->upload->do_upload("photo");
-        $data = $this->upload->data();
-        $photo =$data['file_name'];
+        $cek_data_cuti = "select *from cuti where tanggal='$tanggal' and karyawan_id='$karyawan_id'" ;
+        $cek = $this->db->query($cek_data_cuti)->num_rows();
 
+        if ($cek > 0) {
+            $this->session->set_flashdata('error', 'Sudah ada data pengajuan');
+        }else{
+            $config['upload_path']      = './assets/assets/img/absen'; 
+            $config['allowed_types']    = 'jpg|png|jpeg|pdf|doc|docx'; 
+            $config['max_size']         = 10048; 
+            $config['file_name']        = 'File-'.date('ymd').'-'.substr(sha1(rand()),0,10); 
+            $this->load->library('upload',$config);
+            $this->upload->initialize($config);
+            $this->upload->do_upload("photo");
+            $data = $this->upload->data();
+            $photo =$data['file_name'];
 
             $data = array(
-		'karyawan_id' => $this->input->post('karyawan_id',TRUE),
-		'tanggal' => $this->input->post('tanggal',TRUE),
-		'alasan' => $this->input->post('alasan',TRUE),
-		'photo' => $photo,
-		'status_cuti' => $this->input->post('status_cuti',TRUE),
-	    );
+            'karyawan_id' => $this->input->post('karyawan_id',TRUE),
+            'tanggal' => $this->input->post('tanggal',TRUE),
+            'alasan' => $this->input->post('alasan',TRUE),
+            'photo' => $photo,
+            'status_cuti' => $this->input->post('status_cuti',TRUE),
+            );
+                $this->Cuti_model->insert($data);
+                $this->session->set_flashdata('message', 'Create Record Success');
 
-            $this->Cuti_model->insert($data);
-            $this->session->set_flashdata('message', 'Create Record Success');
-            redirect(site_url('cuti'));
+        }
+        redirect(site_url('cuti'));
         }
     }
     

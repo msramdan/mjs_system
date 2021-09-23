@@ -180,7 +180,7 @@
 				    	<?php
 				    }
 					?></td></tr>
-				    <tr><td>Keterangan</td><td><?php echo $keterangan; ?></td></tr>
+				    <tr><td>Berita Acara</td><td><?php echo $keterangan; ?></td></tr>
 				    <tr>
 				    	<td>Attachment File</td>
 				    	<td>
