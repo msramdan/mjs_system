@@ -31,7 +31,7 @@
 
                                 $dataKehadiran = $classnyak->get_dataKehadiran($lokasi_id, $date, $karyawan->karyawan_id);
 
-                                $arr = ['-','Masuk','Sakit','Izin','Alfa'];
+                                $arr = ['Masuk','Sakit','Izin','Alfa'];
 
                                 foreach($arr as $l) {
                                     ?>
