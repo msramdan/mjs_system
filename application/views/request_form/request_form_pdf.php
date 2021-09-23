@@ -1,9 +1,7 @@
-<!DOCTYPE html>
  <html><head>
     <title>Surat Keterangan Request</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
     <style>
             .word-table {
                 border:0px solid black !important; 
@@ -27,7 +25,7 @@
             }
         </style>
 </head><body >
-    <table border="0" cellpadding="0" align="center">
+    <table border="0" cellpadding="0" align="center" style="margin-top: -50px;">
                     <tr>
                         <td style="width: 20%;">
                             <img  width="150" height="100" src="assets/assets/img/logo/logo.png"  >
@@ -92,15 +90,40 @@
 		</tr>
 	</table>
 
-    <table class="" style="margin-top: 80px; width: 200px;text-align: center; margin-left: 375px">
+    <table class="" style="margin-top: 80px; width: 100%;text-align: center; margin-left: 10px">
         <tr> 
-          <td width="200px">Jakarta, <?= date('d F Y') ?></td> 
+          <td width="25%" style="margin: 25px 0;">Jakarta, <?= date('d F Y') ?></td> 
         </tr>
         <tr>
-          <td style="height: 80px;"></td>
+        	<?php 
+					$wh = json_decode($whoisreviewing, true);
+					//print_r($wh);
+					foreach ($wh as $key => $value) {
+                           ?>
+                           <td width="25%">Mengetahui</td>
+                           <?php
+					}
+				?>
         </tr>
         <tr>
-          <td><?php echo $nama_user; ?></td>
+          <?php
+          			foreach ($wh as $key => $value) {
+
+          					?>
+          					<td style="height: 80px;"><img width="100%" height="100%" src="assets/assets/img/file_rf/<?php echo $classnyak->get_signature($request_form_id, $kode_request_form, $value['user_id'])?>" /></td>
+
+          					<?php
+					}
+          ?>
+        </tr>
+        <tr>
+          <?php 
+          			foreach ($wh as $key => $value) {
+                           ?>
+                           <td><?php echo explode(' ',$classnyak->getusername($value['user_id'])[0]->nama_user)[0]; ?></td>
+                           <?php
+					}
+          ?>
         </tr>            
 	</table>
 
@@ -111,4 +134,4 @@
     <td width="100%"><b><?= $sett_apps->company ?> </b> || <?= $sett_apps->alamat ?></td>
   </tr>
 </table>
-</body>
+</body></html>
