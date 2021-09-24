@@ -25,7 +25,7 @@
                                                 <button class="btn btn-success" id="btn-filter-date">Filter</button>
                                         </div>
         </div>    
-        <div class="box-body" id="tabel-absensi-wrapper" style="overflow-x: scroll; ">
+        <div class="box-body" id="tabel-absensi-wrapper" style="overflow-x: scroll; height: 56vh; ">
             <div style="display: flex; height: 50vh; justify-content: center; flex-direction: column;">
               
               <i class="fas fa-sync fa-spin fa-3x" style="margin: auto;"></i>
@@ -128,15 +128,122 @@
             </div>`)
                     }
                 });
+            })
 
-                // $('table#tbl-absen-list > tbody > tr').each(function(index) {
+            $(document).on('change','.select_status', function() {
+                const this_el = $(this)
+
+                const val = this_el.val()
+
+                const tbalasan = this_el.parents('td').next('td')
+                const tblampiran = this_el.parents('td').next('td').next('td')
+                
+                if (val === 'Sakit' || val === 'Izin') {
+
+                    tbalasan.html(`
+                        <input type="text" name="alasan[]" class="alasan" placeholder="Masukan alasan..." required="" value="">
+                        `)
+
+                    tblampiran.html(`
+                        <input type="file" name="lampiran" accept="image/*,.pdf" class="lampiran"  required="">
+                        `)
+
+                } else {
+                    tbalasan.html(`N/A`)
+
+                    tblampiran.html(`N/A`)                    
+                }
+
+            })
+
+            $(document).on('click','#btn-save-absen', function(e){
+                e.preventDefault()
+
+                const thisel = $(this)
+                thisel.attr('disabled', true)
+                thisel.prev('a.btn-info').addClass('disabled')
+                thisel.html('<i class="fas fa-sync fa-spin" style="margin: auto;"></i>')
+                Swal.fire({
+                  title: 'Are you sure?',
+                  text: "You won't be able to revert this!",
+                  icon: 'warning',
+                  showCancelButton: true,
+                  confirmButtonColor: '#3085d6',
+                  cancelButtonColor: '#d33',
+                  confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                  if (result.isConfirmed) {
                     
-                // })
-            })
+                    // try async method
 
-            $(document).on('click','#btn-save-absen', function() {
-                alert('ayyy')
-            })
+                    var bar = new Promise((resolve, reject) => {
+
+                        const elemrowowo = $('table#tbl-absen-list > tbody > tr')
+
+                        elemrowowo.each(function(index) {
+
+                            var karyawan_id = $(this).find('td').eq(9).text()
+                            var status = $(this).find('td').eq(4).children('div.form-group').children('select.select_status').val()
+                            var alasan = $(this).find('td').eq(5).children('input').val()
+                            var photo
+                            if ($(this).find('td').eq(6).children('input.lampiran').length > 0) {
+                                photo = $(this).find('td').eq(6).children('input').prop('files')[0];
+                            } else {
+                                photo = $(this).find('td').eq(6).children('input#photolama').val()
+                            }
+
+                            var tanggal = $('#tanggal_filter').val()
+                            var jam_masuk = '08:00:00'
+                            var jam_keluar = '18:00:00'
+
+                            var form_data = new FormData();
+
+                            form_data.append('karyawan_id', karyawan_id)
+                            form_data.append('status', status)
+                            form_data.append('alasan', alasan)
+                            form_data.append('photo', photo);
+                            form_data.append('tanggal', tanggal)
+                            form_data.append('jam_masuk', jam_masuk)
+                            form_data.append('jam_keluar', jam_keluar)
+
+                            $.ajax({
+                                url: '<?php echo site_url("Absen/save_absensi_data") ?>',
+                                cache: false,
+                                contentType: false,
+                                processData: false,
+                                data: form_data,
+                                type: 'post',
+                                success: function(data){
+                                    var dt = JSON.parse(data)
+                                    console.log(dt.msg + ' | ' + dt.msgscnd)
+                                }
+                            });
+
+                            if (index === elemrowowo.length -1) resolve();
+                            
+                        })
+                    });
+
+                    bar.then(() => {
+                        thisel.attr('disabled', false)
+                        thisel.prev('a.btn-info').removeClass('disabled')
+                        thisel.html('<i class="fas fa-save"></i>')
+                        Swal.fire({
+                          title: 'Berhasil',
+                          text: "Simpan data absensi berhasil!",
+                          icon: 'success',
+                        })
+                        $('#btn-filter-date').click()
+                    });
+                  } else {
+                    thisel.attr('disabled', false)
+                    thisel.prev('a.btn-info').removeClass('disabled')
+                    thisel.html('<i class="fas fa-save"></i>')
+                  }
+                })
+
+            });
+
 
 
         </script>

@@ -42,6 +42,7 @@ class Karyawan_model extends CI_Model
 
     function by_lokasi_date_karyawan_id($lokasi_id, $date, $karyawan_id)
     {
+        $this->db->select('*,absen.photo as "lampiranabsen"');
         $this->db->join('karyawan', 'karyawan.karyawan_id = absen.karyawan_id');
         $this->db->where('karyawan.karyawan_id', $karyawan_id);
         $this->db->where('karyawan.lokasi_id', $lokasi_id);
