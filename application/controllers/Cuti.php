@@ -75,33 +75,45 @@ class Cuti extends CI_Controller
         $tanggal = $this->input->post('tanggal');
         $karyawan_id = $this->input->post('karyawan_id');
 
+        //cek data hari tersebut
         $cek_data_cuti = "select *from cuti where tanggal='$tanggal' and karyawan_id='$karyawan_id'" ;
         $cek = $this->db->query($cek_data_cuti)->num_rows();
+        //cek jumlah cuti
+        $jumlah_cuti = "SELECT COUNT(karyawan_id) as jml_cuti FROM cuti where karyawan_id='$karyawan_id'" ;
 
-        if ($cek > 0) {
-            $this->session->set_flashdata('error', 'Sudah ada data pengajuan');
+        $cek2 = $this->db->query($jumlah_cuti)->result_array();
+        $wtf = $cek2[0]['jml_cuti'];
+
+        if ($wtf > 11) {
+            $this->session->set_flashdata('error', 'Jumlah Pengajuan cuti lebih dari 12');
         }else{
-            $config['upload_path']      = './assets/assets/img/absen'; 
-            $config['allowed_types']    = 'jpg|png|jpeg|pdf|doc|docx'; 
-            $config['max_size']         = 10048; 
-            $config['file_name']        = 'File-'.date('ymd').'-'.substr(sha1(rand()),0,10); 
-            $this->load->library('upload',$config);
-            $this->upload->initialize($config);
-            $this->upload->do_upload("photo");
-            $data = $this->upload->data();
-            $photo =$data['file_name'];
+            if ($cek > 0) {
+                $this->session->set_flashdata('error', 'Sudah ada data pengajuan');
+            }else{
+                $config['upload_path']      = './assets/assets/img/absen'; 
+                $config['allowed_types']    = 'jpg|png|jpeg|pdf|doc|docx'; 
+                $config['max_size']         = 10048; 
+                $config['file_name']        = 'File-'.date('ymd').'-'.substr(sha1(rand()),0,10); 
+                $this->load->library('upload',$config);
+                $this->upload->initialize($config);
+                $this->upload->do_upload("photo");
+                $data = $this->upload->data();
+                $photo =$data['file_name'];
 
-            $data = array(
-            'karyawan_id' => $this->input->post('karyawan_id',TRUE),
-            'tanggal' => $this->input->post('tanggal',TRUE),
-            'alasan' => $this->input->post('alasan',TRUE),
-            'photo' => $photo,
-            'status_cuti' => $this->input->post('status_cuti',TRUE),
-            );
-                $this->Cuti_model->insert($data);
-                $this->session->set_flashdata('message', 'Create Record Success');
+                $data = array(
+                'karyawan_id' => $this->input->post('karyawan_id',TRUE),
+                'tanggal' => $this->input->post('tanggal',TRUE),
+                'alasan' => $this->input->post('alasan',TRUE),
+                'photo' => $photo,
+                'status_cuti' => $this->input->post('status_cuti',TRUE),
+                );
+                    $this->Cuti_model->insert($data);
+                    $this->session->set_flashdata('message', 'Create Record Success');
 
+            }
         }
+
+        
         redirect(site_url('cuti'));
         }
     }

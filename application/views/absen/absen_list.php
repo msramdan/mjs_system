@@ -164,24 +164,22 @@
                 thisel.prev('a.btn-info').addClass('disabled')
                 thisel.html('<i class="fas fa-sync fa-spin" style="margin: auto;"></i>')
                 Swal.fire({
-                  title: 'Are you sure?',
-                  text: "You won't be able to revert this!",
-                  icon: 'warning',
+                  title: 'Simpan data absen?',
+                  // text: "You won't be able to revert this!",
+                  icon: 'info',
                   showCancelButton: true,
                   confirmButtonColor: '#3085d6',
                   cancelButtonColor: '#d33',
-                  confirmButtonText: 'Yes, delete it!'
+                  confirmButtonText: 'Yes, Simpan!'
                 }).then((result) => {
                   if (result.isConfirmed) {
-                    
                     // try async method
-
                     var bar = new Promise((resolve, reject) => {
 
                         const elemrowowo = $('table#tbl-absen-list > tbody > tr')
 
                         elemrowowo.each(function(index) {
-
+                            
                             var karyawan_id = $(this).find('td').eq(9).text()
                             var status = $(this).find('td').eq(4).children('div.form-group').children('select.select_status').val()
                             var alasan = $(this).find('td').eq(5).children('input').val()
@@ -193,9 +191,8 @@
                             }
 
                             var tanggal = $('#tanggal_filter').val()
-                            var jam_masuk = '08:00:00'
+                            var jam_masuk = '09:00:00'
                             var jam_keluar = '18:00:00'
-
                             var form_data = new FormData();
 
                             form_data.append('karyawan_id', karyawan_id)
@@ -218,7 +215,6 @@
                                     console.log(dt.msg + ' | ' + dt.msgscnd)
                                 }
                             });
-
                             if (index === elemrowowo.length -1) resolve();
                             
                         })

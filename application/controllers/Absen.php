@@ -163,8 +163,6 @@ class Absen extends CI_Controller
         );
 
         echo json_encode($arr);
-
-        //everything works fine, but kinda hard handling the error triggered by this function... ugh!
     }
 
 }
