@@ -32,7 +32,7 @@
 		<th>User Penginput</th>
 		<th>Tanggal Request</th>
 		<th>Categori Request</th>
-		<th>Keterangan</th>
+		<th>Berita Acara</th>
 		<th>Action</th>
             </tr></thead><tbody><?php $no = 1;
             foreach ($request_form_data as $request_form)

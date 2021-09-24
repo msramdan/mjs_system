@@ -2,7 +2,7 @@
 <div class="col-xl-12 ui-sortable">
 <div class="panel panel-inverse" data-sortable-id="form-stuff-1" data-init="true">
 <div class="panel-heading ui-sortable-handle">
-<h4 class="panel-title">Dokumen Read</h4>
+<h4 class="panel-title">Cuti Read</h4>
 <div class="panel-heading-btn">
 <a href="javascript:;" class="btn btn-xs btn-icon btn-default" data-toggle="panel-expand" data-bs-original-title="" title="" data-tooltip-init="true"><i class="fa fa-expand"></i></a>
 <a href="javascript:;" class="btn btn-xs btn-icon btn-success" data-toggle="panel-reload"><i class="fa fa-redo"></i></a>
@@ -12,18 +12,19 @@
 </div>
 <div class="panel-body">
 <table id="data-table-default" class="table table-hover table-bordered table-td-valign-middle">
-	    <tr><td>Nama Dokumen</td><td><?php echo $nama_dokumen; ?></td></tr>
-	    <tr><td>Tgl Pembuatan</td><td><?php echo $tgl_pembuatan; ?></td></tr>
-	    <tr><td>Tgl Expired</td><td><?php echo $tgl_expired; ?></td></tr>
-	    <tr><td>Tempat Pembuatan</td><td><?php echo $tempat_pembuatan; ?></td></tr>
-	    <tr><td>Berkas Dokumen</td>
+	    <tr><td>Karyawan</td><td><?php echo $nama_karyawan; ?></td></tr>
+	    <tr><td>Tanggal</td><td><?php echo $tanggal; ?></td></tr>
+	    <tr><td>Alasan</td><td><?php echo $alasan; ?></td></tr>
+	    <tr><td>File Attachment</td>
 	    	<td>
-	    		<iframe  src="<?php echo base_url().'/assets/assets/img/dokumen/'.$berkas_dokumen ?>" width="100%" height="400"></iframe >
+	    		<iframe  src="<?php echo base_url().'/assets/assets/img/absen/'.$photo ?>" width="100%" height="350"></iframe >
 	    	</td>
 	   	</tr>
-	    <tr><td></td><td><a href="<?php echo site_url('dokumen') ?>" class="btn btn-default">Cancel</a></td></tr>
+
+	    <tr><td>Status Cuti</td><td><?php echo $status_cuti; ?></td></tr>
+	    <tr><td></td><td><a href="<?php echo site_url('cuti') ?>" class="btn btn-default">Cancel</a></td></tr>
 	</table>
 			</div>
         </div>
     </div>
-</div>
+</div>x

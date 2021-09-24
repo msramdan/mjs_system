@@ -44,7 +44,7 @@
 			<td><?php echo $request_queue->nama_user ?></td>
 			<td><?php echo $request_queue->tanggal_request ?></td>
 			<td><?php echo $request_queue->request ?></td>
-			<td><?php echo $request_queue->keterangan ?></td>
+			<td style="text-align: justify;"><?php echo substr($request_queue->keterangan,0,200) ?></td>
 			<td style="text-align:center" width="200px">
 				<?php 
 				echo anchor(site_url('request_queue/read/'.encrypt_url($request_queue->request_form_id)),'<i class="fas fa-eye" aria-hidden="true"></i>','class="btn btn-success btn-sm read_data"'); 
