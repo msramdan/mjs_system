@@ -7,7 +7,7 @@ class Coa_model extends CI_Model
 {
 
     public $table = 'coa';
-    public $id = 'category_id';
+    public $id = 'coa_id';
     public $order = 'DESC';
 
     function __construct()
@@ -31,9 +31,9 @@ class Coa_model extends CI_Model
     
     // get total rows
     function total_rows($q = NULL) {
-        $this->db->like('category_id', $q);
-	$this->db->or_like('category_name', $q);
-	$this->db->or_like('parent_category_id', $q);
+        $this->db->like('coa_id', $q);
+	$this->db->or_like('coa_name', $q);
+	$this->db->or_like('parent_coa_id', $q);
 	$this->db->from($this->table);
         return $this->db->count_all_results();
     }
