@@ -176,11 +176,11 @@ class Item extends CI_Controller
 	$this->form_validation->set_rules('kd_internal_item', 'kd internal item', 'trim|required');
 	$this->form_validation->set_rules('kd_external_item', 'kd external item', 'trim|required');
 	$this->form_validation->set_rules('nama_item', 'nama item', 'trim|required');
-	$this->form_validation->set_rules('kategori_id', 'kategori id', 'trim|required');
+	$this->form_validation->set_rules('kategori_id', 'Nama kategori', 'trim|required');
+    $this->form_validation->set_rules('type', 'Type', 'trim|required');
 	$this->form_validation->set_rules('unit_id', 'unit id', 'trim|required');
 	$this->form_validation->set_rules('deskripsi', 'deskripsi', 'trim|required');
 	$this->form_validation->set_rules('estimasi_harga', 'estimasi harga', 'trim|required');
-
 	$this->form_validation->set_rules('item_id', 'item_id', 'trim');
 	$this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');
     }

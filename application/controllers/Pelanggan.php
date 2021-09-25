@@ -3,13 +3,13 @@
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
-class Supplier extends CI_Controller
+class Pelanggan extends CI_Controller
 {
     function __construct()
     {
         parent::__construct();
         is_login();
-        $this->load->model('Supplier_model');
+        $this->load->model('Pelanggan_model');
         $this->load->model('Setting_app_model');
         $this->load->library('form_validation');
     }
@@ -17,24 +17,24 @@ class Supplier extends CI_Controller
     public function index()
     {
         is_allowed($this->uri->segment(1),null);
-        $supplier = $this->Supplier_model->get_all();
+        $pelanggan = $this->Pelanggan_model->get_all();
         $data = array(
-            'supplier_data' => $supplier,
+            'pelanggan_data' => $pelanggan,
             'sett_apps' =>$this->Setting_app_model->get_by_id(1),
         );
-        $this->template->load('template','supplier/supplier_list', $data);
+        $this->template->load('template','pelanggan/pelanggan_list', $data);
     }
 
     public function read($id) 
     {
         is_allowed($this->uri->segment(1),'read');
-        $row = $this->Supplier_model->get_by_id(decrypt_url($id));
+        $row = $this->Pelanggan_model->get_by_id(decrypt_url($id));
         if ($row) {
             $data = array(
-		'supplier_id' => $row->supplier_id,
+		'pelangan_id' => $row->pelangan_id,
         'sett_apps' =>$this->Setting_app_model->get_by_id(1),
-		'kode_supplier' => $row->kode_supplier,
-		'nama_supplier' => $row->nama_supplier,
+		'kode_pelanggan' => $row->kode_pelanggan,
+		'nama_pelanggan' => $row->nama_pelanggan,
 		'alamat' => $row->alamat,
 		'kota' => $row->kota,
 		'provinsi' => $row->provinsi,
@@ -45,10 +45,10 @@ class Supplier extends CI_Controller
 		'halaman_web' => $row->halaman_web,
 		'catatan' => $row->catatan,
 	    );
-            $this->template->load('template','supplier/supplier_read', $data);
+            $this->template->load('template','pelanggan/pelanggan_read', $data);
         } else {
             $this->session->set_flashdata('error', 'Record Not Found');
-            redirect(site_url('supplier'));
+            redirect(site_url('pelanggan'));
         }
     }
 
@@ -58,10 +58,10 @@ class Supplier extends CI_Controller
         $data = array(
             'button' => 'Create',
             'sett_apps' =>$this->Setting_app_model->get_by_id(1),
-            'action' => site_url('supplier/create_action'),
-	    'supplier_id' => set_value('supplier_id'),
-	    'kode_supplier' => set_value('kode_supplier'),
-	    'nama_supplier' => set_value('nama_supplier'),
+            'action' => site_url('pelanggan/create_action'),
+	    'pelangan_id' => set_value('pelangan_id'),
+	    'kode_pelanggan' => set_value('kode_pelanggan'),
+	    'nama_pelanggan' => set_value('nama_pelanggan'),
 	    'alamat' => set_value('alamat'),
 	    'kota' => set_value('kota'),
 	    'provinsi' => set_value('provinsi'),
@@ -72,7 +72,7 @@ class Supplier extends CI_Controller
 	    'halaman_web' => set_value('halaman_web'),
 	    'catatan' => set_value('catatan'),
 	);
-        $this->template->load('template','supplier/supplier_form', $data);
+        $this->template->load('template','pelanggan/pelanggan_form', $data);
     }
     
     public function create_action() 
@@ -84,8 +84,8 @@ class Supplier extends CI_Controller
             $this->create();
         } else {
             $data = array(
-		'kode_supplier' => $this->input->post('kode_supplier',TRUE),
-		'nama_supplier' => $this->input->post('nama_supplier',TRUE),
+		'kode_pelanggan' => $this->input->post('kode_pelanggan',TRUE),
+		'nama_pelanggan' => $this->input->post('nama_pelanggan',TRUE),
 		'alamat' => $this->input->post('alamat',TRUE),
 		'kota' => $this->input->post('kota',TRUE),
 		'provinsi' => $this->input->post('provinsi',TRUE),
@@ -97,25 +97,25 @@ class Supplier extends CI_Controller
 		'catatan' => $this->input->post('catatan',TRUE),
 	    );
 
-            $this->Supplier_model->insert($data);
+            $this->Pelanggan_model->insert($data);
             $this->session->set_flashdata('message', 'Create Record Success');
-            redirect(site_url('supplier'));
+            redirect(site_url('pelanggan'));
         }
     }
     
     public function update($id) 
     {
         is_allowed($this->uri->segment(1),'update');
-        $row = $this->Supplier_model->get_by_id(decrypt_url($id));
+        $row = $this->Pelanggan_model->get_by_id(decrypt_url($id));
 
         if ($row) {
             $data = array(
                 'button' => 'Update',
                 'sett_apps' =>$this->Setting_app_model->get_by_id(1),
-                'action' => site_url('supplier/update_action'),
-		'supplier_id' => set_value('supplier_id', $row->supplier_id),
-		'kode_supplier' => set_value('kode_supplier', $row->kode_supplier),
-		'nama_supplier' => set_value('nama_supplier', $row->nama_supplier),
+                'action' => site_url('pelanggan/update_action'),
+		'pelangan_id' => set_value('pelangan_id', $row->pelangan_id),
+		'kode_pelanggan' => set_value('kode_pelanggan', $row->kode_pelanggan),
+		'nama_pelanggan' => set_value('nama_pelanggan', $row->nama_pelanggan),
 		'alamat' => set_value('alamat', $row->alamat),
 		'kota' => set_value('kota', $row->kota),
 		'provinsi' => set_value('provinsi', $row->provinsi),
@@ -126,10 +126,10 @@ class Supplier extends CI_Controller
 		'halaman_web' => set_value('halaman_web', $row->halaman_web),
 		'catatan' => set_value('catatan', $row->catatan),
 	    );
-            $this->template->load('template','supplier/supplier_form', $data);
+            $this->template->load('template','pelanggan/pelanggan_form', $data);
         } else {
             $this->session->set_flashdata('error', 'Record Not Found');
-            redirect(site_url('supplier'));
+            redirect(site_url('pelanggan'));
         }
     }
     
@@ -139,11 +139,11 @@ class Supplier extends CI_Controller
         $this->_rules();
 
         if ($this->form_validation->run() == FALSE) {
-            $this->update($this->input->post('supplier_id', TRUE));
+            $this->update($this->input->post('pelangan_id', TRUE));
         } else {
             $data = array(
-		'kode_supplier' => $this->input->post('kode_supplier',TRUE),
-		'nama_supplier' => $this->input->post('nama_supplier',TRUE),
+		'kode_pelanggan' => $this->input->post('kode_pelanggan',TRUE),
+		'nama_pelanggan' => $this->input->post('nama_pelanggan',TRUE),
 		'alamat' => $this->input->post('alamat',TRUE),
 		'kota' => $this->input->post('kota',TRUE),
 		'provinsi' => $this->input->post('provinsi',TRUE),
@@ -155,42 +155,42 @@ class Supplier extends CI_Controller
 		'catatan' => $this->input->post('catatan',TRUE),
 	    );
 
-            $this->Supplier_model->update($this->input->post('supplier_id', TRUE), $data);
+            $this->Pelanggan_model->update($this->input->post('pelangan_id', TRUE), $data);
             $this->session->set_flashdata('message', 'Update Record Success');
-            redirect(site_url('supplier'));
+            redirect(site_url('pelanggan'));
         }
     }
     
     public function delete($id) 
     {
         is_allowed($this->uri->segment(1),'delete');
-        $row = $this->Supplier_model->get_by_id(decrypt_url($id));
+        $row = $this->Pelanggan_model->get_by_id(decrypt_url($id));
 
         if ($row) {
-            $this->Supplier_model->delete(decrypt_url($id));
+            $this->Pelanggan_model->delete(decrypt_url($id));
             $this->session->set_flashdata('message', 'Delete Record Success');
-            redirect(site_url('supplier'));
+            redirect(site_url('pelanggan'));
         } else {
             $this->session->set_flashdata('error', 'Record Not Found');
-            redirect(site_url('supplier'));
+            redirect(site_url('pelanggan'));
         }
     }
 
     public function _rules() 
     {
-	$this->form_validation->set_rules('kode_supplier', 'kode supplier', 'trim|required');
-	$this->form_validation->set_rules('nama_supplier', 'nama supplier', 'trim|required');
-	$this->form_validation->set_rules('alamat', 'alamat', 'trim|required');
-	$this->form_validation->set_rules('kota', 'kota', 'trim|required');
-	$this->form_validation->set_rules('provinsi', 'provinsi', 'trim|required');
-	$this->form_validation->set_rules('kode_pos', 'kode pos', 'trim|required');
-	$this->form_validation->set_rules('telepon', 'telepon', 'trim|required');
-	$this->form_validation->set_rules('personal_kontak', 'personal kontak', 'trim|required');
-	$this->form_validation->set_rules('email', 'email', 'trim|required');
-	$this->form_validation->set_rules('halaman_web', 'halaman web', 'trim|required');
-	$this->form_validation->set_rules('catatan', 'catatan', 'trim|required');
+	$this->form_validation->set_rules('kode_pelanggan', 'kode pelanggan', 'trim|required');
+	$this->form_validation->set_rules('nama_pelanggan', 'nama pelanggan', 'trim|required');
+	// $this->form_validation->set_rules('alamat', 'alamat', 'trim|required');
+	// $this->form_validation->set_rules('kota', 'kota', 'trim|required');
+	// $this->form_validation->set_rules('provinsi', 'provinsi', 'trim|required');
+	// $this->form_validation->set_rules('kode_pos', 'kode pos', 'trim|required');
+	// $this->form_validation->set_rules('telepon', 'telepon', 'trim|required');
+	// $this->form_validation->set_rules('personal_kontak', 'personal kontak', 'trim|required');
+	// $this->form_validation->set_rules('email', 'email', 'trim|required');
+	// $this->form_validation->set_rules('halaman_web', 'halaman web', 'trim|required');
+	// $this->form_validation->set_rules('catatan', 'catatan', 'trim|required');
 
-	$this->form_validation->set_rules('supplier_id', 'supplier_id', 'trim');
+	$this->form_validation->set_rules('pelangan_id', 'pelangan_id', 'trim');
 	$this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');
     }
 
@@ -198,8 +198,8 @@ class Supplier extends CI_Controller
     {
         is_allowed($this->uri->segment(1),'read');
         $this->load->helper('exportexcel');
-        $namaFile = "supplier.xls";
-        $judul = "supplier";
+        $namaFile = "pelanggan.xls";
+        $judul = "pelanggan";
         $tablehead = 0;
         $tablebody = 1;
         $nourut = 1;
@@ -217,8 +217,8 @@ class Supplier extends CI_Controller
 
         $kolomhead = 0;
         xlsWriteLabel($tablehead, $kolomhead++, "No");
-	xlsWriteLabel($tablehead, $kolomhead++, "Kode Supplier");
-	xlsWriteLabel($tablehead, $kolomhead++, "Nama Supplier");
+	xlsWriteLabel($tablehead, $kolomhead++, "Kode Pelanggan");
+	xlsWriteLabel($tablehead, $kolomhead++, "Nama Pelanggan");
 	xlsWriteLabel($tablehead, $kolomhead++, "Alamat");
 	xlsWriteLabel($tablehead, $kolomhead++, "Kota");
 	xlsWriteLabel($tablehead, $kolomhead++, "Provinsi");
@@ -229,13 +229,13 @@ class Supplier extends CI_Controller
 	xlsWriteLabel($tablehead, $kolomhead++, "Halaman Web");
 	xlsWriteLabel($tablehead, $kolomhead++, "Catatan");
 
-	foreach ($this->Supplier_model->get_all() as $data) {
+	foreach ($this->Pelanggan_model->get_all() as $data) {
             $kolombody = 0;
 
             //ubah xlsWriteLabel menjadi xlsWriteNumber untuk kolom numeric
             xlsWriteNumber($tablebody, $kolombody++, $nourut);
-	    xlsWriteLabel($tablebody, $kolombody++, $data->kode_supplier);
-	    xlsWriteLabel($tablebody, $kolombody++, $data->nama_supplier);
+	    xlsWriteLabel($tablebody, $kolombody++, $data->kode_pelanggan);
+	    xlsWriteLabel($tablebody, $kolombody++, $data->nama_pelanggan);
 	    xlsWriteLabel($tablebody, $kolombody++, $data->alamat);
 	    xlsWriteLabel($tablebody, $kolombody++, $data->kota);
 	    xlsWriteLabel($tablebody, $kolombody++, $data->provinsi);
@@ -256,8 +256,8 @@ class Supplier extends CI_Controller
 
 }
 
-/* End of file Supplier.php */
-/* Location: ./application/controllers/Supplier.php */
+/* End of file Pelanggan.php */
+/* Location: ./application/controllers/Pelanggan.php */
 /* Please DO NOT modify this information : */
-/* Generated by Harviacode Codeigniter CRUD Generator 2021-09-25 18:14:26 */
+/* Generated by Harviacode Codeigniter CRUD Generator 2021-09-25 16:31:48 */
 /* http://harviacode.com */
