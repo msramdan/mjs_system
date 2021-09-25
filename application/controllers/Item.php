@@ -41,8 +41,7 @@ class Item extends CI_Controller
 		'kategori_id' => $row->kategori_id,
 		'unit_id' => $row->unit_id,
 		'deskripsi' => $row->deskripsi,
-		'can_be_sold' => $row->can_be_sold,
-		'can_be_purchased' => $row->can_be_purchased,
+        'type' => $row->type,
 		'estimasi_harga' => $row->estimasi_harga,
 		'stok' => $row->stok,
 	    );
@@ -70,8 +69,7 @@ class Item extends CI_Controller
 	    'kategori_id' => set_value('kategori_id'),
 	    'unit_id' => set_value('unit_id'),
 	    'deskripsi' => set_value('deskripsi'),
-	    'can_be_sold' => set_value('can_be_sold'),
-	    'can_be_purchased' => set_value('can_be_purchased'),
+        'type' => set_value('type'),
 	    'estimasi_harga' => set_value('estimasi_harga'),
 	    'stok' => set_value('stok'),
 	);
@@ -93,8 +91,7 @@ class Item extends CI_Controller
 		'kategori_id' => $this->input->post('kategori_id',TRUE),
 		'unit_id' => $this->input->post('unit_id',TRUE),
 		'deskripsi' => $this->input->post('deskripsi',TRUE),
-		'can_be_sold' => $this->input->post('can_be_sold',TRUE),
-		'can_be_purchased' => $this->input->post('can_be_purchased',TRUE),
+        'type' => $this->input->post('type',TRUE),
 		'estimasi_harga' => $this->input->post('estimasi_harga',TRUE),
 	    );
 
@@ -122,9 +119,8 @@ class Item extends CI_Controller
 		'nama_item' => set_value('nama_item', $row->nama_item),
 		'kategori_id' => set_value('kategori_id', $row->kategori_id),
 		'unit_id' => set_value('unit_id', $row->unit_id),
+        'type' => set_value('type', $row->type),
 		'deskripsi' => set_value('deskripsi', $row->deskripsi),
-		'can_be_sold' => set_value('can_be_sold', $row->can_be_sold),
-		'can_be_purchased' => set_value('can_be_purchased', $row->can_be_purchased),
 		'estimasi_harga' => set_value('estimasi_harga', $row->estimasi_harga),
 		'stok' => set_value('stok', $row->stok),
 	    );
@@ -150,8 +146,7 @@ class Item extends CI_Controller
 		'kategori_id' => $this->input->post('kategori_id',TRUE),
 		'unit_id' => $this->input->post('unit_id',TRUE),
 		'deskripsi' => $this->input->post('deskripsi',TRUE),
-		'can_be_sold' => $this->input->post('can_be_sold',TRUE),
-		'can_be_purchased' => $this->input->post('can_be_purchased',TRUE),
+        'type' => $this->input->post('type',TRUE),
 		'estimasi_harga' => $this->input->post('estimasi_harga',TRUE),
 	    );
 
@@ -184,8 +179,6 @@ class Item extends CI_Controller
 	$this->form_validation->set_rules('kategori_id', 'kategori id', 'trim|required');
 	$this->form_validation->set_rules('unit_id', 'unit id', 'trim|required');
 	$this->form_validation->set_rules('deskripsi', 'deskripsi', 'trim|required');
-	// $this->form_validation->set_rules('can_be_sold', 'can be sold', 'trim|required');
-	// $this->form_validation->set_rules('can_be_purchased', 'can be purchased', 'trim|required');
 	$this->form_validation->set_rules('estimasi_harga', 'estimasi harga', 'trim|required');
 
 	$this->form_validation->set_rules('item_id', 'item_id', 'trim');
@@ -221,8 +214,6 @@ class Item extends CI_Controller
 	xlsWriteLabel($tablehead, $kolomhead++, "Kategori Id");
 	xlsWriteLabel($tablehead, $kolomhead++, "Unit Id");
 	xlsWriteLabel($tablehead, $kolomhead++, "Deskripsi");
-	xlsWriteLabel($tablehead, $kolomhead++, "Can Be Sold");
-	xlsWriteLabel($tablehead, $kolomhead++, "Can Be Purchased");
 	xlsWriteLabel($tablehead, $kolomhead++, "Estimasi Harga");
 	xlsWriteLabel($tablehead, $kolomhead++, "Stok");
 
@@ -237,8 +228,6 @@ class Item extends CI_Controller
 	    xlsWriteNumber($tablebody, $kolombody++, $data->kategori_id);
 	    xlsWriteNumber($tablebody, $kolombody++, $data->unit_id);
 	    xlsWriteLabel($tablebody, $kolombody++, $data->deskripsi);
-	    xlsWriteLabel($tablebody, $kolombody++, $data->can_be_sold);
-	    xlsWriteLabel($tablebody, $kolombody++, $data->can_be_purchased);
 	    xlsWriteNumber($tablebody, $kolombody++, $data->estimasi_harga);
 	    xlsWriteNumber($tablebody, $kolombody++, $data->stok);
 

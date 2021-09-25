@@ -34,26 +34,43 @@
 	    <tr>
             <td >Kategori <?php echo form_error('kategori_id') ?></td>
             <td><select name="kategori_id" class="form-control">
-                <option value="">-- Pilih -- </option>
+                <option style="color: black" value="">-- Pilih -- </option>
                 <?php foreach ($kategori as $key => $data) { ?>
                   <?php if ($kategori_id == $data->kategori_id) { ?>
-                    <option value="<?php echo $data->kategori_id ?>" selected><?php echo $data->nama_kategori ?></option>
+                    <option style="color: black" value="<?php echo $data->kategori_id ?>" selected><?php echo $data->nama_kategori ?></option>
                   <?php } else { ?>
-                    <option value="<?php echo $data->kategori_id ?>"><?php echo $data->nama_kategori ?></option>
+                    <option style="color: black" value="<?php echo $data->kategori_id ?>"><?php echo $data->nama_kategori ?></option>
                   <?php } ?>
                 <?php } ?>
               </select></td>
           </tr>
 
+        <tr><td>Type <?php echo form_error('type') ?></td>
+        <td>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" id="type1" name="type" value="Persediaan" <?php echo $type == 'Persediaan' ? 'checked' : 'null' ?>>
+            <label class="form-check-label" for="type1">Persediaan</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" id="type2" name="type" value="Non Persediaan" <?php echo $type == 'Non Persediaan' ? 'checked' : 'null' ?>>
+            <label class="form-check-label" for="type2">Non Persediaan</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" id="type3" name="type" value="Service" <?php echo $type == 'Service' ? 'checked' : 'null' ?>>
+            <label class="form-check-label" for="type3">Service</label>
+          </div>
+        </td>
+      </tr>
+
          <tr>
             <td >Unit <?php echo form_error('unit_id') ?></td>
             <td><select name="unit_id" class="form-control">
-                <option value="">-- Pilih -- </option>
+                <option style="color: black" value="">-- Pilih -- </option>
                 <?php foreach ($unit as $key => $data) { ?>
                   <?php if ($unit_id == $data->unit_id) { ?>
-                    <option value="<?php echo $data->unit_id ?>" selected><?php echo $data->nama_unit ?></option>
+                    <option style="color: black" value="<?php echo $data->unit_id ?>" selected><?php echo $data->nama_unit ?></option>
                   <?php } else { ?>
-                    <option value="<?php echo $data->unit_id ?>"><?php echo $data->nama_unit ?></option>
+                    <option style="color: black" value="<?php echo $data->unit_id ?>"><?php echo $data->nama_unit ?></option>
                   <?php } ?>
                 <?php } ?>
               </select></td>
@@ -64,41 +81,6 @@
       <input type="text" class="form-control" name="estimasi_harga_txt" id="estimasi_harga_txt" placeholder="Estimasi Harga Text" value="<?php echo $estimasi_harga; ?>" />
     </td></tr>
 
-	    <tr><td ></td><td>
-	    	<?php if ($button=='Create') { ?>
-                    <div class="form-group ">
-                  <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="can_be_sold" value="Y" name="can_be_sold">
-                    <label class="form-check-label" for="can_be_sold">Can be Sold</label>
-                  </div>
-                  <div class="form-check form-check-inline" style="">
-                    <input class="form-check-input" type="checkbox" id="can_be_purchased" value="Y" name="can_be_purchased">
-                    <label class="form-check-label" for="can_be_purchased">Can be Purchased</label>
-                  </div>
-                </div>
-                  <?php }else{ ?>
-                  <div class="form-group ">
-                  <div class="form-check form-check-inline">
-                    <?php if ($can_be_sold=='Y') { ?>
-                      <input class="form-check-input" type="checkbox" id="can_be_sold" value="Y" name="can_be_sold" checked ="checked">
-                    <?php }else{ ?>
-                      <input class="form-check-input" type="checkbox" id="can_be_sold" value="Y" name="can_be_sold" >
-                    <?php } ?>
-                    
-                    <label class="form-check-label" for="can_be_sold">Can be Sold</label>
-                  </div>
-                  <div class="form-check form-check-inline" style="">
-                    <?php if ($can_be_purchased=='Y') { ?>
-                      <input class="form-check-input" type="checkbox" id="can_be_purchased" value="Y" name="can_be_purchased" checked ="checked">
-                    <?php }else{ ?>
-                      <input class="form-check-input" type="checkbox" id="can_be_purchased" value="Y" name="can_be_purchased" >
-                    <?php } ?>
-                    <label class="form-check-label" for="can_be_purchased">Can be Purchased</label>
-                  </div>
-                </div>
-                  <?php } ?>
-                  
-	    </td></tr>
 
 
 
