@@ -43,11 +43,11 @@
 			<td><?php echo $pelanggan->telepon ?></td>
 			<td style="text-align:center" width="200px">
 				<?php 
-				echo anchor(site_url('pelanggan/read/'.encrypt_url($pelanggan->pelangan_id)),'<i class="fas fa-eye" aria-hidden="true"></i>','class="btn btn-success btn-sm read_data"'); 
+				echo anchor(site_url('pelanggan/read/'.encrypt_url($pelanggan->pelanggan_id)),'<i class="fas fa-eye" aria-hidden="true"></i>','class="btn btn-success btn-sm read_data"'); 
 				echo '  '; 
-				echo anchor(site_url('pelanggan/update/'.encrypt_url($pelanggan->pelangan_id)),'<i class="fas fa-pencil-alt" aria-hidden="true"></i>','class="btn btn-primary btn-sm update_data"'); 
+				echo anchor(site_url('pelanggan/update/'.encrypt_url($pelanggan->pelanggan_id)),'<i class="fas fa-pencil-alt" aria-hidden="true"></i>','class="btn btn-primary btn-sm update_data"'); 
 				echo '  '; 
-				echo anchor(site_url('pelanggan/delete/'.encrypt_url($pelanggan->pelangan_id)),'<i class="fas fa-trash-alt" aria-hidden="true"></i>','class="btn btn-danger btn-sm delete_data" Delete','onclick="javasciprt: return confirm(\'Are You Sure ?\')"'); 
+				echo anchor(site_url('pelanggan/delete/'.encrypt_url($pelanggan->pelanggan_id)),'<i class="fas fa-trash-alt" aria-hidden="true"></i>','class="btn btn-danger btn-sm delete_data" Delete','onclick="javasciprt: return confirm(\'Are You Sure ?\')"'); 
 				?>
 			</td>
 		</tr>
@@ -96,3 +96,4 @@
                     $('.delete_data').css('display','none')
             </script>
         <?php } ?>
+

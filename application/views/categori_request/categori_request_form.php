@@ -23,7 +23,9 @@
 	    <button type="submit" class="btn btn-danger"><i class="fas fa-save"></i> <?php echo $button ?></button> 
 	    <a href="<?php echo site_url('categori_request') ?>" class="btn btn-info"><i class="fas fa-undo"></i> Kembali</a></td></tr>
 </thead>
-	</table></form>        </div>
+	</table>
+
+</form>        </div>
 </div>
 </div>
 </div>

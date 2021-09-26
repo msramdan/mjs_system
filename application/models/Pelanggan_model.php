@@ -7,7 +7,7 @@ class Pelanggan_model extends CI_Model
 {
 
     public $table = 'pelanggan';
-    public $id = 'pelangan_id';
+    public $id = 'pelanggan_id';
     public $order = 'DESC';
 
     function __construct()
@@ -31,7 +31,7 @@ class Pelanggan_model extends CI_Model
     
     // get total rows
     function total_rows($q = NULL) {
-        $this->db->like('pelangan_id', $q);
+        $this->db->like('pelanggan_id', $q);
 	$this->db->or_like('kode_pelanggan', $q);
 	$this->db->or_like('nama_pelanggan', $q);
 	$this->db->or_like('alamat', $q);

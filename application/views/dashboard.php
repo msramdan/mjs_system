@@ -1,10 +1,10 @@
 <div id="content" class="app-content">
 <audio id="audio" style="display: none;" controls allow="autoplay"><source src="<?= base_url() ?>assets/assets/audio/popup.ogg" type="audio/mpeg"></audio>
 
-<h1 class="page-header">Dashboard v2 <small>header small text goes here...</small></h1>
+<h1 class="page-header">Halaman Dashboard</h1>
 
 
-<div class="row">
+<!-- <div class="row">
 
 
 <div class="col-xl-3 col-md-6">
@@ -281,7 +281,7 @@ Clay Hike
 
 </div>
 
-</div>
+</div> -->
 
 <script type="text/javascript">
 function autoplay(){

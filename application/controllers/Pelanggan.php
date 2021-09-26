@@ -31,7 +31,7 @@ class Pelanggan extends CI_Controller
         $row = $this->Pelanggan_model->get_by_id(decrypt_url($id));
         if ($row) {
             $data = array(
-		'pelangan_id' => $row->pelangan_id,
+		'pelanggan_id' => $row->pelanggan_id,
         'sett_apps' =>$this->Setting_app_model->get_by_id(1),
 		'kode_pelanggan' => $row->kode_pelanggan,
 		'nama_pelanggan' => $row->nama_pelanggan,
@@ -59,7 +59,7 @@ class Pelanggan extends CI_Controller
             'button' => 'Create',
             'sett_apps' =>$this->Setting_app_model->get_by_id(1),
             'action' => site_url('pelanggan/create_action'),
-	    'pelangan_id' => set_value('pelangan_id'),
+	    'pelanggan_id' => set_value('pelanggan_id'),
 	    'kode_pelanggan' => set_value('kode_pelanggan'),
 	    'nama_pelanggan' => set_value('nama_pelanggan'),
 	    'alamat' => set_value('alamat'),
@@ -113,7 +113,7 @@ class Pelanggan extends CI_Controller
                 'button' => 'Update',
                 'sett_apps' =>$this->Setting_app_model->get_by_id(1),
                 'action' => site_url('pelanggan/update_action'),
-		'pelangan_id' => set_value('pelangan_id', $row->pelangan_id),
+		'pelanggan_id' => set_value('pelanggan_id', $row->pelanggan_id),
 		'kode_pelanggan' => set_value('kode_pelanggan', $row->kode_pelanggan),
 		'nama_pelanggan' => set_value('nama_pelanggan', $row->nama_pelanggan),
 		'alamat' => set_value('alamat', $row->alamat),
@@ -139,7 +139,7 @@ class Pelanggan extends CI_Controller
         $this->_rules();
 
         if ($this->form_validation->run() == FALSE) {
-            $this->update($this->input->post('pelangan_id', TRUE));
+            $this->update($this->input->post('pelanggan_id', TRUE));
         } else {
             $data = array(
 		'kode_pelanggan' => $this->input->post('kode_pelanggan',TRUE),
@@ -155,7 +155,7 @@ class Pelanggan extends CI_Controller
 		'catatan' => $this->input->post('catatan',TRUE),
 	    );
 
-            $this->Pelanggan_model->update($this->input->post('pelangan_id', TRUE), $data);
+            $this->Pelanggan_model->update($this->input->post('pelanggan_id', TRUE), $data);
             $this->session->set_flashdata('message', 'Update Record Success');
             redirect(site_url('pelanggan'));
         }
@@ -190,7 +190,7 @@ class Pelanggan extends CI_Controller
 	// $this->form_validation->set_rules('halaman_web', 'halaman web', 'trim|required');
 	// $this->form_validation->set_rules('catatan', 'catatan', 'trim|required');
 
-	$this->form_validation->set_rules('pelangan_id', 'pelangan_id', 'trim');
+	$this->form_validation->set_rules('pelanggan_id', 'pelanggan_id', 'trim');
 	$this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');
     }
 
