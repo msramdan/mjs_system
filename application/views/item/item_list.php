@@ -31,10 +31,9 @@
 		<th>Kode Internal</th>
 		<th>Kode External</th>
 		<th>Nama Item</th>
+        <th>Type</th>
 		<th>Kategori</th>
 		<th>Unit</th>
-		<th>Can Be Sold</th>
-		<th>Can Be Purchased</th>
 		<th>Estimasi Harga</th>
 		<th>Stok</th>
 		<th>Action</th>
@@ -47,36 +46,9 @@
 			<td><?php echo $item->kd_internal_item ?></td>
 			<td><?php echo $item->kd_external_item ?></td>
 			<td><?php echo $item->nama_item ?></td>
+            <td><?php echo $item->type ?></td>
 			<td><?php echo $item->nama_kategori ?></td>
 			<td><?php echo $item->nama_unit ?></td>
-            <!-- can be sold -->
-             <?php if ($item->can_be_sold =='Y') { ?>
-                <td>
-                    <div class="form-check mb-2">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckCheckedDisabled" checked="" disabled="">
-                    </div>
-                </td>
-            <?php }else{?>
-                <td>
-                    <div class="form-check mb-2">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDisabled" disabled="">
-                    </div>
-                </td>
-            <?php } ?>
-            <!-- can be purchased -->
-            <?php if ($item->can_be_purchased =='Y') { ?>
-                <td>
-                    <div class="form-check mb-2">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckCheckedDisabled" checked="" disabled="">
-                    </div>
-                </td>
-            <?php }else{?>
-                <td>
-                    <div class="form-check mb-2">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDisabled" disabled="">
-                    </div>
-                </td>
-            <?php } ?>
 			<td><?php echo rupiah($item->estimasi_harga) ?></td>
 			<td><?php echo $item->stok ?></td>
 			<td style="text-align:center" >

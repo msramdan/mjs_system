@@ -22,8 +22,11 @@
 	   	</tr>
 
 	    <tr><td>Status Cuti</td><td><?php echo $status_cuti; ?></td></tr>
-	    <tr><td></td><td><a href="<?php echo site_url('cuti') ?>" class="btn btn-default">Cancel</a></td></tr>
-	</table>
+	    <tr><td></td><td>
+	    	<a href="<?php echo site_url('cuti/pdf') ?>" class="btn btn-success" target="_blank"><i class="fas fa-check" aria-hidden="true"></i> Approved</a>
+	    	<a href="<?php echo site_url('cuti/pdf') ?>" class="btn btn-danger" target="_blank"><i class="fas fa-times" aria-hidden="true"></i> Disapproved</a>
+	    	<a href="<?php echo site_url('cuti') ?>" class="btn btn-default">Cancel</a></td></tr>
+</table>
 			</div>
         </div>
     </div>

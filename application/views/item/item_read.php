@@ -15,11 +15,10 @@
 	    <tr><td>Kd Internal Item</td><td><?php echo $kd_internal_item; ?></td></tr>
 	    <tr><td>Kd External Item</td><td><?php echo $kd_external_item; ?></td></tr>
 	    <tr><td>Nama Item</td><td><?php echo $nama_item; ?></td></tr>
-	    <tr><td>Kategori Id</td><td><?php echo $kategori_id; ?></td></tr>
-	    <tr><td>Unit Id</td><td><?php echo $unit_id; ?></td></tr>
+	    <tr><td>Type</td><td><?php echo $type; ?></td></tr>
+	    <tr><td>Kategori</td><td><?php echo $kategori_id; ?></td></tr>
+	    <tr><td>Unit</td><td><?php echo $unit_id; ?></td></tr>
 	    <tr><td>Deskripsi</td><td><?php echo $deskripsi; ?></td></tr>
-	    <tr><td>Can Be Sold</td><td><?php echo $can_be_sold; ?></td></tr>
-	    <tr><td>Can Be Purchased</td><td><?php echo $can_be_purchased; ?></td></tr>
 	    <tr><td>Estimasi Harga</td><td><?php echo $estimasi_harga; ?></td></tr>
 	    <tr><td>Stok</td><td><?php echo $stok; ?></td></tr>
 	    <tr><td></td><td><a href="<?php echo site_url('item') ?>" class="btn btn-default">Cancel</a></td></tr>

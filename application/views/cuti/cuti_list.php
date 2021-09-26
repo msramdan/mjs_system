@@ -108,11 +108,11 @@
 
             <?php if ($cuti->status_cuti=="Approved") { ?>
 
-                <button class="btn btn-success btn-xs" href="<?php echo base_url(); ?>cuti/download/<?php echo $cuti->photo?>"><i class="ace-icon fa fa-info"></i> <?php echo $cuti->status_cuti ?></button>
+                <button class="btn btn-success btn-xs" href="<?php echo base_url(); ?>cuti/download/<?php echo $cuti->photo?>"><i class="ace-icon fa fa-check"></i> <?php echo $cuti->status_cuti ?></button>
 
             <?php }else if ($cuti->status_cuti=="Disapprove") { ?>
 
-                <button class="btn btn-danger btn-xs" href="<?php echo base_url(); ?>cuti/download/<?php echo $cuti->photo?>"><i class="ace-icon fa fa-info"></i> <?php echo $cuti->status_cuti ?></button>
+                <button class="btn btn-danger btn-xs" href="<?php echo base_url(); ?>cuti/download/<?php echo $cuti->photo?>"><i class="ace-icon fa fa-times"></i> <?php echo $cuti->status_cuti ?></button>
 
             <?php }else{ ?>
 

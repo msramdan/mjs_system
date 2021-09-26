@@ -19,6 +19,7 @@
 <link href="<?= base_url() ?>assets/assets/plugins/nvd3/build/nv.d3.css" rel="stylesheet" />
 <link href="<?= base_url() ?>assets/assets/plugins/select-picker/dist/picker.min.css" rel="stylesheet" />
 
+<link href="<?= base_url() ?>assets//assets/plugins/jstree/dist/themes/default/style.min.css" rel="stylesheet" />
 <!-- data table -->
 <link href="<?= base_url() ?>assets/assets/plugins/datatables.net-bs4/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
 <link href="<?= base_url() ?>assets/assets/plugins/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css" rel="stylesheet" />
@@ -30,6 +31,10 @@
 <script src="<?= base_url() ?>assets/assets/js/jquery.idle.js"></script>
 <script src="<?= base_url() ?>assets/assets/js/jquery.idle.min.js"></script>
 <script src="<?= base_url() ?>assets/assets/plugins/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.all.min.js"></script>
+<script src="<?= base_url() ?>assets/assets/plugins/jstree/dist/jstree.min.js"></script>
+
+<link href="<?= base_url() ?>assets/assets/plugins/jstree/dist/themes/default/style.min.css" rel="stylesheet" />
+<script src="<?= base_url() ?>assets/assets/plugins/jstree/dist/jstree.min.js"></script>
 
   <script>
     $(document).idle({
