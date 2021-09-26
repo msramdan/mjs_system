@@ -182,7 +182,7 @@
 
                         elemrowowo.each(function(index) {
 
-                            var karyawan_id = $(this).find('td').eq(9).text()
+                            var karyawan_id = $(this).find('td').eq(9).find('input#karyawan_id').val()
                             var status = $(this).find('td').eq(4).children('div.form-group').children('select.select_status').val()
                             var alasan = $(this).find('td').eq(5).children('input').val()
                             var photo
