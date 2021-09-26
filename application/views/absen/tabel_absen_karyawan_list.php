@@ -87,7 +87,7 @@
 
                         ?>
                         <td hidden="hidden">
-                            <?php echo $karyawan->karyawan_id ?>
+                            <input type="number" name="karyawan_id" id="karyawan_id" value="<?php echo $karyawan->karyawan_id ?>">
                         </td>
                     </tr>
             <?php } ?>
