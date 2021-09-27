@@ -10,6 +10,7 @@ class Cuti extends CI_Controller
         parent::__construct();
         is_login();
         $this->load->model('Cuti_model');
+        $this->load->model('Absen_model');
         $this->load->model('Karyawan_model');
         $this->load->model('Setting_app_model');
         $this->load->library('form_validation');
@@ -159,28 +160,43 @@ class Cuti extends CI_Controller
             $this->load->library('upload',$config);
             $this->upload->initialize($config);
             if ($this->upload->do_upload("photo")) {
-            $id = $this->input->post('cuti_id');
-            $row = $this->Cuti_model->get_by_id($id);
-            $data = $this->upload->data();
-            $photo =$data['file_name'];
-            if($row->photo==null || $row->photo=='' ){
-            }else{
-            $target_file = './assets/assets/img/absen/'.$row->photo;
-            unlink($target_file);
-            }
+                $id = $this->input->post('cuti_id');
+                $row = $this->Cuti_model->get_by_id($id);
+                $data = $this->upload->data();
+                $photo =$data['file_name'];
+                if($row->photo==null || $row->photo=='' ){
+                
                 }else{
+                    $target_file = './assets/assets/img/absen/'.$row->photo;
+                    unlink($target_file);
+                }
+            }else{
                 $photo = $this->input->post('photo_lama');
             }
 
             $data = array(
-		'karyawan_id' => $this->input->post('karyawan_id',TRUE),
-		'tanggal' => $this->input->post('tanggal',TRUE),
-		'alasan' => $this->input->post('alasan',TRUE),
-		'photo' => $photo,
-		'status_cuti' => $this->input->post('status_cuti',TRUE),
-	    );
+        		'karyawan_id' => $this->input->post('karyawan_id',TRUE),
+        		'tanggal' => $this->input->post('tanggal',TRUE),
+        		'alasan' => $this->input->post('alasan',TRUE),
+        		'photo' => $photo,
+        		'status_cuti' => $this->input->post('status_cuti',TRUE),
+    	    );
 
             $this->Cuti_model->update($this->input->post('cuti_id', TRUE), $data);
+
+            if ($data['status_cuti'] == 'Approved') {
+                $data = array(
+                    'karyawan_id' => $data['karyawan_id'],
+                    'status' => 'Cuti',
+                    'alasan' => $data['alasan'],
+                    'photo' => $photo,
+                    'tanggal' => $data['tanggal'],
+                    'jam_masuk' => '09:00:00',
+                    'jam_pulang' => '18:00:00'
+                );
+                $this->Absen_model->insert($data);
+            }
+
             $this->session->set_flashdata('message', 'Update Record Success');
             redirect(site_url('cuti'));
         }

@@ -1,3 +1,5 @@
+
+<p><small><span style="color: red;">*</span> Sudah terabsen</small></p>
 <form id="form_absensi_list" method="post" enctype="multipart/form-data">
     <table id="tbl-absen-list" class="table table-bordered table-hover table-td-valign-middle text-white">
         <thead>
@@ -24,7 +26,7 @@
                         <td><?php echo $karyawan->nama_karyawan ?></td>
                         <td><?php echo $karyawan->no_hp ?></td>
                         <td style="text-align:center">
-                            <div class="form-group">
+                            <div class="form-group" style="display: flex;">
                                 <select class="form-control select_status" id="select_status" name="select_status[]" style="width: 94px;">
                                     <?php
 
@@ -32,7 +34,7 @@
 
                                     $dataKehadiran = $classnyak->get_dataKehadiran($lokasi_id, $date, $karyawan->karyawan_id);
 
-                                    $arr = ['Masuk','Sakit','Izin','Alfa'];
+                                    $arr = ['Masuk','Sakit','Izin','Alfa','Cuti'];
 
                                     foreach($arr as $l) {
                                         ?>
