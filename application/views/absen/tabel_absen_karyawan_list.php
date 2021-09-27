@@ -1,3 +1,7 @@
+
+<div class="alert alert-warning">
+    Data absen dengan tanda <span style="color: red;">*</span> pada kolom <b>Status</b> tercatat sebagai sudah terabsen
+</div>
 <form id="form_absensi_list" method="post" enctype="multipart/form-data">
     <table id="tbl-absen-list" class="table table-bordered table-hover table-td-valign-middle text-white">
         <thead>
@@ -24,7 +28,15 @@
                         <td><?php echo $karyawan->nama_karyawan ?></td>
                         <td><?php echo $karyawan->no_hp ?></td>
                         <td style="text-align:center">
-                            <div class="form-group">
+                            <div class="form-group" style="display: flex;">
+                                <?php 
+                                $cekstep2 = $classnyak->deteksiKehadiranv2($lokasi_id, $date, $karyawan->karyawan_id);
+                                if ($cekstep2 == 'ya') {
+                                    ?>
+                                    <span style="margin-right: 6px;font-size: 16px;color: red;">*</span>
+                                    <?php
+                                }
+                                ?>
                                 <select class="form-control select_status" id="select_status" name="select_status[]" style="width: 94px;">
                                     <?php
 
@@ -32,7 +44,7 @@
 
                                     $dataKehadiran = $classnyak->get_dataKehadiran($lokasi_id, $date, $karyawan->karyawan_id);
 
-                                    $arr = ['Masuk','Sakit','Izin','Alfa'];
+                                    $arr = ['Masuk','Sakit','Izin','Alfa','Cuti'];
 
                                     foreach($arr as $l) {
                                         ?>
