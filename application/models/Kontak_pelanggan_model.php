@@ -1,8 +1,8 @@
 <?php
 class Kontak_pelanggan_model extends CI_Model{
  
-    function data_list(){
-        $hasil=$this->db->query("SELECT * FROM kontak_pelanggan");
+    function data_list($pelanggan_id){
+        $hasil=$this->db->query("SELECT * FROM kontak_pelanggan where pelanggan_id='$pelanggan_id'");
         return $hasil->result();
     }
  

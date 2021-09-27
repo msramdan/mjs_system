@@ -24,7 +24,7 @@
 
               </td></tr>
 
-              <tr><td >Kode COA <?php echo form_error('kd_coa') ?></td><td><input type="number" class="form-control" name="kd_coa" id="kd_coa" placeholder="Kode COA" value="" /></td></tr>
+              <tr><td >Kode COA <?php echo form_error('kd_coa') ?></td><td><input type="text" class="form-control" name="kd_coa" id="kd_coa" placeholder="Kode COA" value="" /></td></tr>
 
               <tr><td >Nama COA <?php echo form_error('coa_name') ?></td><td><input type="text" class="form-control" name="coa_name" id="coa_name" placeholder="Nama COA" value="" /></td></tr>
 

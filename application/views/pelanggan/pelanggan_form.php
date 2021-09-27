@@ -35,12 +35,15 @@
                                                 <span class="d-sm-block d-none">Penjualan</span>
                                                 </a>
                                             </li>
-                                            <li class="nav-item">
-                                                <a href="#default-tab-3" data-bs-toggle="tab" class="nav-link">
-                                                <span class="d-sm-none">Kontak</span>
-                                                <span class="d-sm-block d-none">Kontak</span>
-                                                </a>
-                                            </li>
+                                            <?php if ($this->uri->segment(2) !=="create") { ?>
+                                                <li class="nav-item">
+                                                    <a href="#default-tab-3" data-bs-toggle="tab" class="nav-link">
+                                                    <span class="d-sm-none">Kontak</span>
+                                                    <span class="d-sm-block d-none">Kontak</span>
+                                                    </a>
+                                                </li>
+                                            <?php } ?>
+                                            
                                         </ul>
 
 
@@ -48,51 +51,51 @@
     <div class="tab-pane fade active show" id="default-tab-1">
         <div class="accordion" id="accordion">
             <div class="panel-body">
-        <div class="table-responsive">
-        <form action="<?php echo $action; ?>" method="post">
-         <table class="table table-bordered table-hover table-td-valign-middle">
-            <thead>
-                <tr><td id="tengah" >Kode Pelanggan <?php echo form_error('kode_pelanggan') ?></td><td><input type="text" class="form-control" name="kode_pelanggan" id="kode_pelanggan" placeholder="Kode Pelanggan" value="<?php echo $kode_pelanggan; ?>" /></td></tr>
-                <tr><td  id="tengah" >Nama Pelanggan* <?php echo form_error('nama_pelanggan') ?></td><td><input type="text" class="form-control" name="nama_pelanggan" id="nama_pelanggan" placeholder="Nama Pelanggan" value="<?php echo $nama_pelanggan; ?>" /></td></tr>
-                
-                <tr><td id="tengah" >Alamat <?php echo form_error('alamat') ?></td><td> <textarea class="form-control" id="wysihtml5" rows="5" name="alamat" placeholder="Alamat"><?php echo $alamat; ?></textarea></td></tr>
+                <div class="table-responsive">
+                    <form action="<?php echo $action; ?>" method="post">
+                         <table class="table table-bordered table-hover table-td-valign-middle">
+                            <thead>
+                                <tr><td id="tengah" >Kode Pelanggan <?php echo form_error('kode_pelanggan') ?></td><td><input type="text" class="form-control" name="kode_pelanggan" id="kode_pelanggan" placeholder="Kode Pelanggan" value="<?php echo $kode_pelanggan; ?>" /></td></tr>
+                                <tr><td  id="tengah" >Nama Pelanggan* <?php echo form_error('nama_pelanggan') ?></td><td><input type="text" class="form-control" name="nama_pelanggan" id="nama_pelanggan" placeholder="Nama Pelanggan" value="<?php echo $nama_pelanggan; ?>" /></td></tr>
+                                
+                                <tr><td id="tengah" >Alamat <?php echo form_error('alamat') ?></td><td> <textarea class="form-control" id="wysihtml5" rows="5" name="alamat" placeholder="Alamat"><?php echo $alamat; ?></textarea></td></tr>
 
-                <tr><td  id="tengah" >Kota / Provinsi / Kode POS</td><td>
-                    <div class="form-group">
-                    <div class="row">
-                      <div class="col-md-4">
-                        <input type="text" class="form-control" name="kota" id="kota" placeholder="Kota" value="<?php echo $kota; ?>" />
-                        <?php echo form_error('kota') ?>
-                      </div>
-                      <div class="col-md-4">
-                        <input type="text" class="form-control" name="provinsi" id="provinsi" placeholder="Provinsi" value="<?php echo $provinsi; ?>" />
-                        <?php echo form_error('provinsi') ?>
-                      </div>
-                      <div class="col-md-4">
-                        <input type="text" class="form-control" name="kode_pos" id="kode_pos" placeholder="Kode Pos" value="<?php echo $kode_pos; ?>" />
-                        <?php echo form_error('kode_pos') ?>
-                      </div>
-                    </div>
-                  </div>
-                </td></tr>
-                <tr><td  id="tengah" >Telepon <?php echo form_error('telepon') ?></td><td><input type="text" class="form-control" name="telepon" id="telepon" placeholder="Telepon" value="<?php echo $telepon; ?>" /></td></tr>
+                                <tr><td  id="tengah" >Kota / Provinsi / Kode POS</td><td>
+                                    <div class="form-group">
+                                    <div class="row">
+                                      <div class="col-md-4">
+                                        <input type="text" class="form-control" name="kota" id="kota" placeholder="Kota" value="<?php echo $kota; ?>" />
+                                        <?php echo form_error('kota') ?>
+                                      </div>
+                                      <div class="col-md-4">
+                                        <input type="text" class="form-control" name="provinsi" id="provinsi" placeholder="Provinsi" value="<?php echo $provinsi; ?>" />
+                                        <?php echo form_error('provinsi') ?>
+                                      </div>
+                                      <div class="col-md-4">
+                                        <input type="text" class="form-control" name="kode_pos" id="kode_pos" placeholder="Kode Pos" value="<?php echo $kode_pos; ?>" />
+                                        <?php echo form_error('kode_pos') ?>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </td></tr>
+                                <tr><td  id="tengah" >Telepon <?php echo form_error('telepon') ?></td><td><input type="text" class="form-control" name="telepon" id="telepon" placeholder="Telepon" value="<?php echo $telepon; ?>" /></td></tr>
 
-                <tr><td  id="tengah" >Personal Kontak <?php echo form_error('personal_kontak') ?></td><td><input type="text" class="form-control" name="personal_kontak" id="personal_kontak" placeholder="Personal Kontak" value="<?php echo $personal_kontak; ?>" /></td></tr>
+                                <tr><td  id="tengah" >Personal Kontak <?php echo form_error('personal_kontak') ?></td><td><input type="text" class="form-control" name="personal_kontak" id="personal_kontak" placeholder="Personal Kontak" value="<?php echo $personal_kontak; ?>" /></td></tr>
 
-                <tr><td  id="tengah">Email <?php echo form_error('email') ?></td><td><input type="text" class="form-control" name="email" id="email" placeholder="Email" value="<?php echo $email; ?>" /></td></tr>
+                                <tr><td  id="tengah">Email <?php echo form_error('email') ?></td><td><input type="text" class="form-control" name="email" id="email" placeholder="Email" value="<?php echo $email; ?>" /></td></tr>
 
-                <tr><td  id="tengah" >Halaman Web <?php echo form_error('halaman_web') ?></td><td><input type="text" class="form-control" name="halaman_web" id="halaman_web" placeholder="Halaman Web" value="<?php echo $halaman_web; ?>" /></td></tr>
-                
-                <tr><td >Catatan <?php echo form_error('catatan') ?></td><td> <textarea class="form-control" rows="3" name="catatan" id="catatan" placeholder="Catatan"><?php echo $catatan; ?></textarea></td></tr>
+                                <tr><td  id="tengah" >Halaman Web <?php echo form_error('halaman_web') ?></td><td><input type="text" class="form-control" name="halaman_web" id="halaman_web" placeholder="Halaman Web" value="<?php echo $halaman_web; ?>" /></td></tr>
+                                
+                                <tr><td >Catatan <?php echo form_error('catatan') ?></td><td> <textarea class="form-control" rows="3" name="catatan" id="catatan" placeholder="Catatan"><?php echo $catatan; ?></textarea></td></tr>
 
-                <tr><td  id="tengah"></td><td  id="tengah"><input type="hidden" name="pelanggan_id" value="<?php echo $pelanggan_id; ?>" /> 
-                <button type="submit" class="btn btn-danger"><i class="fas fa-save"></i> <?php echo $button ?></button> 
-                <a href="<?php echo site_url('pelanggan') ?>" class="btn btn-info"><i class="fas fa-undo"></i> Kembali</a></td></tr>
-            </thead>
-    </table>
-</form>
-</div>
-</div>
+                                <tr><td  id="tengah"></td><td  id="tengah"><input type="hidden" name="pelanggan_id" value="<?php echo $pelanggan_id; ?>" /> 
+                                <button type="submit" class="btn btn-danger"><i class="fas fa-save"></i> <?php echo $button ?></button> 
+                                <a href="<?php echo site_url('pelanggan') ?>" class="btn btn-info"><i class="fas fa-undo"></i> Kembali</a></td></tr>
+                            </thead>
+                        </table>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -104,27 +107,28 @@
 
     <div class="tab-pane fade" id="default-tab-3">
         <div class="accordion" id="accordion">
-                <div class="panel-body">
-                    <div style="padding-bottom: 10px;">
-                        <a href="#" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#ModalaAdd"><span class="fa fa-plus"></span> Tambah</a>
-                </div>
-                    
-        <table class="table table-striped table-sm" id="mydata">
-             <thead>
-                <tr>
-                    <th>Nama</th>
-                    <th>Title Jabatan</th>
-                    <th>Telepon</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody id="show_data">                 
-            </tbody>
-        </table>
+            <div class="panel-body">
+                <div style="padding-bottom: 10px;">
+                    <a href="#" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#ModalaAdd"><span class="fa fa-plus"></span> Tambah</a>
+                </div>                    
+                <table class="table table-striped table-sm" id="mydata">
+                     <thead>
+                        <tr>
+                            <th>Nama</th>
+                            <th>Title Jabatan</th>
+                            <th>Telepon</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="show_data">                 
+                    </tbody>
+                </table>
+
+            </div>
         </div>
         </div>
-        </div>
-    </div>
+
+            </div>
         </div>
     </div>
 
@@ -156,7 +160,8 @@
 
                                 <tr><td >Title Jabatan</td><td><input style="border-color: #d3d3d3; color: black" type="text" class="form-control" name="title_jabatan" id="title_jabatan" placeholder="Title Jabatan" value="" /></td></tr>
 
-                                <tr><td >Telepon</td><td><input style="border-color: #d3d3d3; color: black" type="text" class="form-control" name="telepon" id="telepon" placeholder="Telepon" value="" /></td></tr>
+                                <tr><td >Telepon</td><td><input style="border-color: #d3d3d3; color: black" type="text" class="form-control" name="telepon_kontak" id="telepon_kontak" placeholder="Telepon" value="" /></td></tr>
+
                                 <input style="border-color: #d3d3d3; color: black" type="hidden" class="form-control" name="pelanggan_id" id="pelanggan_id" placeholder="Telepon" value="<?= decrypt_url($this->uri->segment(3) )?>" />
                         </thead>
                 </table>
@@ -173,7 +178,7 @@
                 </div>
         <!--END MODAL Tambah-->
 
-        <!--MODAL Edit-->
+        <!--MODAL EDIT-->
                 <div class="modal fade" id="ModalaEdit">
                   <div class="modal-dialog">
                     <div class="modal-content">
@@ -193,7 +198,7 @@
 
                                 <tr><td >Telepon</td><td><input style="border-color: #d3d3d3; color: black" type="text" class="form-control" name="telepon2" id="telepon2" placeholder="Telepon" value="" /></td></tr>
 
-                                <input style="border-color: #d3d3d3; color: black" type="hidden" class="form-control" name="pelanggan_id2" id="pelanggan_id2" placeholder="Telepon" value="" />
+                                <input style="border-color: #d3d3d3; color: black" type="hidden" class="form-control" name="pelanggan_id2" id="pelanggan_id2" placeholder="pelanggan_id2" value="" />
 
                         </thead>
                 </table>
@@ -207,7 +212,7 @@
                     </div>
                   </div>
                 </div>
-        <!--END MODAL Edit-->
+        <!--END MODAL EDIT-->
 
         <!--MODAL HAPUS-->
             <div class="modal fade" id="ModalHapus">
@@ -219,7 +224,7 @@
                   </div>
                   <div class="modal-body">
                     <input type="hidden" name="kode" id="textkode" value="">
-                            <div class="alert alert-warning"><p>Apakah Anda yakin mau memhapus barang ini?</p></div>
+                            <div class="alert alert-warning"><p>Apakah Anda yakin mau memhapus kontak ini?</p></div>
 
                   </div>
                   <div class="modal-footer">
@@ -245,7 +250,7 @@
         function tampil_data_kontak(){
             $.ajax({
                 type  : 'GET',
-                url   : '<?php echo base_url()?>kontak_pelanggan/data',
+                url   : '<?php echo base_url()?>kontak_pelanggan/data/<?= decrypt_url($this->uri->segment(3) )?>',
                 async : true,
                 dataType : 'json',
                 success : function(data){
@@ -273,17 +278,17 @@
             var pelanggan_id=$('#pelanggan_id').val();
             var nama=$('#nama').val();
             var title_jabatan=$('#title_jabatan').val();
-            var telepon=$('#telepon').val();
+            var telepon=$('#telepon_kontak').val();
             $.ajax({
                 type : "POST",
                 url  : "<?php echo base_url('kontak_pelanggan/simpan_data')?>",
                 dataType : "JSON",
                 data : {pelanggan_id:pelanggan_id,nama:nama , title_jabatan:title_jabatan, telepon:telepon},
                 success: function(data){
-                    $('[name="pelanggan_id"]').val("");
+                    // $('[name="pelanggan_id"]').val("");
                     $('[name="nama"]').val("");
                     $('[name="title_jabatan"]').val("");
-                    $('[name="telepon"]').val("");
+                    $('[name="telepon_kontak"]').val("");
                     $('#ModalaAdd > div > div > div.modal-header > button').click();
                     tampil_data_kontak();
                 }

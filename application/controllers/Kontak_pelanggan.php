@@ -15,8 +15,8 @@ class Kontak_pelanggan extends CI_Controller
     }
 
 
-    function data(){
-        $data=$this->Kontak_pelanggan_model->data_list();
+    function data($pelanggan_id){
+        $data=$this->Kontak_pelanggan_model->data_list($pelanggan_id);
         echo json_encode($data);
     }
 

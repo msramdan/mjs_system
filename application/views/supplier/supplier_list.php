@@ -30,15 +30,7 @@
                 <th>No</th>
 		<th>Kode Supplier</th>
 		<th>Nama Supplier</th>
-		<th>Alamat</th>
-		<th>Kota</th>
-		<th>Provinsi</th>
-		<th>Kode Pos</th>
 		<th>Telepon</th>
-		<th>Personal Kontak</th>
-		<th>Email</th>
-		<th>Halaman Web</th>
-		<th>Catatan</th>
 		<th>Action</th>
             </tr></thead><tbody><?php $no = 1;
             foreach ($supplier_data as $supplier)
@@ -48,15 +40,7 @@
 			<td><?= $no++?></td>
 			<td><?php echo $supplier->kode_supplier ?></td>
 			<td><?php echo $supplier->nama_supplier ?></td>
-			<td><?php echo $supplier->alamat ?></td>
-			<td><?php echo $supplier->kota ?></td>
-			<td><?php echo $supplier->provinsi ?></td>
-			<td><?php echo $supplier->kode_pos ?></td>
 			<td><?php echo $supplier->telepon ?></td>
-			<td><?php echo $supplier->personal_kontak ?></td>
-			<td><?php echo $supplier->email ?></td>
-			<td><?php echo $supplier->halaman_web ?></td>
-			<td><?php echo $supplier->catatan ?></td>
 			<td style="text-align:center" width="200px">
 				<?php 
 				echo anchor(site_url('supplier/read/'.encrypt_url($supplier->supplier_id)),'<i class="fas fa-eye" aria-hidden="true"></i>','class="btn btn-success btn-sm read_data"'); 
