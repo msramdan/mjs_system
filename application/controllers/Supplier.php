@@ -10,6 +10,7 @@ class Supplier extends CI_Controller
         parent::__construct();
         is_login();
         $this->load->model('Supplier_model');
+        $this->load->model('Pajak_model');
         $this->load->model('Setting_app_model');
         $this->load->library('form_validation');
     }
@@ -44,6 +45,8 @@ class Supplier extends CI_Controller
 		'email' => $row->email,
 		'halaman_web' => $row->halaman_web,
 		'catatan' => $row->catatan,
+        'pajak_id' => $row->pajak_id,
+        'npwp' => $row->npwp,
 	    );
             $this->template->load('template','supplier/supplier_read', $data);
         } else {
@@ -57,6 +60,7 @@ class Supplier extends CI_Controller
         is_allowed($this->uri->segment(1),'create');
         $data = array(
             'button' => 'Create',
+            'pajak' =>$this->Pajak_model->get_all(),
             'sett_apps' =>$this->Setting_app_model->get_by_id(1),
             'action' => site_url('supplier/create_action'),
 	    'supplier_id' => set_value('supplier_id'),
@@ -71,6 +75,8 @@ class Supplier extends CI_Controller
 	    'email' => set_value('email'),
 	    'halaman_web' => set_value('halaman_web'),
 	    'catatan' => set_value('catatan'),
+        'npwp' => set_value('npwp'),
+        'pajak_id' => set_value('pajak_id'),
 	);
         $this->template->load('template','supplier/supplier_form', $data);
     }
@@ -95,6 +101,8 @@ class Supplier extends CI_Controller
 		'email' => $this->input->post('email',TRUE),
 		'halaman_web' => $this->input->post('halaman_web',TRUE),
 		'catatan' => $this->input->post('catatan',TRUE),
+        'pajak_id' => $this->input->post('pajak_id',TRUE),
+        'npwp' => $this->input->post('npwp',TRUE),
 	    );
 
             $this->Supplier_model->insert($data);
@@ -111,6 +119,7 @@ class Supplier extends CI_Controller
         if ($row) {
             $data = array(
                 'button' => 'Update',
+                'pajak' =>$this->Pajak_model->get_all(),
                 'sett_apps' =>$this->Setting_app_model->get_by_id(1),
                 'action' => site_url('supplier/update_action'),
 		'supplier_id' => set_value('supplier_id', $row->supplier_id),
@@ -125,6 +134,8 @@ class Supplier extends CI_Controller
 		'email' => set_value('email', $row->email),
 		'halaman_web' => set_value('halaman_web', $row->halaman_web),
 		'catatan' => set_value('catatan', $row->catatan),
+        'pajak_id' => set_value('pajak_id', $row->pajak_id),
+        'npwp' => set_value('npwp', $row->npwp),
 	    );
             $this->template->load('template','supplier/supplier_form', $data);
         } else {
@@ -153,6 +164,8 @@ class Supplier extends CI_Controller
 		'email' => $this->input->post('email',TRUE),
 		'halaman_web' => $this->input->post('halaman_web',TRUE),
 		'catatan' => $this->input->post('catatan',TRUE),
+        'npwp' => $this->input->post('npwp',TRUE),
+        'pajak_id' => $this->input->post('pajak_id',TRUE),
 	    );
 
             $this->Supplier_model->update($this->input->post('supplier_id', TRUE), $data);

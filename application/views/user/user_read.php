@@ -19,7 +19,7 @@
 	    <tr><td>No Hp User</td><td><?php echo $no_hp_user; ?></td></tr>
 	    <tr><td>Alamat User</td><td><?php echo $alamat_user; ?></td></tr>
 	    <tr><td>Photo</td><td>
-	    	<a href="#modal-dialog" data-bs-toggle="modal"><img style="width: 150px;height: 150px;border-radius: 50%;" src="<?php echo base_url().'/assets/assets/img/user/'.$photo ?>" /></a></td></tr>
+	    	<a href="#modal-dialog" data-bs-toggle="modal"><img style="width: 150px;height: 150px;border-radius: 5%;" src="<?php echo base_url().'/assets/assets/img/user/'.$photo ?>" /></a></td></tr>
 	    <tr><td></td><td><a href="<?php echo site_url('user') ?>" class="btn btn-default">Cancel</a></td></tr>
 	</table>
 			</div>

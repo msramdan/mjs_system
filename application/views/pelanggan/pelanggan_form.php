@@ -87,13 +87,11 @@
                                 <tr><td  id="tengah" >Halaman Web <?php echo form_error('halaman_web') ?></td><td><input type="text" class="form-control" name="halaman_web" id="halaman_web" placeholder="Halaman Web" value="<?php echo $halaman_web; ?>" /></td></tr>
                                 
                                 <tr><td >Catatan <?php echo form_error('catatan') ?></td><td> <textarea class="form-control" rows="3" name="catatan" id="catatan" placeholder="Catatan"><?php echo $catatan; ?></textarea></td></tr>
-
-                                <tr><td  id="tengah"></td><td  id="tengah"><input type="hidden" name="pelanggan_id" value="<?php echo $pelanggan_id; ?>" /> 
-                                <button type="submit" class="btn btn-danger"><i class="fas fa-save"></i> <?php echo $button ?></button> 
-                                <a href="<?php echo site_url('pelanggan') ?>" class="btn btn-info"><i class="fas fa-undo"></i> Kembali</a></td></tr>
+                                <input type="hidden" name="pelanggan_id" value="<?php echo $pelanggan_id; ?>" />
+                                
                             </thead>
                         </table>
-                    </form>
+                    <!-- </form> -->
                 </div>
             </div>
         </div>
@@ -101,10 +99,37 @@
 
     <div class="tab-pane fade" id="default-tab-2">
         <div class="accordion" id="accordion">
-            2
+            <h4 style="text-align: left;">Informasi Pajak</h4>
+            <div class="table-responsive">
+                    <table class="table  table-bordered table-hover table-td-valign-middle">
+                        <thead>
+                        <tr>
+                                <td >Pajak <?php echo form_error('pajak_id') ?></td>
+                                <td>
+                                  <select  class="form-control theSelect" name="pajak_id" id="pajak_id">
+                                    <option value="">-- Pilih -- </option>
+                                    <?php foreach ($pajak as $key => $data) { ?>
+                                      <?php if ($pajak_id == $data->pajak_id) { ?>
+                                        <option value="<?php echo $data->pajak_id ?>" selected><?php echo $data->nama ?></option>
+                                      <?php } else { ?>
+                                        <option value="<?php echo $data->pajak_id ?>"><?php echo $data->nama ?></option>
+                                      <?php } ?>
+                                    <?php } ?>
+                                  </select>
+                                </td>
+                            </tr>
+
+                        <tr><td >NPWP Pelanggan <?php echo form_error('npwp') ?></td><td>
+                          <input type="text" class="form-control" name="npwp" id="npwp" placeholder="NPWP Pelanggan" value="<?php echo $npwp; ?>" />
+                        </td></tr>
+                        </thead>
+                    </table>
+                </div>
         </div>
     </div>
+    <!-- end form -->
 
+     
     <div class="tab-pane fade" id="default-tab-3">
         <div class="accordion" id="accordion">
             <div class="panel-body">
@@ -126,16 +151,23 @@
 
             </div>
         </div>
+
         </div>
+
+        <div style="float: right;">
+        <button type="submit" class="btn btn-danger"><i class="fas fa-save"></i> <?php echo $button ?></button> 
+        <a href="<?php echo site_url('pelanggan') ?>" class="btn btn-info"><i class="fas fa-undo"></i> Kembali</a>
+    </form>
+    </div>
 
             </div>
         </div>
     </div>
 
-
-
     </div>
+
 </div>
+
 
 
         </div>
@@ -242,6 +274,7 @@
 
 <script type="text/javascript">
     $(document).ready(function(){
+        $(".theSelect").select2();
         tampil_data_kontak();   //pemanggilan fungsi tampil data.
          
         // $('#mydata').dataTable();

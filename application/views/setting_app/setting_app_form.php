@@ -46,6 +46,20 @@
             </td>
         </tr>  
 
+        <tr>
+            <td >Audio Login<?php echo form_error('audio') ?></td><td>
+                    <?php if ($audio=='Y') { ?>
+                        <input class="form-check-input" type="checkbox" id="audio" value="Y" name="audio" checked ="checked">
+                        <label class="form-check-label" for="audio">YA</label>
+                    <?php }else{ ?>
+                      <input class="form-check-input" type="checkbox" id="audio" value="Y" name="audio" >
+                      <label class="form-check-label" for="audio">YA</label>
+                      
+
+                    <?php } ?>
+            </td>
+        </tr>  
+
 
 	    <tr><td></td><td><input type="hidden" name="id" value="<?php echo $id; ?>" /> 
 	    <button type="submit" class="btn btn-danger"><i class="fas fa-save"></i> <?php echo $button ?></button> 

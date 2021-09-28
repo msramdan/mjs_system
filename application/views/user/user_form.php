@@ -28,7 +28,7 @@
 
 	    <tr>
             <td >level <?php echo form_error('level_id') ?></td>
-            <td><select name="level_id" class="form-control">
+            <td style="width: 70%"><select name="level_id" class="form-control theSelect">
                 <option value="">-- Pilih -- </option>
                 <?php foreach ($level as $key => $data) { ?>
                   <?php if ($level_id == $data->level_id) { ?>
@@ -99,6 +99,11 @@
 
 
 <script type="text/javascript">
+    $(document).ready(function() {
+      $(".theSelect").select2();
+    });
+
+
   function validasiEkstensi(){
     var inputFile = document.getElementById('photo');
     var pathFile = inputFile.value;
@@ -119,3 +124,4 @@
     }
 }
 </script>
+

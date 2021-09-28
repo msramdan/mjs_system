@@ -1,5 +1,9 @@
 <div id="content" class="app-content">
-<audio id="audio" style="display: none;" controls allow="autoplay"><source src="<?= base_url() ?>assets/assets/audio/popup.ogg" type="audio/mpeg"></audio>
+
+<?php if ($sett_apps->audio=='Y') { ?>
+	<audio id="audio" style="display: none;" controls allow="autoplay"><source src="<?= base_url() ?>assets/assets/audio/popup.ogg" type="audio/mpeg"></audio>
+<?php } ?>
+
 
 <h1 class="page-header">Halaman Dashboard</h1>
 

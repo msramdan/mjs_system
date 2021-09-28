@@ -128,13 +128,13 @@
                 <div class="table-responsive">
                     <table class="table  table-bordered table-hover table-td-valign-middle">
                         <thead>
-                        <tr><td >Harga Jual <?php echo form_error('estimasi_harga') ?></td><td>
+                        <tr><td >Estimasi Harga Jual <?php echo form_error('estimasi_harga') ?></td><td>
                             <input type="hidden" class="form-control" name="estimasi_harga" id="estimasi_harga" placeholder="Estimasi Harga" value="<?php echo $estimasi_harga; ?>" />
                             
                           <input type="text" class="form-control" name="estimasi_harga_txt" id="estimasi_harga_txt" placeholder="Harga Jual" value="<?php echo $estimasi_harga; ?>" />
                         </td></tr>
-                        <tr><td >Diskon <?php echo form_error('diskon') ?></td><td>
-                          <input type="text" class="form-control" name="estimasi_harga_txt" id="estimasi_harga_txt" placeholder="Diskon dalam %" value="" />
+                        <tr><td >Default Diskon (%) <?php echo form_error('diskon') ?></td><td>
+                          <input type="number" class="form-control" name="diskon" step="any" id="diskon" placeholder="Diskon dalam %" value="<?php echo $diskon; ?>" />
                         </td></tr>
                         </thead>
                     </table>
@@ -149,7 +149,7 @@
                             <tr>
                                 <th width="1%">No</th>
                                 <th>Nama Supplier</th>
-                                <th>Estimasi Harga</th>
+                                <th>Estimasi Harga Beli</th>
                             </tr>
                         </thead>
                     </table>    
