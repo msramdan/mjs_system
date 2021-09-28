@@ -21,7 +21,6 @@
             <thead>
               <tr><td >Parent COA <?php echo form_error('parent_coa_id') ?></td><td>
                        <select name="parent_coa_id" id="parent_coa_id" class="form-control"></select>
-
               </td></tr>
 
               <tr><td >Kode COA <?php echo form_error('kd_coa') ?></td><td><input type="text" class="form-control" name="kd_coa" id="kd_coa" placeholder="Kode COA" value="" /></td></tr>

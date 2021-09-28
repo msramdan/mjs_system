@@ -35,7 +35,7 @@
                                                 <span class="d-sm-block d-none">Penjualan</span>
                                                 </a>
                                             </li>
-                                            <?php if ($this->uri->segment(2) !=="create") { ?>
+                                            <?php if ($this->uri->segment(2) =="update" || $this->uri->segment(2) =="update_action") { ?>
                                                 <li class="nav-item">
                                                     <a href="#default-tab-3" data-bs-toggle="tab" class="nav-link">
                                                     <span class="d-sm-none">Kontak</span>
@@ -62,11 +62,24 @@
                                 
                                 <tr><td  id="tengah" >Alamat <?php echo form_error('alamat') ?></td><td> <textarea class="form-control" rows="3" name="alamat" id="wysihtml5" placeholder="Alamat"><?php echo $alamat; ?></textarea></td></tr>
 
-                                <tr><td  id="tengah" >Kota <?php echo form_error('kota') ?></td><td><input type="text" class="form-control" name="kota" id="kota" placeholder="Kota" value="<?php echo $kota; ?>" /></td></tr>
-
-                                <tr><td  id="tengah" >Provinsi <?php echo form_error('provinsi') ?></td><td><input type="text" class="form-control" name="provinsi" id="provinsi" placeholder="Provinsi" value="<?php echo $provinsi; ?>" /></td></tr>
-
-                                <tr><td  id="tengah" >Kode Pos <?php echo form_error('kode_pos') ?></td><td><input type="text" class="form-control" name="kode_pos" id="kode_pos" placeholder="Kode Pos" value="<?php echo $kode_pos; ?>" /></td></tr>
+                               <tr><td  id="tengah" >Kota / Provinsi / Kode POS</td><td>
+                                    <div class="form-group">
+                                    <div class="row">
+                                      <div class="col-md-4">
+                                        <input type="text" class="form-control" name="kota" id="kota" placeholder="Kota" value="<?php echo $kota; ?>" />
+                                        <?php echo form_error('kota') ?>
+                                      </div>
+                                      <div class="col-md-4">
+                                        <input type="text" class="form-control" name="provinsi" id="provinsi" placeholder="Provinsi" value="<?php echo $provinsi; ?>" />
+                                        <?php echo form_error('provinsi') ?>
+                                      </div>
+                                      <div class="col-md-4">
+                                        <input type="text" class="form-control" name="kode_pos" id="kode_pos" placeholder="Kode Pos" value="<?php echo $kode_pos; ?>" />
+                                        <?php echo form_error('kode_pos') ?>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </td></tr>
 
                                 <tr><td  id="tengah" >Telepon <?php echo form_error('telepon') ?></td><td><input type="text" class="form-control" name="telepon" id="telepon" placeholder="Telepon" value="<?php echo $telepon; ?>" /></td></tr>
 

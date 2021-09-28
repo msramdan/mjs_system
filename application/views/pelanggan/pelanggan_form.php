@@ -35,7 +35,7 @@
                                                 <span class="d-sm-block d-none">Penjualan</span>
                                                 </a>
                                             </li>
-                                            <?php if ($this->uri->segment(2) !=="create") { ?>
+                                            <?php if ($this->uri->segment(2) =="update" || $this->uri->segment(2) =="update_action") { ?>
                                                 <li class="nav-item">
                                                     <a href="#default-tab-3" data-bs-toggle="tab" class="nav-link">
                                                     <span class="d-sm-none">Kontak</span>

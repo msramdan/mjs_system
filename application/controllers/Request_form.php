@@ -97,8 +97,6 @@ class Request_form extends CI_Controller
 
         return json_encode($arr);
 
-        //return json_encode($arr);
-
     }
     
     function cekDataInApprovalListAvailability()

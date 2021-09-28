@@ -25,6 +25,10 @@
 <link href="<?= base_url() ?>assets/assets/plugins/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css" rel="stylesheet" />
 <link href="<?= base_url() ?>assets/assets/plugins/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.min.css" rel="stylesheet" />
 <link href="<?= base_url() ?>assets/assets/plugins/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.min.css" rel="stylesheet" />
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/css/select2.min.css">
+
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
 <script src="<?= base_url() ?>assets/assets/ckeditor/ckeditor.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
@@ -32,6 +36,7 @@
 <script src="<?= base_url() ?>assets/assets/js/jquery.idle.min.js"></script>
 <script src="<?= base_url() ?>assets/assets/plugins/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.all.min.js"></script>
 <script src="<?= base_url() ?>assets/assets/plugins/jstree/dist/jstree.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/js/select2.min.js"></script>
 
 <link href="<?= base_url() ?>assets/assets/plugins/jstree/dist/themes/default/style.min.css" rel="stylesheet" />
 <script src="<?= base_url() ?>assets/assets/plugins/jstree/dist/jstree.min.js"></script>

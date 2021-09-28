@@ -37,7 +37,8 @@
                     <option value="<?php echo $data->level_id ?>"><?php echo $data->nama_level ?></option>
                   <?php } ?>
                 <?php } ?>
-              </select></td>
+              </select>
+            </td>
           </tr>
 	    <tr><td >Email <?php echo form_error('email') ?></td><td><input type="text" class="form-control" name="email" id="email" placeholder="Email" value="<?php echo $email; ?>" /></td></tr>
 	    <tr><td >No Hp User <?php echo form_error('no_hp_user') ?></td><td><input type="text" class="form-control" name="no_hp_user" id="no_hp_user" placeholder="No Hp User" value="<?php echo $no_hp_user; ?>" /></td></tr>

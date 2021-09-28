@@ -21,7 +21,7 @@
 	    <tr><td >No Hp <?php echo form_error('no_hp') ?></td><td><input type="text" class="form-control" name="no_hp" id="no_hp" placeholder="No Hp" value="<?php echo $no_hp; ?>" /></td></tr>
 	    <tr>
             <td >Pendidikan <?php echo form_error('pendidikan') ?></td>
-            <td><select name="pendidikan" class="form-control" value="<?= $pendidikan ?>">
+            <td><div class="col-md-4"><select name="pendidikan" class="form-control theSelect" value="<?= $pendidikan ?>">
                 <option value="">- Pilih -</option>
                 <option value="SD/MI" <?php echo $pendidikan == 'SD/MI' ? 'selected' : 'null' ?>>SD/MI</option>
                 <option value="SMP/MTS" <?php echo $pendidikan == 'SMP/MTS' ? 'selected' : 'null' ?>>SMP/MTS</option>
@@ -31,11 +31,13 @@
                 <option value="S2" <?php echo $pendidikan == 'S2' ? 'selected' : 'null' ?>>S2</option>
                 <option value="S3" <?php echo $pendidikan == 'S3' ? 'selected' : 'null' ?>>S3</option>
               </select>
+            </div>
             </td>
           </tr>
           <tr>
             <td >Lokasi Kerja <?php echo form_error('lokasi_id') ?></td>
-            <td><select name="lokasi_id" class="form-control">
+            <td><div class="col-md-4">
+              <select name="lokasi_id" class="form-control theSelect">
                 <option value="">-- Pilih -- </option>
                 <?php foreach ($lokasi as $key => $data) { ?>
                   <?php if ($lokasi_id == $data->lokasi_id) { ?>
@@ -45,12 +47,15 @@
                   <?php } ?>
                 <?php } ?>
               </select>
+            </div>
           </td>
           </tr>
 
           <tr>
             <td >Divisi <?php echo form_error('divisi_id') ?></td>
-            <td><select name="divisi_id" class="form-control">
+            <td>
+              <div class="col-md-4">
+                <select name="divisi_id" class="form-control theSelect">
                 <option value="">-- Pilih -- </option>
                 <?php foreach ($divisi as $key => $data) { ?>
                   <?php if ($divisi_id == $data->divisi_id) { ?>
@@ -60,13 +65,15 @@
                   <?php } ?>
                 <?php } ?>
               </select>
+            </div>
           </td>
           </tr>
 
 
 	    <tr>
             <td >Jabatan <?php echo form_error('jabatan_id') ?></td>
-            <td><select name="jabatan_id" class="form-control">
+            <td>
+              <div class="col-md-4"><select name="jabatan_id" class="form-control theSelect">
                 <option value="">-- Pilih -- </option>
                 <?php foreach ($jabatan as $key => $data) { ?>
                   <?php if ($jabatan_id == $data->jabatan_id) { ?>
@@ -76,12 +83,14 @@
                   <?php } ?>
                 <?php } ?>
               </select>
+            </div>
           </td>
           </tr>
 
          <tr>
             <td >Status Karyawan <?php echo form_error('status_karyawan_id') ?></td>
-            <td><select name="status_karyawan_id" class="form-control">
+            <td>
+              <div class="col-md-4"><select name="status_karyawan_id" class="form-control theSelect">
                 <option value="">-- Pilih -- </option>
                 <?php foreach ($status_karyawan as $key => $data) { ?>
                   <?php if ($status_karyawan_id == $data->status_karyawan_id) { ?>
@@ -90,7 +99,8 @@
                     <option value="<?php echo $data->status_karyawan_id ?>"><?php echo $data->nama_status_karyawan ?></option>
                   <?php } ?>
                 <?php } ?>
-              </select></td>
+              </select>
+            </div></td>
           </tr>
 
         <tr><td >Gaji Pokok <?php echo form_error('gaji_pokok') ?></td><td><input type="hidden" class="form-control" name="gaji_pokok" id="gaji_pokok" placeholder="Gaji Pokok" value="<?php echo $gaji_pokok; ?>" />
@@ -203,6 +213,8 @@
 
 <script>
   $(document).ready(function() {
+
+    $(".theSelect").select2();
     
     // konversi real-time ke number_format dan regex
     $('#gaji_pokok_txt').keyup(function() {

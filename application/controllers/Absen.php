@@ -51,6 +51,17 @@ class Absen extends CI_Controller
         }
     }
 
+    function deteksiKehadiranv2($lokasi_id, $date, $karyawan_id)
+    {
+        $cek = $this->Karyawan_model->by_lokasi_date_karyawan_id(decrypt_url($lokasi_id), $date, $karyawan_id);
+
+        if ($cek) {
+            return 'ya';
+        } else {
+            return 'no';
+        }
+    }
+
     function refreshtabelabsen()
     {
         is_allowed($this->uri->segment(1),null);

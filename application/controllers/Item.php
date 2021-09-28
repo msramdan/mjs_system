@@ -10,6 +10,7 @@ class Item extends CI_Controller
         parent::__construct();
         is_login();
         $this->load->model('Setting_app_model');
+        $this->load->model('Coa_model');
         $this->load->model('Item_model');
         $this->load->model('Kategori_model');
         $this->load->model('Unit_model');
@@ -57,6 +58,7 @@ class Item extends CI_Controller
         is_allowed($this->uri->segment(1),'create');
         $data = array(
             'button' => 'Create',
+            'coa' =>$this->Coa_model->get_all(),
             'sett_apps' =>$this->Setting_app_model->get_by_id(1),
             'kategori' =>$this->Kategori_model->get_all(),
             'unit' =>$this->Unit_model->get_all(),
@@ -72,6 +74,10 @@ class Item extends CI_Controller
         'type' => set_value('type'),
 	    'estimasi_harga' => set_value('estimasi_harga'),
 	    'stok' => set_value('stok'),
+        'akun_beban' => set_value('akun_beban'),
+        'akun_return_pembelian' => set_value('akun_return_pembelian'),
+        'akun_penjualan' => set_value('akun_penjualan'),
+        'akun_return_penjualan' => set_value('akun_return_penjualan'),
 	);
         $this->template->load('template','item/item_form', $data);
     }
@@ -93,6 +99,10 @@ class Item extends CI_Controller
 		'deskripsi' => $this->input->post('deskripsi',TRUE),
         'type' => $this->input->post('type',TRUE),
 		'estimasi_harga' => $this->input->post('estimasi_harga',TRUE),
+        'akun_beban' => $this->input->post('akun_beban',TRUE),
+        'akun_return_pembelian' => $this->input->post('akun_return_pembelian',TRUE),
+        'akun_penjualan' => $this->input->post('akun_penjualan',TRUE),
+        'akun_return_penjualan' => $this->input->post('akun_return_penjualan',TRUE),
 	    );
 
             $this->Item_model->insert($data);
@@ -109,6 +119,7 @@ class Item extends CI_Controller
         if ($row) {
             $data = array(
                 'button' => 'Update',
+                'coa' =>$this->Coa_model->get_all(),
                 'kategori' =>$this->Kategori_model->get_all(),
                 'unit' =>$this->Unit_model->get_all(),
                 'sett_apps' =>$this->Setting_app_model->get_by_id(1),
@@ -123,7 +134,15 @@ class Item extends CI_Controller
 		'deskripsi' => set_value('deskripsi', $row->deskripsi),
 		'estimasi_harga' => set_value('estimasi_harga', $row->estimasi_harga),
 		'stok' => set_value('stok', $row->stok),
+        'akun_beban' => set_value('akun_beban', $row->akun_beban),
+        'akun_return_pembelian' => set_value('akun_return_pembelian', $row->akun_return_pembelian),
+        'akun_penjualan' => set_value('akun_penjualan', $row->akun_penjualan),
+        'akun_return_penjualan' => set_value('akun_return_penjualan', $row->akun_return_penjualan),
+
+        
 	    );
+            
+
             $this->template->load('template','item/item_form', $data);
         } else {
             $this->session->set_flashdata('error', 'Record Not Found');
@@ -148,8 +167,11 @@ class Item extends CI_Controller
 		'deskripsi' => $this->input->post('deskripsi',TRUE),
         'type' => $this->input->post('type',TRUE),
 		'estimasi_harga' => $this->input->post('estimasi_harga',TRUE),
+        'akun_beban' => $this->input->post('akun_beban',TRUE),
+        'akun_return_pembelian' => $this->input->post('akun_return_pembelian',TRUE),
+        'akun_penjualan' => $this->input->post('akun_penjualan',TRUE),
+        'akun_return_penjualan' => $this->input->post('akun_return_penjualan',TRUE),
 	    );
-
             $this->Item_model->update($this->input->post('item_id', TRUE), $data);
             $this->session->set_flashdata('message', 'Update Record Success');
             redirect(site_url('item'));

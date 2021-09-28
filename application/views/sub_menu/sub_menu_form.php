@@ -17,7 +17,8 @@
             <table id="data-table-default" class="table  table-bordered table-hover table-td-valign-middle">
 	    <tr>
             <td >Menu <?php echo form_error('menu_id') ?></td>
-            <td><select name="menu_id" class="form-control">
+            <td style="width: 70%">
+              <select name="menu_id" class="form-control theSelect" >
                 <option value="">-- Pilih -- </option>
                 <?php foreach ($menu as $key => $data) { ?>
                   <?php if ($menu_id == $data->menu_id) { ?>
@@ -37,3 +38,11 @@
 </div>
 </div>
 </div>
+
+
+<script>
+  $(document).ready(function() {
+
+    $(".theSelect").select2();
+  });
+</script>
