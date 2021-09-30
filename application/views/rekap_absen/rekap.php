@@ -15,70 +15,92 @@
                         <div class="col-md-12 col-sm-12 col-xs-12">
                             <div class="x_panel">        
                                 <div class="box-body">
-                                    <div class='row'>
-                                        <div class='col-md-12'>
-                                        	<div class="container d-flex justify-content-center" style="margin: 15px 0;">
-                                        		<div class="col-sm-12 col-md-8 col-xs-6">
-	                                            	<div class="input-group input-daterange">
-														<input value="<?php echo date('Y-m-d') ?>" type="date" class="form-control datepicker-autoClose" name="start" placeholder="Tanggal Awal" />
-														<span class="input-group-text input-group-addon">ke</span>
-														<input value="<?php echo date('Y-m-d') ?>" type="date" class="form-control datepicker-autoClose" name="end" placeholder="Tanggal Akhir" />
-														<span class="input-group-button input-group-addon"><button class="btn btn-success" id="btn-filter-date"><i class="fas fa-eye" aria-hidden="true"></i></button></span>
-													</div>
-                                        		</div>
-                                        	</div>
-						        		</div>    
+                                    <div class='row'> 
 							        	<div class="box-body" id="tabel-absensi-wrapper" style="overflow-x: scroll; height: 56vh; ">
-							        		<table id="data-table-default" class="table table-bordered table-hover table-td-valign-middle">
+							        		<table id="tabel-rekap-absensi" class="table table-bordered table-hover table-td-valign-middle">
 							        			<thead>
 							        				<tr>
-							        					<th>Karyawan</th>
-								        				<th>Jan</th>
-								        				<th>Feb</th>
-								        				<th>Mar</th>
-								        				<th>Apr</th>
-								        				<th>Mei</th>
-								        				<th>Jun</th>
-								        				<th>Jul</th>
-								        				<th>Aug</th>
-								        				<th>Sept</th>
-								        				<th>Okt</th>
-								        				<th>Nov</th>
-								        				<th>Des</th>
+							        					<th rowspan="2">Karyawan</th>
+								        				<th colspan="5">Jan</th>
+								        				<th colspan="5">Feb</th>
+								        				<th colspan="5">Mar</th>
+								        				<th colspan="5">Apr</th>
+								        				<th colspan="5">Mei</th>
+								        				<th colspan="5">Jun</th>
+								        				<th colspan="5">Jul</th>
+								        				<th colspan="5">Aug</th>
+								        				<th colspan="5">Sept</th>
+								        				<th colspan="5">Okt</th>
+								        				<th colspan="5">Nov</th>
+								        				<th colspan="5">Des</th>
+							        				</tr>
+							        				<tr>
+							        					<th>M</th>
+							        					<th>S</th>
+							        					<th>I</th>
+							        					<th>A</th>
+							        					<th>C</th>
+							        					<th>M</th>
+							        					<th>S</th>
+							        					<th>I</th>
+							        					<th>A</th>
+							        					<th>C</th>
+							        					<th>M</th>
+							        					<th>S</th>
+							        					<th>I</th>
+							        					<th>A</th>
+							        					<th>C</th>
+							        					<th>M</th>
+							        					<th>S</th>
+							        					<th>I</th>
+							        					<th>A</th>
+							        					<th>C</th>
+							        					<th>M</th>
+							        					<th>S</th>
+							        					<th>I</th>
+							        					<th>A</th>
+							        					<th>C</th>
+							        					<th>M</th>
+							        					<th>S</th>
+							        					<th>I</th>
+							        					<th>A</th>
+							        					<th>C</th>
+							        					<th>M</th>
+							        					<th>S</th>
+							        					<th>I</th>
+							        					<th>A</th>
+							        					<th>C</th>
+							        					<th>M</th>
+							        					<th>S</th>
+							        					<th>I</th>
+							        					<th>A</th>
+							        					<th>C</th>
+							        					<th>M</th>
+							        					<th>S</th>
+							        					<th>I</th>
+							        					<th>A</th>
+							        					<th>C</th>
+							        					<th>M</th>
+							        					<th>S</th>
+							        					<th>I</th>
+							        					<th>A</th>
+							        					<th>C</th>
+							        					<th>M</th>
+							        					<th>S</th>
+							        					<th>I</th>
+							        					<th>A</th>
+							        					<th>C</th>
+							        					<th>M</th>
+							        					<th>S</th>
+							        					<th>I</th>
+							        					<th>A</th>
+							        					<th>C</th>
 							        				</tr>
 							        			</thead>
-							        			<tbody>
-								        			<?php
-								        			foreach ($recap_data as $key => $value) {
-								        				?>
-								        				<tr>
-								        					<td>
-								        						<?php echo $value->nama_karyawan ?>
-								        					</td>
-								        					<td><?php echo $value->Januari ?></td>
-									        				<td><?php echo $value->Februari ?></td>
-									        				<td><?php echo $value->Maret ?></td>
-									        				<td><?php echo $value->April ?></td>
-									        				<td><?php echo $value->Mei ?></td>
-									        				<td><?php echo $value->Juni ?></td>
-									        				<td><?php echo $value->Juli ?></td>
-									        				<td><?php echo $value->Agustus ?></td>
-									        				<td><?php echo $value->September ?></td>
-									        				<td><?php echo $value->Oktober ?></td>
-									        				<td><?php echo $value->November ?></td>
-									        				<td><?php echo $value->Desember ?></td>
-							        					</tr>
-								        				
-								        				<?php	
-								        			}
-
-								        			?>
+							        			<tbody id="list-data">
+							        				
 							        			</tbody>
 							        		</table>
-							            	<div style="display: flex; height: 50vh; justify-content: center; flex-direction: column;">
-								              	<i class="fas fa-sync fa-spin fa-3x" style="margin: auto;"></i>
-								              	<p>Mempersiapkan data...</p>
-							            	</div>
 								   		</div>
 		        					</div>
 	        					</div>
@@ -121,30 +143,73 @@
             </script>
         <?php } ?>
 
+<script src="<?= base_url() ?>assets/assets/plugins/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="<?= base_url() ?>assets/assets/plugins/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
+<script src="<?= base_url() ?>assets/assets/plugins/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+<script src="<?= base_url() ?>assets/assets/plugins/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
+<script src="<?= base_url() ?>assets/assets/plugins/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+<script src="<?= base_url() ?>assets/assets/plugins/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js"></script>
+<script src="<?= base_url() ?>assets/assets/plugins/datatables.net-buttons/js/buttons.colVis.min.js"></script>
+<script src="<?= base_url() ?>assets/assets/plugins/datatables.net-buttons/js/buttons.flash.min.js"></script>
+<script src="<?= base_url() ?>assets/assets/plugins/datatables.net-buttons/js/buttons.html5.min.js"></script>
+<script src="<?= base_url() ?>assets/assets/plugins/datatables.net-buttons/js/buttons.print.min.js"></script>
+<script src="<?= base_url() ?>assets/assets/plugins/pdfmake/build/pdfmake.min.js"></script>
+<script src="<?= base_url() ?>assets/assets/plugins/pdfmake/build/vfs_fonts.js"></script>
+<script src="<?= base_url() ?>assets/assets/plugins/jszip/dist/jszip.min.js"></script>
+
         <script type="text/javascript">
-        	
-        	$('#btn-filter').click(function() {
+  		
 
-        		$.ajax({
-                    type: "POST",
-                    url: "<?php echo base_url() ?>absen/refreshtabelabsen",
-                    data: {
-                        id_lokasi:lokasi,
-                        date:date
-                    },
-                    success: function(data){
-                        elem_tbl.html(data)
-                    },
-                    error: function(e) {
-                        elem_tbl.html(`<div style="display: flex; height: 50vh; justify-content: center; flex-direction: column;">
-              
-              <i class="fas fa-sync fa-spin fa-3x" style="margin: auto;"></i>
-              <p>Terjadi Masalah tersambung dengan server, cek koneksi internet anda, pastikan rekan dapat mengaksesnya, jika masih terjadi, hubungi admin IT</p>
-                
-            </div>`)
-                    }
-                })
+		 	$(document).ready(function(){
 
-        	})
+		 		//it's not posible to see this in mobile version!
+		 		var tabel = $('#tabel-rekap-absensi').DataTable({
+							    dom: '<"row"<"col-sm-5"B><"col-sm-7"fr>>t<"row"<"col-sm-5"i><"col-sm-7"p>>',
+							    buttons: [
+							      { 
+							      	extend: 'copy', 
+							      	className: 'btn-sm'
+							      },
+							      { 
+							      	extend: 'csv', 
+							      	className: 'btn-sm',
+							      	title: 'Export data rekap absensi'
+							      },
+							      { 
+							      	extend: 'excel', 
+							      	className: 'btn-sm',
+							      	title: 'Export data rekap absensi'
+							      },
+							      { 
+							      	extend: 'pdf', 
+							      	className: 'btn-sm',
+							      	title: 'Export data rekap absensi'
+							      },
+							      { 
+							      	extend: 'print', 
+							      	className: 'btn-sm'
+							      }
+							    ],
+							    processing: true,
+							    language: {
+							        'loadingRecords': '',
+							        'processing': '<i class="fas fa-sync fa-spin"></i>'
+							    },
+							    "ajax": {
+							    	type: "POST",
+								    url: "<?php echo base_url() ?>Rekap_absen/get_data",
+								    data: {
+								        id_lokasi:'<?php echo $lokasi_id ?>'
+									},
+								},
+							 });
+
+
+	        	$('#btn-filter-date').click(function() {
+	        		tabel.ajax.reload();
+	        	})
+		 	})
+
+
 
         </script>
