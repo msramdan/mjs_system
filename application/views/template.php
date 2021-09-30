@@ -41,6 +41,28 @@
 <link href="<?= base_url() ?>assets/assets/plugins/jstree/dist/themes/default/style.min.css" rel="stylesheet" />
 <script src="<?= base_url() ?>assets/assets/plugins/jstree/dist/jstree.min.js"></script>
 
+<script src="<?= base_url() ?>assets/assets/js/vendor.min.js" type="beba54df5f87d24c2458d535-text/javascript"></script>
+<script src="<?= base_url() ?>assets/assets/js/app.min.js" type="beba54df5f87d24c2458d535-text/javascript"></script>
+<script src="<?= base_url() ?>assets/assets/js/theme/transparent.min.js" type="beba54df5f87d24c2458d535-text/javascript"></script>
+<script src="<?= base_url() ?>assets/assets/plugins/d3/d3.min.js" type="beba54df5f87d24c2458d535-text/javascript"></script>
+<script src="<?= base_url() ?>assets/assets/plugins/nvd3/build/nv.d3.min.js" type="beba54df5f87d24c2458d535-text/javascript"></script>
+<script src="<?= base_url() ?>assets/assets/plugins/jvectormap-next/jquery-jvectormap.min.js" type="beba54df5f87d24c2458d535-text/javascript"></script>
+<script src="<?= base_url() ?>assets/assets/plugins/jvectormap-next/jquery-jvectormap-world-mill.js" type="beba54df5f87d24c2458d535-text/javascript"></script>
+<script src="<?= base_url() ?>assets/assets/plugins/bootstrap-calendar/js/bootstrap_calendar.min.js" type="beba54df5f87d24c2458d535-text/javascript"></script>
+<!-- <script src="<?= base_url() ?>assets/assets/plugins/gritter/js/jquery.gritter.js" type="beba54df5f87d24c2458d535-text/javascript"></script> -->
+<script src="<?= base_url() ?>assets/assets/js/demo/dashboard-v2.js" type="beba54df5f87d24c2458d535-text/javascript"></script>
+<script src="<?= base_url() ?>assets/assets/js/rocket-loader.min.js" data-cf-settings="beba54df5f87d24c2458d535-|49" defer=""></script>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script> <!-- untuk sweet alret -->
+<script src="<?php echo base_url();?>assets/assets/js/dataflash.js"></script>
+<script src="<?= base_url() ?>assets/assets/js/number_format.js"></script>
+<script src="<?= base_url() ?>assets/assets/plugins/select-picker/dist/picker.min.js"></script>
+
+<script src="<?= base_url() ?>assets/assets/plugins/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="<?= base_url() ?>assets/assets/plugins/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
+<script src="<?= base_url() ?>assets/assets/plugins/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+<script src="<?= base_url() ?>assets/assets/plugins/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
+
   <script>
     $(document).idle({
       onIdle: function() {
@@ -341,30 +363,6 @@
 <a href="javascript:;" class="btn btn-icon btn-circle btn-success btn-scroll-to-top" data-toggle="scroll-to-top"><i class="fa fa-angle-up"></i></a>
 
 </div>
-
-
-<script src="<?= base_url() ?>assets/assets/js/vendor.min.js" type="beba54df5f87d24c2458d535-text/javascript"></script>
-<script src="<?= base_url() ?>assets/assets/js/app.min.js" type="beba54df5f87d24c2458d535-text/javascript"></script>
-<script src="<?= base_url() ?>assets/assets/js/theme/transparent.min.js" type="beba54df5f87d24c2458d535-text/javascript"></script>
-<script src="<?= base_url() ?>assets/assets/plugins/d3/d3.min.js" type="beba54df5f87d24c2458d535-text/javascript"></script>
-<script src="<?= base_url() ?>assets/assets/plugins/nvd3/build/nv.d3.min.js" type="beba54df5f87d24c2458d535-text/javascript"></script>
-<script src="<?= base_url() ?>assets/assets/plugins/jvectormap-next/jquery-jvectormap.min.js" type="beba54df5f87d24c2458d535-text/javascript"></script>
-<script src="<?= base_url() ?>assets/assets/plugins/jvectormap-next/jquery-jvectormap-world-mill.js" type="beba54df5f87d24c2458d535-text/javascript"></script>
-<script src="<?= base_url() ?>assets/assets/plugins/bootstrap-calendar/js/bootstrap_calendar.min.js" type="beba54df5f87d24c2458d535-text/javascript"></script>
-<!-- <script src="<?= base_url() ?>assets/assets/plugins/gritter/js/jquery.gritter.js" type="beba54df5f87d24c2458d535-text/javascript"></script> -->
-<script src="<?= base_url() ?>assets/assets/js/demo/dashboard-v2.js" type="beba54df5f87d24c2458d535-text/javascript"></script>
-<script src="<?= base_url() ?>assets/assets/js/rocket-loader.min.js" data-cf-settings="beba54df5f87d24c2458d535-|49" defer=""></script>
-
-<script src="<?= base_url() ?>assets/assets/plugins/datatables.net/js/jquery.dataTables.min.js"></script>
-<script src="<?= base_url() ?>assets/assets/plugins/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
-<script src="<?= base_url() ?>assets/assets/plugins/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
-<script src="<?= base_url() ?>assets/assets/plugins/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
-<script type="text/javascript" src="<?php echo base_url();?>assets/assets/js/sweetalert.min.js"></script>
-<script type="text/javascript" src="<?php echo base_url();?>assets/assets/js/sweetalert.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script> <!-- untuk sweet alret -->
-<script src="<?php echo base_url();?>assets/assets/js/dataflash.js"></script>
-<script src="<?= base_url() ?>assets/assets/js/number_format.js"></script>
-<script src="<?= base_url() ?>assets/assets/plugins/select-picker/dist/picker.min.js"></script>
 </body>
 </html>
 
