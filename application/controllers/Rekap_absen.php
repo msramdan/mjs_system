@@ -11,6 +11,7 @@ class Rekap_absen extends CI_Controller
         is_login();
         $this->load->model('Lokasi_model');
         $this->load->model('Karyawan_model');
+        $this->load->model('Absen_model');
         $this->load->model('Setting_app_model');
         $this->load->library('form_validation');
     }
@@ -29,9 +30,11 @@ class Rekap_absen extends CI_Controller
     public function rekap($lokasi_id)
     {
         is_allowed($this->uri->segment(1),null);
+        $recap_data = $this->Absen_model->recap_monthly('Masuk');
         $data = array(
             'sett_apps' =>$this->Setting_app_model->get_by_id(1),
             'lokasi_id' =>$lokasi_id,
+            'recap_data' => $recap_data
         );
         $this->template->load('template','rekap_absen/rekap', $data);
     }
