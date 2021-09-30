@@ -11,6 +11,7 @@ class Item extends CI_Controller
         is_login();
         $this->load->model('Setting_app_model');
         $this->load->model('Coa_model');
+        $this->load->model('Supplier_model');
         $this->load->model('Item_model');
         $this->load->model('Kategori_model');
         $this->load->model('Unit_model');
@@ -37,7 +38,6 @@ class Item extends CI_Controller
 		'item_id' => $row->item_id,
         'sett_apps' =>$this->Setting_app_model->get_by_id(1),
 		'kd_internal_item' => $row->kd_internal_item,
-		'kd_external_item' => $row->kd_external_item,
 		'nama_item' => $row->nama_item,
 		'kategori_id' => $row->kategori_id,
 		'unit_id' => $row->unit_id,
@@ -59,6 +59,7 @@ class Item extends CI_Controller
         $data = array(
             'button' => 'Create',
             'coa' =>$this->Coa_model->get_all(),
+            'supplier' =>$this->Supplier_model->get_all(),
             'sett_apps' =>$this->Setting_app_model->get_by_id(1),
             'kategori' =>$this->Kategori_model->get_all(),
             'unit' =>$this->Unit_model->get_all(),
@@ -66,7 +67,6 @@ class Item extends CI_Controller
             'action' => site_url('item/create_action'),
 	    'item_id' => set_value('item_id'),
 	    'kd_internal_item' => set_value('kd_internal_item'),
-	    'kd_external_item' => set_value('kd_external_item'),
 	    'nama_item' => set_value('nama_item'),
 	    'kategori_id' => set_value('kategori_id'),
 	    'unit_id' => set_value('unit_id'),
@@ -91,25 +91,65 @@ class Item extends CI_Controller
         if ($this->form_validation->run() == FALSE) {
             $this->create();
         } else {
-            $data = array(
-		'kd_internal_item' => $this->input->post('kd_internal_item',TRUE),
-		'kd_external_item' => $this->input->post('kd_external_item',TRUE),
-		'nama_item' => $this->input->post('nama_item',TRUE),
-		'kategori_id' => $this->input->post('kategori_id',TRUE),
-		'unit_id' => $this->input->post('unit_id',TRUE),
-		'deskripsi' => $this->input->post('deskripsi',TRUE),
-        'type' => $this->input->post('type',TRUE),
-		'estimasi_harga' => $this->input->post('estimasi_harga',TRUE),
-        'diskon' => $this->input->post('diskon',TRUE),
-        'akun_beban' => $this->input->post('akun_beban',TRUE),
-        'akun_return_pembelian' => $this->input->post('akun_return_pembelian',TRUE),
-        'akun_penjualan' => $this->input->post('akun_penjualan',TRUE),
-        'akun_return_penjualan' => $this->input->post('akun_return_penjualan',TRUE),
-	    );
+            $type =$_POST['type'];
 
-            $this->Item_model->insert($data);
-            $this->session->set_flashdata('message', 'Create Record Success');
-            redirect(site_url('item'));
+            if ($type =='Non Persediaan') {
+                        // input data item 
+                    $data = array(
+                        'kd_internal_item' => $this->input->post('kd_internal_item',TRUE),
+                        'nama_item' => $this->input->post('nama_item',TRUE),
+                        'kategori_id' => $this->input->post('kategori_id',TRUE),
+                        'unit_id' => $this->input->post('unit_id',TRUE),
+                        'deskripsi' => $this->input->post('deskripsi',TRUE),
+                        'type' => $this->input->post('type',TRUE),
+                        'estimasi_harga' => $this->input->post('estimasi_harga',TRUE),
+                        'diskon' => $this->input->post('diskon',TRUE),
+                        'akun_beban' => $this->input->post('akun_beban',TRUE),
+                        'akun_return_pembelian' => $this->input->post('akun_return_pembelian',TRUE),
+                        'akun_penjualan' => $this->input->post('akun_penjualan',TRUE),
+                        'akun_return_penjualan' => $this->input->post('akun_return_penjualan',TRUE),
+                        );
+                        $this->Item_model->insert($data);
+                        $item_id = $this->db->insert_id();
+                    // input data item supplier
+                        $supplier_id                = $_POST['supplier_id'];
+                        $kd_eksternal               = $_POST['kd_eksternal'];
+                        $estimasi_harga_supplier    = $_POST['estimasi_harga_supplier'];
+                        $update_tgl                 = $_POST['update_tgl']; 
+                        $jml_data_supplier  = $_POST['supplier_id'];
+                        $jumlah_data = count($jml_data_supplier);
+                        for($i = 0; $i < $jumlah_data;$i++)
+                        {
+                            $arr['item_id'] = $item_id;
+                            $arr['supplier_id'] = $supplier_id[$i];
+                            $arr['kd_eksternal'] = $kd_eksternal[$i];
+                            $arr['estimasi_harga_supplier'] = $estimasi_harga_supplier[$i];
+                            $arr['update_tgl'] = $update_tgl[$i];
+                            $this->db->insert('item_supplier',$arr);       
+                        }
+            }else{
+                $data = array(
+                        'kd_internal_item' => $this->input->post('kd_internal_item',TRUE),
+                        'nama_item' => $this->input->post('nama_item',TRUE),
+                        'kategori_id' => $this->input->post('kategori_id',TRUE),
+                        'unit_id' => $this->input->post('unit_id',TRUE),
+                        'deskripsi' => $this->input->post('deskripsi',TRUE),
+                        'type' => $this->input->post('type',TRUE),
+                        'estimasi_harga' => $this->input->post('estimasi_harga',TRUE),
+                        'diskon' => $this->input->post('diskon',TRUE),
+                        'akun_beban' => $this->input->post('akun_beban',TRUE),
+                        'akun_return_pembelian' => $this->input->post('akun_return_pembelian',TRUE),
+                        'akun_penjualan' => $this->input->post('akun_penjualan',TRUE),
+                        'akun_return_penjualan' => $this->input->post('akun_return_penjualan',TRUE),
+                        );
+                        $this->Item_model->insert($data);
+                        $item_id = $this->db->insert_id();
+
+            }
+            
+                
+                $this->session->set_flashdata('message', 'Create Record Success');
+                redirect(site_url('item'));
         }
     }
     
@@ -121,6 +161,7 @@ class Item extends CI_Controller
         if ($row) {
             $data = array(
                 'button' => 'Update',
+                'supplier' =>$this->Supplier_model->get_all(),
                 'coa' =>$this->Coa_model->get_all(),
                 'kategori' =>$this->Kategori_model->get_all(),
                 'unit' =>$this->Unit_model->get_all(),
@@ -128,7 +169,6 @@ class Item extends CI_Controller
                 'action' => site_url('item/update_action'),
 		'item_id' => set_value('item_id', $row->item_id),
 		'kd_internal_item' => set_value('kd_internal_item', $row->kd_internal_item),
-		'kd_external_item' => set_value('kd_external_item', $row->kd_external_item),
 		'nama_item' => set_value('nama_item', $row->nama_item),
 		'kategori_id' => set_value('kategori_id', $row->kategori_id),
 		'unit_id' => set_value('unit_id', $row->unit_id),
@@ -161,22 +201,66 @@ class Item extends CI_Controller
         if ($this->form_validation->run() == FALSE) {
             $this->update($this->input->post('item_id', TRUE));
         } else {
+        $type =$_POST['type'];
+
+        if ($type =='Non Persediaan') {
+
             $data = array(
-		'kd_internal_item' => $this->input->post('kd_internal_item',TRUE),
-		'kd_external_item' => $this->input->post('kd_external_item',TRUE),
-		'nama_item' => $this->input->post('nama_item',TRUE),
-		'kategori_id' => $this->input->post('kategori_id',TRUE),
-		'unit_id' => $this->input->post('unit_id',TRUE),
-		'deskripsi' => $this->input->post('deskripsi',TRUE),
-        'type' => $this->input->post('type',TRUE),
-		'estimasi_harga' => $this->input->post('estimasi_harga',TRUE),
-        'diskon' => $this->input->post('diskon',TRUE),
-        'akun_beban' => $this->input->post('akun_beban',TRUE),
-        'akun_return_pembelian' => $this->input->post('akun_return_pembelian',TRUE),
-        'akun_penjualan' => $this->input->post('akun_penjualan',TRUE),
-        'akun_return_penjualan' => $this->input->post('akun_return_penjualan',TRUE),
-	    );
-            $this->Item_model->update($this->input->post('item_id', TRUE), $data);
+                'kd_internal_item' => $this->input->post('kd_internal_item',TRUE),
+                'nama_item' => $this->input->post('nama_item',TRUE),
+                'kategori_id' => $this->input->post('kategori_id',TRUE),
+                'unit_id' => $this->input->post('unit_id',TRUE),
+                'deskripsi' => $this->input->post('deskripsi',TRUE),
+                'type' => $this->input->post('type',TRUE),
+                'estimasi_harga' => $this->input->post('estimasi_harga',TRUE),
+                'diskon' => $this->input->post('diskon',TRUE),
+                'akun_beban' => $this->input->post('akun_beban',TRUE),
+                'akun_return_pembelian' => $this->input->post('akun_return_pembelian',TRUE),
+                'akun_penjualan' => $this->input->post('akun_penjualan',TRUE),
+                'akun_return_penjualan' => $this->input->post('akun_return_penjualan',TRUE),
+                );
+                $this->Item_model->update($this->input->post('item_id', TRUE), $data);
+                        $item_id = $this->input->post('item_id');
+                    // input data item supplier
+                        $supplier_id                = $_POST['supplier_id'];
+                        $kd_eksternal               = $_POST['kd_eksternal'];
+                        $estimasi_harga_supplier    = $_POST['estimasi_harga_supplier']; 
+                        $update_tgl                 = $_POST['update_tgl']; 
+                        $jml_data_supplier  = $_POST['supplier_id'];
+                        $jumlah_data = count($jml_data_supplier);
+                        for($i = 0; $i < $jumlah_data;$i++)
+                        {
+                            $arr['item_id'] = $item_id;
+                            $arr['supplier_id'] = $supplier_id[$i];
+                            $arr['kd_eksternal'] = $kd_eksternal[$i];
+                            $arr['estimasi_harga_supplier'] = $estimasi_harga_supplier[$i];
+                            $arr['update_tgl'] = $update_tgl[$i];
+                            $this->db->insert('item_supplier',$arr);       
+                        }
+
+        }else{
+            $data = array(
+                'kd_internal_item' => $this->input->post('kd_internal_item',TRUE),
+                'nama_item' => $this->input->post('nama_item',TRUE),
+                'kategori_id' => $this->input->post('kategori_id',TRUE),
+                'unit_id' => $this->input->post('unit_id',TRUE),
+                'deskripsi' => $this->input->post('deskripsi',TRUE),
+                'type' => $this->input->post('type',TRUE),
+                'estimasi_harga' => $this->input->post('estimasi_harga',TRUE),
+                'diskon' => $this->input->post('diskon',TRUE),
+                'akun_beban' => $this->input->post('akun_beban',TRUE),
+                'akun_return_pembelian' => $this->input->post('akun_return_pembelian',TRUE),
+                'akun_penjualan' => $this->input->post('akun_penjualan',TRUE),
+                'akun_return_penjualan' => $this->input->post('akun_return_penjualan',TRUE),
+                );
+                $this->Item_model->update($this->input->post('item_id', TRUE), $data);
+        }
+
+
+
+
+           
+            
             $this->session->set_flashdata('message', 'Update Record Success');
             redirect(site_url('item'));
         }
@@ -200,13 +284,12 @@ class Item extends CI_Controller
     public function _rules() 
     {
 	$this->form_validation->set_rules('kd_internal_item', 'kd internal item', 'trim|required');
-	$this->form_validation->set_rules('kd_external_item', 'kd external item', 'trim|required');
 	$this->form_validation->set_rules('nama_item', 'nama item', 'trim|required');
 	$this->form_validation->set_rules('kategori_id', 'Nama kategori', 'trim|required');
     $this->form_validation->set_rules('type', 'Type', 'trim|required');
 	$this->form_validation->set_rules('unit_id', 'unit id', 'trim|required');
 	$this->form_validation->set_rules('deskripsi', 'deskripsi', 'trim|required');
-	$this->form_validation->set_rules('estimasi_harga', 'estimasi harga', 'trim|required');
+	$this->form_validation->set_rules('estimasi_harga', 'estimasi harga', 'trim');
 	$this->form_validation->set_rules('item_id', 'item_id', 'trim');
 	$this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');
     }
@@ -235,7 +318,6 @@ class Item extends CI_Controller
         $kolomhead = 0;
         xlsWriteLabel($tablehead, $kolomhead++, "No");
 	xlsWriteLabel($tablehead, $kolomhead++, "Kd Internal Item");
-	xlsWriteLabel($tablehead, $kolomhead++, "Kd External Item");
 	xlsWriteLabel($tablehead, $kolomhead++, "Nama Item");
 	xlsWriteLabel($tablehead, $kolomhead++, "Kategori Id");
 	xlsWriteLabel($tablehead, $kolomhead++, "Unit Id");
@@ -249,7 +331,6 @@ class Item extends CI_Controller
             //ubah xlsWriteLabel menjadi xlsWriteNumber untuk kolom numeric
             xlsWriteNumber($tablebody, $kolombody++, $nourut);
 	    xlsWriteLabel($tablebody, $kolombody++, $data->kd_internal_item);
-	    xlsWriteLabel($tablebody, $kolombody++, $data->kd_external_item);
 	    xlsWriteLabel($tablebody, $kolombody++, $data->nama_item);
 	    xlsWriteNumber($tablebody, $kolombody++, $data->kategori_id);
 	    xlsWriteNumber($tablebody, $kolombody++, $data->unit_id);

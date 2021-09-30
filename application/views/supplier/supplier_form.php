@@ -56,7 +56,13 @@
                     <form action="<?php echo $action; ?>" method="post">
                         <table class="table  table-bordered table-hover table-td-valign-middle">
                             <thead>
-                                <tr><td id="tengah">Kode Supplier <?php echo form_error('kode_supplier') ?></td><td><input type="text" class="form-control" name="kode_supplier" id="kode_supplier" placeholder="Kode Supplier" value="<?php echo $kode_supplier; ?>" /></td></tr>
+                                <tr><td id="tengah">Kode Supplier <?php echo form_error('kode_supplier') ?></td><td>
+                                      <?php if ($button=='Create') { ?>
+                                        <input type="text" readonly="" class="form-control" name="kode_supplier" id="kode_supplier" placeholder="Kode Supplier" value="<?= $kodeunik ?>"  />
+                                      <?php }else{ ?>
+                                        <input type="text" readonly="" class="form-control" name="kode_supplier" id="kode_supplier" placeholder="Kode Supplier" value="<?php echo $kode_supplier; ?>" />
+                                      <?php } ?>                                    
+                                    </td></tr>
 
                                 <tr><td  id="tengah" >Nama Supplier <?php echo form_error('nama_supplier') ?></td><td><input type="text" class="form-control" name="nama_supplier" id="nama_supplier" placeholder="Nama Supplier" value="<?php echo $nama_supplier; ?>" /></td></tr>
                                 
@@ -158,7 +164,7 @@
 
         <div style="float: right;">
         <button type="submit" class="btn btn-danger"><i class="fas fa-save"></i> <?php echo $button ?></button> 
-        <a href="<?php echo site_url('pelanggan') ?>" class="btn btn-info"><i class="fas fa-undo"></i> Kembali</a>
+        <a href="<?php echo site_url('supplier') ?>" class="btn btn-info"><i class="fas fa-undo"></i> Kembali</a>
     </form>
     </div>
 
@@ -232,7 +238,7 @@
 
                                 <tr><td >Telepon</td><td><input style="border-color: #d3d3d3; color: black" type="text" class="form-control" name="telepon2" id="telepon2" placeholder="Telepon" value="" /></td></tr>
 
-                                <input style="border-color: #d3d3d3; color: black" type="text" class="form-control" name="supplier_id2" id="supplier_id2" placeholder="supplier_id2" value="" />
+                                <input style="border-color: #d3d3d3; color: black" type="hidden" class="form-control" name="supplier_id2" id="supplier_id2" placeholder="supplier_id2" value="" />
 
                         </thead>
                 </table>

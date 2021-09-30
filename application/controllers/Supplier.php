@@ -61,6 +61,7 @@ class Supplier extends CI_Controller
         $data = array(
             'button' => 'Create',
             'pajak' =>$this->Pajak_model->get_all(),
+            'kodeunik' =>$this->Supplier_model->buat_kode(),
             'sett_apps' =>$this->Setting_app_model->get_by_id(1),
             'action' => site_url('supplier/create_action'),
 	    'supplier_id' => set_value('supplier_id'),

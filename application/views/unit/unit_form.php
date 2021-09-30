@@ -14,11 +14,15 @@
 <div class="panel-body">
         
             <form action="<?php echo $action; ?>" method="post">
+            
             <table class="table  table-bordered table-hover table-td-valign-middle">
+            <thead>
 	    <tr><td >Nama Unit <?php echo form_error('nama_unit') ?></td><td><input type="text" class="form-control" name="nama_unit" id="nama_unit" placeholder="Nama Unit" value="<?php echo $nama_unit; ?>" /></td></tr>
+	    <tr><td >Keterangan <?php echo form_error('keterangan') ?></td><td><input type="text" class="form-control" name="keterangan" id="keterangan" placeholder="Keterangan" value="<?php echo $keterangan; ?>" /></td></tr>
 	    <tr><td></td><td><input type="hidden" name="unit_id" value="<?php echo $unit_id; ?>" /> 
 	    <button type="submit" class="btn btn-danger"><i class="fas fa-save"></i> <?php echo $button ?></button> 
 	    <a href="<?php echo site_url('unit') ?>" class="btn btn-info"><i class="fas fa-undo"></i> Kembali</a></td></tr>
+</thead>
 	</table></form>        </div>
 </div>
 </div>

@@ -55,7 +55,16 @@
                     <form action="<?php echo $action; ?>" method="post">
                          <table class="table table-bordered table-hover table-td-valign-middle">
                             <thead>
-                                <tr><td id="tengah" >Kode Pelanggan <?php echo form_error('kode_pelanggan') ?></td><td><input type="text" class="form-control" name="kode_pelanggan" id="kode_pelanggan" placeholder="Kode Pelanggan" value="<?php echo $kode_pelanggan; ?>" /></td></tr>
+                                <tr><td id="tengah" >Kode Pelanggan <?php echo form_error('kode_pelanggan') ?></td><td>
+                                  <?php if ($button=='Create') { ?>
+                                    <input type="text" readonly="" class="form-control" name="kode_pelanggan" id="kode_pelanggan" placeholder="Kode Pelanggan" value="<?= $kodeunik ?>"  />
+                                  <?php }else{ ?>
+                                    <input type="text" readonly="" class="form-control" name="kode_pelanggan" id="kode_pelanggan" placeholder="Kode Pelanggan" value="<?php echo $kode_pelanggan; ?>" />
+                                  <?php } ?>
+
+
+
+                                </td></tr>
                                 <tr><td  id="tengah" >Nama Pelanggan* <?php echo form_error('nama_pelanggan') ?></td><td><input type="text" class="form-control" name="nama_pelanggan" id="nama_pelanggan" placeholder="Nama Pelanggan" value="<?php echo $nama_pelanggan; ?>" /></td></tr>
                                 
                                 <tr><td id="tengah" >Alamat <?php echo form_error('alamat') ?></td><td> <textarea class="form-control" id="wysihtml5" rows="5" name="alamat" placeholder="Alamat"><?php echo $alamat; ?></textarea></td></tr>

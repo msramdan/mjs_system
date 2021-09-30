@@ -61,6 +61,7 @@ class Pelanggan extends CI_Controller
         $data = array(
             'button' => 'Create',
             'pajak' =>$this->Pajak_model->get_all(),
+            'kodeunik' =>$this->Pelanggan_model->buat_kode(),
             'sett_apps' =>$this->Setting_app_model->get_by_id(1),
             'action' => site_url('pelanggan/create_action'),
 	    'pelanggan_id' => set_value('pelanggan_id'),
