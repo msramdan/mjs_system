@@ -389,7 +389,7 @@
   $('#wysihtml5').wysihtml5();
 
   <?php
-  if ($this->uri->segment(2) == 'rekap') {
+  if ($this->uri->segment(2) == 'rekap_tahunan') {
   	?>
   		//it's not posible to see this in mobile version!
 		 		var tabel = $('#tabel-rekap-absensi').DataTable({
@@ -426,7 +426,7 @@
 							    },
 							    "ajax": {
 							    	type: "POST",
-								    url: "<?php echo base_url() ?>Rekap_absen/get_data",
+								    url: "<?php echo base_url() ?>Rekap_absen/get_data_yearly",
 								    data: {
 								        id_lokasi:'<?php echo $lokasi_id ?>',
 								        tahun: '<?php echo $tahun ?>'

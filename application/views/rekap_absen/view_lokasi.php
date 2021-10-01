@@ -17,13 +17,20 @@
         display: contents;
     }
 
-    .btn-confirm {
+    .btn-confirm-taun, .btn-confirm-bulan {
         right: 0%;
     }
 
     .btn-select-taun
     {
         right: 30%;
+    }
+
+    .btn-select-bulan
+    {
+        padding-right: 22px;
+        padding-left: 22px;
+        right: 48%;
     }
 
 </style>
@@ -88,9 +95,52 @@
                 </div>
 			</td>
             <td>
-                <button class="btn btn-primary">
-                    <i class="fas fa-list" aria-hidden="true"></i> Bulan
-                </button>
+                <input type="hidden" name="lokasi_id" class="lokasi_id" value="<?php echo encrypt_url($lokasi->lokasi_id) ?>">
+                <div class="input-group">
+                    <?php
+                        $arrtaun = [2019,2020,2021,2022,2023];
+                        $arrbulan = array(
+                            'Januari' => 1,
+                            'Februari' => 2,
+                            'Maret' => 3,
+                            'April' => 4,
+                            'Mei' => 5,
+                            'Juni' => 6,
+                            'Juli' => 7,
+                            'Agustus' => 8,
+                            'September' => 9,
+                            'Oktober' => 10,
+                            'November' => 11,
+                            'Desember' => 12
+                        );
+                    ?>
+                    <select class="form-control select-form-bulanan-1" name="month">
+                        <?php
+                        foreach($arrbulan as $key => $v) {
+                            ?>
+                                <option value="<?php echo $v ?>"><?php echo $key ?></option>
+                            <?php
+                        }
+                        ?>
+                    </select>
+                    <select class="form-control select-form-bulanan-2" name="year">
+                        <?php
+                        foreach($arrtaun as $v) {
+                            ?>
+                                <option value="<?php echo $v ?>"><?php echo $v ?></option>
+                            <?php
+                        }
+                        ?>
+                    </select>
+                    <div class="input-group-button">
+                       <button class="btn btn-primary buttonnya btn-select-bulan">
+                           <i class="fas fa-list" aria-hidden="true"></i> Bulan
+                       </button> 
+                        <?php 
+                        //    echo anchor(site_url('rekap_absen/rekap/'.encrypt_url($lokasi->lokasi_id)),'<i class="fas fa-list" aria-hidden="true"></i> Tahun','class="btn btn-success read_data"'); 
+                        ?>
+                    </div>
+                </div>
             </td>
 		</tr>
                 <?php } ?>
@@ -113,35 +163,43 @@
 
                     e.preventDefault()
 
-                    $('.btn-confirm').replaceWith('<button class="btn btn-danger buttonnya btn-select-taun"><i class="fas fa-list" aria-hidden="true"></i> Tahun</button>')
-                    $(this).replaceWith('<button class="btn btn-confirm buttonnya btn-success"><i class="fas fa-check"></i></button>')
+                    $('.btn-confirm-taun').replaceWith('<button class="btn btn-danger buttonnya btn-select-taun"><i class="fas fa-list" aria-hidden="true"></i> Tahun</button>')
+                    $('.btn-confirm-bulan').replaceWith('<button class="btn btn-primary buttonnya btn-select-bulan"><i class="fas fa-list" aria-hidden="true"></i> Bulan</button> ')
+                    $(this).replaceWith('<button class="btn btn-confirm-taun buttonnya btn-success"><i class="fas fa-check"></i></button>')
                 })
 
-                $(document).on('click','.btn-confirm', function() {
+                $('.input-group-button').on('click','.btn-select-bulan', function(e) {
+
+                    e.preventDefault()
+
+                    $('.btn-confirm-taun').replaceWith('<button class="btn btn-danger buttonnya btn-select-taun"><i class="fas fa-list" aria-hidden="true"></i> Tahun</button>')
+                    $('.btn-confirm-bulan').replaceWith('<button class="btn btn-primary buttonnya btn-select-bulan"><i class="fas fa-list" aria-hidden="true"></i> Bulan</button> ')
+                    $(this).replaceWith('<button class="btn btn-confirm-bulan buttonnya btn-success"><i class="fas fa-check"></i></button>')
+                })
+
+                $(document).on('click','.btn-confirm-taun', function() {
 
                     var lokasi_id = $(this).parents('td').find('.lokasi_id').val()
                     var tahun = $(this).parents('td').children('.input-group').find('.select-form-nya').val()
 
-                    const url = "<?php echo base_url() ?>Rekap_absen/rekap/" + lokasi_id + '/' + tahun
+                    const url = "<?php echo base_url() ?>Rekap_absen/rekap_tahunan/" + lokasi_id + '/' + tahun
 
                     //alert(url)
                     window.location.href = url
+                })
+
+                $(document).on('click','.btn-confirm-taun', function() {
+
+                    // var lokasi_id = $(this).parents('td').find('.lokasi_id').val()
+                    // var tahun = $(this).parents('td').children('.input-group').find('.select-form-nya').val()
+
+                    // const url = "<?php echo base_url() ?>Rekap_absen/rekap_tahunan/" + lokasi_id + '/' + tahun
+
+                    // //alert(url)
+                    // window.location.href = url
                 })
             })
 
 
         </script>
-
-<div id="recap-calendar" class="bootstrap-calendar"></div>
-<hr class="m-0 bg-gray-500" />
-<div class="list-group list-group-flush">
-<a href="javascript:;" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center text-ellipsis">
-Sales Reporting
-<span class="badge bg-teal fs-10px">9:00 am</span>
-</a>
-<a href="javascript:;" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center text-ellipsis rounded-bottom">
-Have a meeting with sales team
-<span class="badge bg-blue fs-10px">2:45 pm</span>
-</a>
-</div>
 
