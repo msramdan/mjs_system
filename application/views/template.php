@@ -384,7 +384,59 @@
   //ckeditor
   $('#wysihtml5').wysihtml5();
 
-  
+  <?php
+  if ($this->uri->segment(2) == 'rekap') {
+  	?>
+  		//it's not posible to see this in mobile version!
+		 		var tabel = $('#tabel-rekap-absensi').DataTable({
+							    dom: '<"row"<"col-sm-5"B><"col-sm-7"fr>>t<"row"<"col-sm-5"i><"col-sm-7"p>>',
+							    buttons: [
+							      { 
+							      	extend: 'copy', 
+							      	className: 'btn-sm'
+							      },
+							      { 
+							      	extend: 'csv', 
+							      	className: 'btn-sm',
+							      	title: 'Export data rekap absensi'
+							      },
+							      { 
+							      	extend: 'excel', 
+							      	className: 'btn-sm',
+							      	title: 'Export data rekap absensi'
+							      },
+							      { 
+							      	extend: 'pdf', 
+							      	className: 'btn-sm',
+							      	title: 'Export data rekap absensi'
+							      },
+							      { 
+							      	extend: 'print', 
+							      	className: 'btn-sm'
+							      }
+							    ],
+							    processing: true,
+							    language: {
+							        'loadingRecords': '',
+							        'processing': '<i class="fas fa-sync fa-spin"></i>'
+							    },
+							    "ajax": {
+							    	type: "POST",
+								    url: "<?php echo base_url() ?>Rekap_absen/get_data",
+								    data: {
+								        id_lokasi:'<?php echo $lokasi_id ?>',
+								        tahun: '<?php echo $tahun ?>'
+									},
+								},
+							 });
+
+
+	        	$('#btn-filter-date').click(function() {
+	        		tabel.ajax.reload();
+	        	})
+  	<?php
+  }
+  ?>
 </script>
 </body>
 </html>
