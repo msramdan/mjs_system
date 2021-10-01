@@ -27,12 +27,14 @@ class Rekap_absen extends CI_Controller
         $this->template->load('template','rekap_absen/view_lokasi', $data);
     }
 
-    public function rekap($lokasi_id)
+    public function rekap($lokasi_id,$tahun)
     {
         is_allowed($this->uri->segment(1),null);
+
         $data = array(
             'sett_apps' =>$this->Setting_app_model->get_by_id(1),
-            'lokasi_id' =>$lokasi_id
+            'lokasi_id' =>$lokasi_id,
+            'tahun' => $tahun
         );
 
                                                     
@@ -43,7 +45,9 @@ class Rekap_absen extends CI_Controller
     {
         $lokasi_id = decrypt_url($this->input->post('id_lokasi'));
 
-        $recap_data = $this->Absen_model->recap_monthly($lokasi_id);
+        $year = $this->input->post('tahun');
+
+        $recap_data = $this->Absen_model->recap_yearly($lokasi_id,$year);
         $data = [];
 
         foreach ($recap_data->result() as $value) {

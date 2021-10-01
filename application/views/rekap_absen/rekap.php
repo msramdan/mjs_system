@@ -143,71 +143,12 @@
             </script>
         <?php } ?>
 
-<script src="<?= base_url() ?>assets/assets/plugins/datatables.net/js/jquery.dataTables.min.js"></script>
-<script src="<?= base_url() ?>assets/assets/plugins/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
-<script src="<?= base_url() ?>assets/assets/plugins/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
-<script src="<?= base_url() ?>assets/assets/plugins/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
-<script src="<?= base_url() ?>assets/assets/plugins/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
-<script src="<?= base_url() ?>assets/assets/plugins/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js"></script>
-<script src="<?= base_url() ?>assets/assets/plugins/datatables.net-buttons/js/buttons.colVis.min.js"></script>
-<script src="<?= base_url() ?>assets/assets/plugins/datatables.net-buttons/js/buttons.flash.min.js"></script>
-<script src="<?= base_url() ?>assets/assets/plugins/datatables.net-buttons/js/buttons.html5.min.js"></script>
-<script src="<?= base_url() ?>assets/assets/plugins/datatables.net-buttons/js/buttons.print.min.js"></script>
-<script src="<?= base_url() ?>assets/assets/plugins/pdfmake/build/pdfmake.min.js"></script>
-<script src="<?= base_url() ?>assets/assets/plugins/pdfmake/build/vfs_fonts.js"></script>
-<script src="<?= base_url() ?>assets/assets/plugins/jszip/dist/jszip.min.js"></script>
-
         <script type="text/javascript">
   		
 
 		 	$(document).ready(function(){
 
-		 		//it's not posible to see this in mobile version!
-		 		var tabel = $('#tabel-rekap-absensi').DataTable({
-							    dom: '<"row"<"col-sm-5"B><"col-sm-7"fr>>t<"row"<"col-sm-5"i><"col-sm-7"p>>',
-							    buttons: [
-							      { 
-							      	extend: 'copy', 
-							      	className: 'btn-sm'
-							      },
-							      { 
-							      	extend: 'csv', 
-							      	className: 'btn-sm',
-							      	title: 'Export data rekap absensi'
-							      },
-							      { 
-							      	extend: 'excel', 
-							      	className: 'btn-sm',
-							      	title: 'Export data rekap absensi'
-							      },
-							      { 
-							      	extend: 'pdf', 
-							      	className: 'btn-sm',
-							      	title: 'Export data rekap absensi'
-							      },
-							      { 
-							      	extend: 'print', 
-							      	className: 'btn-sm'
-							      }
-							    ],
-							    processing: true,
-							    language: {
-							        'loadingRecords': '',
-							        'processing': '<i class="fas fa-sync fa-spin"></i>'
-							    },
-							    "ajax": {
-							    	type: "POST",
-								    url: "<?php echo base_url() ?>Rekap_absen/get_data",
-								    data: {
-								        id_lokasi:'<?php echo $lokasi_id ?>'
-									},
-								},
-							 });
-
-
-	        	$('#btn-filter-date').click(function() {
-	        		tabel.ajax.reload();
-	        	})
+		 		
 		 	})
 
 

@@ -1,3 +1,33 @@
+<style>
+    
+    .buttonnya {
+        position: absolute;
+        height: 100%;
+        display: inline-block;
+        right: 52%;
+        transition: 250ms all ease-in-out;
+    }
+
+    .select-form-nya {
+        flex: 0 1 30% !important;
+    }
+
+    .input-group-button {
+        position: absolute;
+        display: contents;
+    }
+
+    .btn-confirm {
+        right: 0%;
+    }
+
+    .btn-select-taun
+    {
+        right: 30%;
+    }
+
+</style>
+
 <div id="content" class="app-content">
             <div class="panel panel-inverse">
               <div class="panel-heading">
@@ -32,9 +62,29 @@
 			<td><?= $no++?></td>
 			<td><?php echo $lokasi->nama_lokasi ?></td>
 			<td style="text-align:center" width="200px">
-				<?php 
-				echo anchor(site_url('rekap_absen/rekap/'.encrypt_url($lokasi->lokasi_id)),'<i class="fas fa-list" aria-hidden="true"></i> Tampilkan','class="btn btn-success btn-sm read_data"'); 
-				?>
+                <input type="hidden" name="lokasi_id" class="lokasi_id" value="<?php echo encrypt_url($lokasi->lokasi_id) ?>">
+                <div class="input-group">
+                    <?php
+                        $arrtaun = [2019,2020,2021,2022,2023];
+                    ?>
+                    <select class="form-control select-form-nya" name="year">
+                        <?php
+                        foreach($arrtaun as $v) {
+                            ?>
+                                <option value="<?php echo $v ?>"><?php echo $v ?></option>
+                            <?php
+                        }
+                        ?>
+                    </select>
+                    <div class="input-group-button">
+                       <button class="btn btn-danger buttonnya btn-select-taun">
+                           <i class="fas fa-list" aria-hidden="true"></i> Tampilkan
+                       </button> 
+                        <?php 
+                        //    echo anchor(site_url('rekap_absen/rekap/'.encrypt_url($lokasi->lokasi_id)),'<i class="fas fa-list" aria-hidden="true"></i> Tampilkan','class="btn btn-success read_data"'); 
+                        ?>
+                    </div>
+                </div>
 			</td>
 		</tr>
                 <?php } ?>
@@ -48,3 +98,30 @@
         </div>
         </div>
         </div>
+
+        <script type="text/javascript">
+            
+            $(document).ready(function() {
+            
+                $('.input-group-button').on('click','.btn-select-taun', function(e) {
+
+                    e.preventDefault()
+
+                    $('.btn-confirm').replaceWith('<button class="btn btn-danger buttonnya btn-select-taun"><i class="fas fa-list" aria-hidden="true"></i> Tampilkan</button>')
+                    $(this).replaceWith('<button class="btn btn-confirm buttonnya btn-success"><i class="fas fa-check"></i></button>')
+                })
+
+                $(document).on('click','.btn-confirm', function() {
+
+                    var lokasi_id = $(this).parents('td').find('.lokasi_id').val()
+                    var tahun = $(this).parents('td').children('.input-group').find('.select-form-nya').val()
+
+                    const url = "<?php echo base_url() ?>Rekap_absen/rekap/" + lokasi_id + '/' + tahun
+
+                    //alert(url)
+                    window.location.href = url
+                })
+            })
+
+
+        </script>
