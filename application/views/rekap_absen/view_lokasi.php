@@ -53,7 +53,8 @@
             <tr>
         <th width="1%">No</th>
 		<th>Nama Categori Benefit</th>
-		<th>Action</th>
+		<th>Tahun</th>
+        <th>Bulan</th>
             </tr></thead><tbody><?php $no = 1;
             foreach ($lokasi as $lokasi)
             {
@@ -78,14 +79,19 @@
                     </select>
                     <div class="input-group-button">
                        <button class="btn btn-danger buttonnya btn-select-taun">
-                           <i class="fas fa-list" aria-hidden="true"></i> Tampilkan
+                           <i class="fas fa-list" aria-hidden="true"></i> Tahun
                        </button> 
                         <?php 
-                        //    echo anchor(site_url('rekap_absen/rekap/'.encrypt_url($lokasi->lokasi_id)),'<i class="fas fa-list" aria-hidden="true"></i> Tampilkan','class="btn btn-success read_data"'); 
+                        //    echo anchor(site_url('rekap_absen/rekap/'.encrypt_url($lokasi->lokasi_id)),'<i class="fas fa-list" aria-hidden="true"></i> Tahun','class="btn btn-success read_data"'); 
                         ?>
                     </div>
                 </div>
 			</td>
+            <td>
+                <button class="btn btn-primary">
+                    <i class="fas fa-list" aria-hidden="true"></i> Bulan
+                </button>
+            </td>
 		</tr>
                 <?php } ?>
             </tbody>
@@ -107,7 +113,7 @@
 
                     e.preventDefault()
 
-                    $('.btn-confirm').replaceWith('<button class="btn btn-danger buttonnya btn-select-taun"><i class="fas fa-list" aria-hidden="true"></i> Tampilkan</button>')
+                    $('.btn-confirm').replaceWith('<button class="btn btn-danger buttonnya btn-select-taun"><i class="fas fa-list" aria-hidden="true"></i> Tahun</button>')
                     $(this).replaceWith('<button class="btn btn-confirm buttonnya btn-success"><i class="fas fa-check"></i></button>')
                 })
 
@@ -125,3 +131,17 @@
 
 
         </script>
+
+<div id="recap-calendar" class="bootstrap-calendar"></div>
+<hr class="m-0 bg-gray-500" />
+<div class="list-group list-group-flush">
+<a href="javascript:;" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center text-ellipsis">
+Sales Reporting
+<span class="badge bg-teal fs-10px">9:00 am</span>
+</a>
+<a href="javascript:;" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center text-ellipsis rounded-bottom">
+Have a meeting with sales team
+<span class="badge bg-blue fs-10px">2:45 pm</span>
+</a>
+</div>
+

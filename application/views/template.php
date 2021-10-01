@@ -352,6 +352,7 @@
 <script src="<?= base_url() ?>assets/assets/plugins/bootstrap-calendar/js/bootstrap_calendar.min.js" type="beba54df5f87d24c2458d535-text/javascript"></script>
 <!-- <script src="<?= base_url() ?>assets/assets/plugins/gritter/js/jquery.gritter.js" type="beba54df5f87d24c2458d535-text/javascript"></script> -->
 <script src="<?= base_url() ?>assets/assets/js/demo/dashboard-v2.js" type="beba54df5f87d24c2458d535-text/javascript"></script>
+<script src="<?= base_url() ?>assets/assets/js/demo/custom-calendar.js" type="beba54df5f87d24c2458d535-text/javascript"></script>
 <script src="<?= base_url() ?>assets/assets/js/rocket-loader.min.js" data-cf-settings="beba54df5f87d24c2458d535-|49" defer=""></script>
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script> <!-- untuk sweet alret -->
@@ -373,6 +374,9 @@
 <script src="<?php echo base_url() ?>assets/assets/plugins/pdfmake/build/pdfmake.min.js"></script>
 <script src="<?php echo base_url() ?>assets/assets/plugins/pdfmake/build/vfs_fonts.js"></script>
 <script src="<?php echo base_url() ?>assets/assets/plugins/jszip/dist/jszip.min.js"></script>
+<script>
+    
+</script>
 <script>
     //datatable
   $('#data-table-default').DataTable({

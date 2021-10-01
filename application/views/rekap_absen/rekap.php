@@ -16,7 +16,7 @@
                             <div class="x_panel">        
                                 <div class="box-body">
                                     <div class='row'> 
-							        	<div class="box-body" id="tabel-absensi-wrapper" style="overflow-x: scroll; height: 56vh; ">
+							        	<div class="box-body" id="tabel-absensi-wrapper" style="overflow-x: scroll;">
 							        		<table id="tabel-rekap-absensi" class="table table-bordered table-hover table-td-valign-middle">
 							        			<thead>
 							        				<tr>
