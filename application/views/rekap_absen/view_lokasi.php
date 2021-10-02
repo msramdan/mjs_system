@@ -1,36 +1,13 @@
 <style>
     
-    .buttonnya {
-        position: absolute;
-        height: 100%;
-        display: inline-block;
-        right: 52%;
-        transition: 250ms all ease-in-out;
-    }
-
-    .select-form-nya {
-        flex: 0 1 30% !important;
-    }
-
-    .input-group-button {
-        position: absolute;
-        display: contents;
-    }
-
-    .btn-confirm-taun, .btn-confirm-bulan {
-        right: 0%;
-    }
-
-    .btn-select-taun
+    .select-form-bulanan-1, .select-form-bulanan-2, .select-form-nya
     {
-        right: 30%;
+        display: none;
     }
 
-    .btn-select-bulan
+    .showed
     {
-        padding-right: 22px;
-        padding-left: 22px;
-        right: 48%;
+        display: inline-block !important;
     }
 
 </style>
@@ -69,7 +46,7 @@
                 <tr>
 			<td><?= $no++?></td>
 			<td><?php echo $lokasi->nama_lokasi ?></td>
-			<td style="text-align:center" width="200px">
+			<td width="100px">
                 <input type="hidden" name="lokasi_id" class="lokasi_id" value="<?php echo encrypt_url($lokasi->lokasi_id) ?>">
                 <div class="input-group">
                     <?php
@@ -94,7 +71,7 @@
                     </div>
                 </div>
 			</td>
-            <td>
+            <td width="200px">
                 <input type="hidden" name="lokasi_id" class="lokasi_id" value="<?php echo encrypt_url($lokasi->lokasi_id) ?>">
                 <div class="input-group">
                     <?php
@@ -159,21 +136,31 @@
             
             $(document).ready(function() {
             
-                $('.input-group-button').on('click','.btn-select-taun', function(e) {
+                $(document).on('click','.btn-select-taun', function(e) {
 
                     e.preventDefault()
+                    $('.select-form-nya').removeClass('showed')
+                    $('.select-form-bulanan-1').removeClass('showed')
+                    $('.select-form-bulanan-2').removeClass('showed')
 
                     $('.btn-confirm-taun').replaceWith('<button class="btn btn-danger buttonnya btn-select-taun"><i class="fas fa-list" aria-hidden="true"></i> Tahun</button>')
                     $('.btn-confirm-bulan').replaceWith('<button class="btn btn-primary buttonnya btn-select-bulan"><i class="fas fa-list" aria-hidden="true"></i> Bulan</button> ')
+                    $(this).parents('td').children('.input-group').find('.select-form-nya').addClass('showed')
                     $(this).replaceWith('<button class="btn btn-confirm-taun buttonnya btn-success"><i class="fas fa-check"></i></button>')
                 })
 
-                $('.input-group-button').on('click','.btn-select-bulan', function(e) {
+                $(document).on('click','.btn-select-bulan', function(e) {
 
                     e.preventDefault()
+                    $('.select-form-nya').removeClass('showed')
+                    $('.select-form-bulanan-1').removeClass('showed')
+                    $('.select-form-bulanan-2').removeClass('showed')
+
 
                     $('.btn-confirm-taun').replaceWith('<button class="btn btn-danger buttonnya btn-select-taun"><i class="fas fa-list" aria-hidden="true"></i> Tahun</button>')
                     $('.btn-confirm-bulan').replaceWith('<button class="btn btn-primary buttonnya btn-select-bulan"><i class="fas fa-list" aria-hidden="true"></i> Bulan</button> ')
+                    $(this).parents('td').children('.input-group').find('.select-form-bulanan-1').addClass('showed')
+                    $(this).parents('td').children('.input-group').find('.select-form-bulanan-2').addClass('showed')
                     $(this).replaceWith('<button class="btn btn-confirm-bulan buttonnya btn-success"><i class="fas fa-check"></i></button>')
                 })
 
