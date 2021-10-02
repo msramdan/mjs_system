@@ -389,6 +389,7 @@
   $('#wysihtml5').wysihtml5();
 
   <?php
+
   if ($this->uri->segment(2) == 'rekap_tahunan') {
   	?>
   		//it's not posible to see this in mobile version!
@@ -433,6 +434,45 @@
 									},
 								},
 							 });
+
+
+	        	$('#btn-filter-date').click(function() {
+	        		tabel.ajax.reload();
+	        	})
+  	<?php
+  }
+
+  if ($this->uri->segment(2) == 'rekap_bulanan') {
+  	?>
+  		//it's not posible to see this in mobile version!
+		 		var tabel = $('#tabel-rekap-absensi').DataTable({
+							    dom: '<"row"<"col-sm-5"B><"col-sm-7"fr>>t<"row"<"col-sm-5"i><"col-sm-7"p>>',
+							    buttons: [
+							      { 
+							      	extend: 'copy', 
+							      	className: 'btn-sm'
+							      },
+							      { 
+							      	extend: 'csv', 
+							      	className: 'btn-sm',
+							      	title: 'Export data rekap absensi'
+							      },
+							      { 
+							      	extend: 'excel', 
+							      	className: 'btn-sm',
+							      	title: 'Export data rekap absensi'
+							      },
+							      { 
+							      	extend: 'pdf', 
+							      	className: 'btn-sm',
+							      	title: 'Export data rekap absensi'
+							      },
+							      { 
+							      	extend: 'print', 
+							      	className: 'btn-sm'
+							      }
+							    ],
+								});
 
 
 	        	$('#btn-filter-date').click(function() {

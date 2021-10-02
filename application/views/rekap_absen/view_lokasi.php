@@ -175,15 +175,16 @@
                     window.location.href = url
                 })
 
-                $(document).on('click','.btn-confirm-taun', function() {
+                $(document).on('click','.btn-confirm-bulan', function() {
 
-                    // var lokasi_id = $(this).parents('td').find('.lokasi_id').val()
-                    // var tahun = $(this).parents('td').children('.input-group').find('.select-form-nya').val()
+                    var lokasi_id = $(this).parents('td').find('.lokasi_id').val()
+                    var bulan = $(this).parents('td').children('.input-group').find('.select-form-bulanan-1').val()
+                    var tahun = $(this).parents('td').children('.input-group').find('.select-form-bulanan-2').val()
 
-                    // const url = "<?php echo base_url() ?>Rekap_absen/rekap_tahunan/" + lokasi_id + '/' + tahun
+                    const url = "<?php echo base_url() ?>Rekap_absen/rekap_bulanan/" + lokasi_id + '/' + bulan + '/' + tahun
 
-                    // //alert(url)
-                    // window.location.href = url
+                    //alert(url)
+                    window.location.href = url
                 })
             })
 

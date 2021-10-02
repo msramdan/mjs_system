@@ -16,21 +16,45 @@
                             <div class="x_panel">        
                                 <div class="box-body">
                                     <div class='row'> 
-							        	<div class="box-body" id="tabel-absensi-wrapper" style="overflow-x: scroll;">
-							        		<div id="recap-calendar" class="bootstrap-calendar"></div>
-<hr class="m-0 bg-gray-500" />
-<div class="list-group list-group-flush">
-<a href="javascript:;" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center text-ellipsis">
-Sales Reporting
-<span class="badge bg-teal fs-10px">9:00 am</span>
-</a>
-<a href="javascript:;" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center text-ellipsis rounded-bottom">
-Have a meeting with sales team
-<span class="badge bg-blue fs-10px">2:45 pm</span>
-</a>
-</div>
+							        	<div class="box-body" id="tabel-absensi-wrapper">
+							        		<!-- <div id="recap-calendar" class="bootstrap-calendar"></div> -->
 								   		</div>
 		        					</div>
+                                    <div class="row">
+                                        <table id="tabel-rekap-absensi" class="table table-bordered table-hover table-td-valign-middle">
+                                            <thead>
+                                                <tr>
+                                                    <th rowspan="2">Nama Karyawan</th>
+                                                    <th colspan="5" style="text-align: center;"><?php echo date('F', mktime(0, 0, 0, $bulan, 10));  ?></th>
+                                                </tr>
+                                                <tr>
+                                                    <th>M</th>
+                                                    <th>S</th>
+                                                    <th>I</th>
+                                                    <th>A</th>
+                                                    <th>C</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                               <?php 
+                                                    foreach ($datakaryawan as $key => $v) {
+                                                        ?>
+                                                        <tr>
+                                                            <td>
+                                                                <?php echo $v->nama_karyawan ?>
+                                                            </td>
+                                                            <td><?php echo $classnyak->countMasuk($v->karyawan_id, $bulan, $tahun, $lokasi_id) ?></td>
+                                                            <td><?php echo $classnyak->countSakit($v->karyawan_id, $bulan, $tahun, $lokasi_id) ?></td>
+                                                            <td><?php echo $classnyak->countIzin($v->karyawan_id, $bulan, $tahun, $lokasi_id) ?></td>
+                                                            <td><?php echo $classnyak->countAlpa($v->karyawan_id, $bulan, $tahun, $lokasi_id) ?></td>
+                                                            <td><?php echo $classnyak->countCuti($v->karyawan_id, $bulan, $tahun, $lokasi_id) ?></td>
+                                                        </tr>
+                                                        <?php
+                                                    }
+                                                ?>
+                                            </tbody>
+                                        </table>
+                                    </div>
 	        					</div>
         					</div>
         				</div>

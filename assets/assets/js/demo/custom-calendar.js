@@ -4,13 +4,13 @@ var handleRecapCalendar=function(){
     var now = new Date(), month = now.getMonth() + 1, year = now.getFullYear();
     var events=[
         [
-            '1/'+month+'/'+year,'Popover Title','#',COLOR_GREEN,'Some contents here'
+            '1/'+month+'/'+year,'Popover Title','#',COLOR_GREEN
         ],
         [
             '5/'+month+'/'+year,'Tooltip with link','http://www.seantheme.com/',COLOR_BLACK
         ],
         [
-            '18/'+month+'/'+year,'Popover with HTML Content','#',COLOR_BLACK,'Some contents here <div class="text-right"><a href="http://www.google.com">view more >>></a></div>'
+            '18/'+month+'/'+year,'Popover with HTML Content','#',COLOR_BLACK,
         ],
         [
             '28/'+month+'/'+year,'Color Admin V1.3 Launched','http://www.seantheme.com/color-admin-v1.3',COLOR_BLACK,
@@ -20,11 +20,7 @@ var handleRecapCalendar=function(){
     $(calTarg).calendar({
         months:monthNames,
         days:dayNames,
-        events:events,
-        popover_options:{
-            placement:'top',
-            html:true
-        }
+        events:events
     });
 
     $(calTarg).find('td.event').each(function(){

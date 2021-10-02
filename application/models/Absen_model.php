@@ -48,6 +48,25 @@ class Absen_model extends CI_Model
     	return $this->db->get('absen')->num_rows();
     }
 
+    function recap_monthly($lokasi_id,$bulan,$tahun)
+    {
+        $q = $this->db->query("
+            SELECT
+                karyawan.nama_karyawan AS 'nama_karyawan',
+                SUM(absen.status = 'Masuk') as 'M',
+                SUM(absen.status = 'Sakit') as 'S',
+                SUM(absen.status = 'Izin') as 'I',
+                SUM(absen.status = 'Alpa') as 'A',
+                SUM(absen.status = 'Cuti') as 'C'
+            FROM `absen`
+            JOIN karyawan ON karyawan.karyawan_id = absen.karyawan_id
+            WHERE karyawan.lokasi_id = '".$lokasi_id."' AND month(absen.tanggal) = ".$bulan." AND year(absen.tanggal) = ".$tahun."
+            GROUP BY karyawan.nama_karyawan;
+        ");
+
+        return $q;
+
+    }
 
     //still wrking on this shit!
 
@@ -128,6 +147,77 @@ class Absen_model extends CI_Model
         return $q;
 
         //oh god
+    }
+
+    function hitungMasuk($karyawan_id, $bulan, $tahun, $lokasi_id)
+    {
+        $where = array(
+            'absen.karyawan_id' => $karyawan_id,
+            'month(absen.tanggal)'=> $bulan,
+            'year(absen.tanggal)' => $tahun,
+            'karyawan.lokasi_id' => $lokasi_id,
+            'absen.status' => 'Masuk'
+        );
+
+        $this->db->where($where);
+        $this->db->join('karyawan','karyawan.karyawan_id=absen.karyawan_id');
+        return $this->db->get('absen')->num_rows();
+    }
+    function hitungSakit($karyawan_id, $bulan, $tahun, $lokasi_id)
+    {
+        $where = array(
+            'absen.karyawan_id' => $karyawan_id,
+            'month(absen.tanggal)'=> $bulan,
+            'year(absen.tanggal)' => $tahun,
+            'karyawan.lokasi_id' => $lokasi_id,
+            'absen.status' => 'Sakit'
+        );
+
+        $this->db->where($where);
+        $this->db->join('karyawan','karyawan.karyawan_id=absen.karyawan_id');
+        return $this->db->get('absen')->num_rows();
+    }
+    function hitungIzin($karyawan_id, $bulan, $tahun, $lokasi_id)
+    {
+        $where = array(
+            'absen.karyawan_id' => $karyawan_id,
+            'month(absen.tanggal)'=> $bulan,
+            'year(absen.tanggal)' => $tahun,
+            'karyawan.lokasi_id' => $lokasi_id,
+            'absen.status' => 'Izin'
+        );
+
+        $this->db->where($where);
+        $this->db->join('karyawan','karyawan.karyawan_id=absen.karyawan_id');
+        return $this->db->get('absen')->num_rows();
+    }
+    function hitungAlpa($karyawan_id, $bulan, $tahun, $lokasi_id)
+    {
+        $where = array(
+            'absen.karyawan_id' => $karyawan_id,
+            'month(absen.tanggal)'=> $bulan,
+            'year(absen.tanggal)' => $tahun,
+            'karyawan.lokasi_id' => $lokasi_id,
+            'absen.status' => 'Alpa'
+        );
+
+        $this->db->where($where);
+        $this->db->join('karyawan','karyawan.karyawan_id=absen.karyawan_id');
+        return $this->db->get('absen')->num_rows();
+    }
+    function hitungCuti($karyawan_id, $bulan, $tahun, $lokasi_id)
+    {
+        $where = array(
+            'absen.karyawan_id' => $karyawan_id,
+            'month(absen.tanggal)'=> $bulan,
+            'year(absen.tanggal)' => $tahun,
+            'karyawan.lokasi_id' => $lokasi_id,
+            'absen.status' => 'Cuti'
+        );
+
+        $this->db->where($where);
+        $this->db->join('karyawan','karyawan.karyawan_id=absen.karyawan_id');
+        return $this->db->get('absen')->num_rows();
     }
 }
 

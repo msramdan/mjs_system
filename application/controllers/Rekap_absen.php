@@ -41,6 +41,24 @@ class Rekap_absen extends CI_Controller
         $this->template->load('template','rekap_absen/rekap_tahunan', $data);
     }
 
+    public function rekap_bulanan($lokasi_id,$bulan,$tahun)
+    {
+        is_allowed($this->uri->segment(1),null);
+
+        $getkaryawanbasedonloc = $this->Karyawan_model->by_lokasi(decrypt_url($lokasi_id));
+
+        $data = array(
+            'sett_apps' =>$this->Setting_app_model->get_by_id(1),
+            'datakaryawan' => $getkaryawanbasedonloc,
+            'lokasi_id' =>$lokasi_id,
+            'bulan' => $bulan,
+            'tahun' => $tahun,
+            'classnyak' => $this
+        );
+                                                    
+        $this->template->load('template','rekap_absen/rekap_bulanan', $data);
+    }
+
     public function get_data_yearly()
     {
         $lokasi_id = decrypt_url($this->input->post('id_lokasi'));
@@ -127,6 +145,71 @@ class Rekap_absen extends CI_Controller
 
         // $this->load->view('rekap_absen/tabel_rekap',$data);
     }
+
+    // public function get_data_monthly()
+    // {
+    //     $lokasi_id = decrypt_url($this->input->post('id_lokasi'));
+
+    //     $month = $this->input->post('bulan');
+    //     $year = $this->input->post('tahun');
+
+    //     $recap_data = $this->Absen_model->recap_monthly($lokasi_id,$month,$year);
+    //     $data = [];
+
+    //     foreach ($recap_data->result() as $value) {
+    //         $data[] = array(
+    //             $value->nama_karyawan,
+    //             $value->M,
+    //             $value->S,
+    //             $value->I,
+    //             $value->A,
+    //             $value->C
+    //         );
+    //     }
+    //     $result = array(
+    //         "recordsTotal" => $recap_data->num_rows(),
+    //         "recordsFiltered" => $recap_data->num_rows(),
+    //         "data" => $data
+    //     );
+    //     echo json_encode($result);
+       
+
+    //     // $data['recap_data_list'] = $recap_data;
+
+    //     // $this->load->view('rekap_absen/tabel_rekap',$data);
+    // }
+
+    function countMasuk($karyawan_id, $bulan, $tahun, $lokasi_id)
+    {
+        $data = $this->Absen_model->hitungMasuk($karyawan_id, $bulan, $tahun, decrypt_url($lokasi_id));
+        return $data;
+    }
+
+    function countSakit($karyawan_id, $bulan, $tahun, $lokasi_id)
+    {
+        $data = $this->Absen_model->hitungSakit($karyawan_id, $bulan, $tahun, decrypt_url($lokasi_id));
+        return $data;
+    }
+
+    function countIzin($karyawan_id, $bulan, $tahun, $lokasi_id)
+    {
+        $data = $this->Absen_model->hitungIzin($karyawan_id, $bulan, $tahun, decrypt_url($lokasi_id));
+        return $data;
+    }
+
+    function countAlpa($karyawan_id, $bulan, $tahun, $lokasi_id)
+    {
+        $data = $this->Absen_model->hitungAlpa($karyawan_id, $bulan, $tahun, decrypt_url($lokasi_id));
+        return $data;
+    }
+
+    function countCuti($karyawan_id, $bulan, $tahun, $lokasi_id)
+    {
+        $data = $this->Absen_model->hitungCuti($karyawan_id, $bulan, $tahun, decrypt_url($lokasi_id));
+        return $data;
+    }
+
+
 
 
 }
