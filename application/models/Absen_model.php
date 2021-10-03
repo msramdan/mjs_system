@@ -161,7 +161,7 @@ class Absen_model extends CI_Model
 
         $this->db->where($where);
         $this->db->join('karyawan','karyawan.karyawan_id=absen.karyawan_id');
-        return $this->db->get('absen')->num_rows();
+        return $this->db->get('absen');
     }
     function hitungSakit($karyawan_id, $bulan, $tahun, $lokasi_id)
     {
@@ -175,7 +175,7 @@ class Absen_model extends CI_Model
 
         $this->db->where($where);
         $this->db->join('karyawan','karyawan.karyawan_id=absen.karyawan_id');
-        return $this->db->get('absen')->num_rows();
+        return $this->db->get('absen');
     }
     function hitungIzin($karyawan_id, $bulan, $tahun, $lokasi_id)
     {
@@ -189,7 +189,7 @@ class Absen_model extends CI_Model
 
         $this->db->where($where);
         $this->db->join('karyawan','karyawan.karyawan_id=absen.karyawan_id');
-        return $this->db->get('absen')->num_rows();
+        return $this->db->get('absen');
     }
     function hitungAlpa($karyawan_id, $bulan, $tahun, $lokasi_id)
     {
@@ -203,7 +203,7 @@ class Absen_model extends CI_Model
 
         $this->db->where($where);
         $this->db->join('karyawan','karyawan.karyawan_id=absen.karyawan_id');
-        return $this->db->get('absen')->num_rows();
+        return $this->db->get('absen');
     }
     function hitungCuti($karyawan_id, $bulan, $tahun, $lokasi_id)
     {
@@ -217,7 +217,7 @@ class Absen_model extends CI_Model
 
         $this->db->where($where);
         $this->db->join('karyawan','karyawan.karyawan_id=absen.karyawan_id');
-        return $this->db->get('absen')->num_rows();
+        return $this->db->get('absen');
     }
 }
 
