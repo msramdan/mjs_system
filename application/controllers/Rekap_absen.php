@@ -209,21 +209,43 @@ class Rekap_absen extends CI_Controller
         return $data;
     }
 
-    public function showCalendar()
+    public function showCalendar($month, $year, $id_karyawan, $statustocount)
     {
         //http://keithdevens.com/software/php_calendar
         $time = time();
         $today = date('j', $time);
-        $days = array($today => array(null, null,'<div id="today">' . $today . '</div>'));
+        $days = array($today => array(null, null,'<div class="today">' . $today . '</div>'));
         $pn = array('&laquo;' => date('n', $time) - 1, '&raquo;' => date('n', $time) + 1);
-        echo $this->generate_calendar(date('Y', $time), date('n', $time), $days, 1, null, 0);
+        echo $this->generate_calendar($id_karyawan,$statustocount,$year, $month, null, 1, null, 0);
+        
+
+        // $b = array();
+
+        // $a = $this->Absen_model->getdatabystatus($id_karyawan,$statustocount,$year,$month);
+
+        // $whatamilookingfor = 27;
+
+        // foreach ($a as $key => $value) {
+        //     $c = date('d', strtotime($value->tanggal));
+        //     if ($whatamilookingfor == $c) {
+        //         $b[] = $c.'SHIT';
+        //     } else {
+        //         $b[] = $c;
+        //     }
+        // }
+
+        // if (in_array($whatamilookingfor, $b)) {
+        //     echo "Got Irix";
+        // }
+
+        // print_r($b);
         // License: http://keithdevens . com/software/license
     }
 
     // PHP Calendar (version 2 . 3), written by Keith Devens
     // http://keithdevens . com/software/php_calendar
     //  see example at http://keithdevens . com/weblog
-    function generate_calendar($year, $month, $days = array(), $day_name_length = 3, $month_href = NULL, $first_day = 0, $pn = array())
+    function generate_calendar($id_karyawan,$statustocount,$year, $month, $days = array(), $day_name_length = 3, $month_href = NULL, $first_day = 0, $pn = array())
     {
         $first_of_month = gmmktime(0, 0, 0, $month, 1, $year);
         // remember that mktime will automatically correct if invalid dates are entered
@@ -235,7 +257,7 @@ class Rekap_absen extends CI_Controller
             $day_names[$n] = ucfirst(gmstrftime('%A', $t)); //%A means full textual day name
 
         list($month, $year, $month_name, $weekday) = explode(',', gmstrftime('%m, %Y, %B, %w', $first_of_month));
-        $weekday = ($weekday + 7 - $first_day) % 7; //adjust for $first_day
+        $weekday = ($weekday + 6 - $first_day) % 6; //adjust for $first_day
         $title   = htmlentities(ucfirst($month_name)) . $year;  //note that some locales don't capitalize month and day names
 
         //Begin calendar .  Uses a real <caption> .  See http://diveintomark . org/archives/2002/07/03
@@ -260,6 +282,16 @@ class Rekap_absen extends CI_Controller
                 $calendar  .= '<td>&nbsp;</td>'; //initial 'empty' days
             }
         }
+
+        $b = array();
+
+        $a = $this->Absen_model->getdatabystatus($id_karyawan,$statustocount,$year,$month);
+
+        foreach ($a as $key => $value) {
+            $c = date('d', strtotime($value->tanggal));
+            $b[] = $c;
+        }
+
         for($day = 1, $days_in_month = gmdate('t',$first_of_month); $day <= $days_in_month; $day++, $weekday++)
         {
             if($weekday == 7)
@@ -274,7 +306,13 @@ class Rekap_absen extends CI_Controller
                 $calendar  .= '<td' . ($classes ? ' class="' . htmlspecialchars($classes) . '">' : '>') . 
                     ($link ? '<a href="' . htmlspecialchars($link) . '">' . $content . '</a>' : $content) . '</td>';
             }
-            else $calendar  .= "<td>$day</td>";
+            else {
+                if (in_array($day, $b)) {
+                    $calendar  .= "<td style='color: red;'>".$day."</td>";
+                } else {
+                    $calendar  .= "<td>".$day."</td>";
+                }
+            }
         }
         if($weekday != 7) $calendar  .= '<td id="emptydays" colspan="' . (7-$weekday) . '">&nbsp;</td>'; //remaining "empty" days
 

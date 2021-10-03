@@ -1,51 +1,8 @@
 <style type="text/css">
-.calendar_header{
-    position: relative;
-}
-
-.prev-month{ left: 1px; }
-.next-month{ right: 1px; }
-.month-year h3{
-    font-size: 40px;
-    margin-top: 10px;
-    border: 1px solid #ddd;
-    margin-bottom: 0;
-    padding: 5px 0;
-    background: #eee;
-}
-.currentMonth{background: rgba(0,0,0,0.04);}
-.container {
-    margin-top: 10px;
-}
-
-.calendar-single.container table tr thead th {
-    background: #faffe0;
-    border-bottom: 4px double #ddd !important;
-    font-size: 20px;
-    height: 30px;
-    text-align: center;
-    font-weight: 700;
-}
-
-.calendar-single.container table tr tbody td {
-    font-size: 20px;
-    background: rgba(0,0,0,0.02);
-    height: 100px;
-}
-.calendar-single.container table tr tbody td.empty{background: #fff;}
-
 .today {
     font-weight: bold;
     color: #fff;
-    background-color: gray;
-}
-
-.calendar-single.container table tr thead th:nth-of-type(7), .calendar-single.container table tr tbody td:nth-of-type(7) {
-    font-weight: bold;
-}
-
-.calendar-single.container table tr thead th:nth-of-type(1), .calendar-single.container table tr tbody td:nth-of-type(1) {
-    font-weight: bold;
+    background: gray;
 }
 </style>
 
@@ -131,7 +88,7 @@
                     </tr>
                 </table>
                 <div class="box-body">
-                      <?php echo $classnyak->showCalendar() ?>  
+                      <?php $classnyak->showCalendar($bulan, $tahun, $value->karyawan_id, 'Masuk') ?>  
                 </div>
               </div>
               <div class="modal-footer">
@@ -158,7 +115,7 @@
                     </tr>
                 </table>
                 <div class="box-body">
-                      <?php echo $classnyak->showCalendar() ?>  
+                      <?php $classnyak->showCalendar($bulan, $tahun, $value->karyawan_id, 'Sakit') ?>  
                 </div>
               </div>
               <div class="modal-footer">
@@ -185,7 +142,7 @@
                     </tr>
                 </table>
                 <div class="box-body">
-                      <?php echo $classnyak->showCalendar() ?>  
+                      <?php $classnyak->showCalendar($bulan, $tahun, $value->karyawan_id, 'Izin') ?>  
                 </div>
               </div>
               <div class="modal-footer">
@@ -212,7 +169,7 @@
                     </tr>
                 </table>
                 <div class="box-body">
-                      <?php echo $classnyak->showCalendar() ?>  
+                      <?php $classnyak->showCalendar($bulan, $tahun, $value->karyawan_id, 'Alpa') ?>  
                 </div>
               </div>
               <div class="modal-footer">
@@ -239,7 +196,7 @@
                     </tr>
                 </table>
                 <div class="box-body">
-                      <?php echo $classnyak->showCalendar() ?>  
+                      <?php $classnyak->showCalendar($bulan, $tahun, $value->karyawan_id, 'Cuti') ?>  
                 </div>
               </div>
               <div class="modal-footer">

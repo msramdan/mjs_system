@@ -219,6 +219,19 @@ class Absen_model extends CI_Model
         $this->db->join('karyawan','karyawan.karyawan_id=absen.karyawan_id');
         return $this->db->get('absen');
     }
+
+    function getdatabystatus($karyawan_id,$statustocount,$year,$month)
+    {
+        $where = array(
+            'karyawan_id' => $karyawan_id,
+            'status' => $statustocount,
+            'year(tanggal)' => $year,
+            'month(tanggal)' => $month
+        );
+        $this->db->select('tanggal');
+        $this->db->where($where);
+        return $this->db->get('absen')->result();
+    }
 }
 
 /* End of file Categori_benefit_model.php */
