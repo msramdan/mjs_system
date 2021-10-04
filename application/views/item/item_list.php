@@ -28,13 +28,12 @@
          <thead>
             <tr>
         <th width="1%">No</th>
-		<th>Kode Internal</th>
-		<th>Kode External</th>
+		<th>Kode Internal Item</th>
 		<th>Nama Item</th>
         <th>Type</th>
 		<th>Kategori</th>
 		<th>Unit</th>
-		<th>Estimasi Harga</th>
+		<th>Estimasi Harga Jual</th>
 		<th>Stok</th>
 		<th>Action</th>
             </tr></thead><tbody><?php $no = 1;
@@ -44,7 +43,6 @@
                 <tr>
 			<td><?= $no++?></td>
 			<td><?php echo $item->kd_internal_item ?></td>
-			<td><?php echo $item->kd_external_item ?></td>
 			<td><?php echo $item->nama_item ?></td>
             <td><?php echo $item->type ?></td>
 			<td><?php echo $item->nama_kategori ?></td>

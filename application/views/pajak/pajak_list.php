@@ -31,8 +31,8 @@
 		<th>Nama</th>
 		<th>Nilai Tukar</th>
 		<th>Keterangan</th>
-		<th>Akun Pajak Penjualan</th>
-		<th>Akun Pajak Pembelian</th>
+<!-- 		<th>Akun Pajak Penjualan</th>
+		<th>Akun Pajak Pembelian</th> -->
 		<th>Action</th>
             </tr></thead><tbody><?php $no = 1;
             foreach ($pajak_data as $pajak)
@@ -43,8 +43,8 @@
 			<td><?php echo $pajak->nama ?></td>
 			<td><?php echo $pajak->nilai_tukar ?></td>
 			<td><?php echo $pajak->keterangan ?></td>
-			<td><?php echo $pajak->akun_pajak_penjualan ?></td>
-			<td><?php echo $pajak->akun_pajak_pembelian ?></td>
+			<!-- <td><?php echo $pajak->akun_pajak_penjualan ?></td>
+			<td><?php echo $pajak->akun_pajak_pembelian ?></td> -->
 			<td style="text-align:center" width="200px">
 				<?php 
 				echo anchor(site_url('pajak/read/'.encrypt_url($pajak->pajak_id)),'<i class="fas fa-eye" aria-hidden="true"></i>','class="btn btn-success btn-sm read_data"'); 

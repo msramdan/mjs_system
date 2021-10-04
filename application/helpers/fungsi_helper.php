@@ -119,6 +119,54 @@ function rupiah($angka){
     return $hasil_rupiah;
 }
 
+function invoice(){
+
+        $ci = get_instance();
+        $tahun_bulan = date('Y-m');
+
+        $sql= "SELECT LEFT(invoice,3) AS invoice_no FROM t_sale where Left(tanggal,7)='$tahun_bulan'";
+        $query = $ci->db->query($sql);
+
+        if ($query->num_rows()>0) {
+            $row = $query->row();
+            $n = ((int)$row->invoice_no)+1;
+            $no = sprintf("%'.03d", $n);
+        }else{
+            $no = "001";
+        }
+        $invoice = $no;
+
+    $bulan = date('m');
+    if ($bulan==1) {
+        $fix='I';
+    }else if ($bulan==2) {
+        $fix='II';
+    }else if ($bulan==3) {
+        $fix='III';
+    }else if ($bulan==4) {
+        $fix='IV';
+    }else if ($bulan==5) {
+        $fix='V';
+    }else if ($bulan==6) {
+        $fix='VI';
+    }else if ($bulan==7) {
+        $fix='VII';
+    }else if ($bulan==8) {
+        $fix='VIII';
+    }else if ($bulan==9) {
+        $fix='IX';
+    }else if ($bulan==10) {
+        $fix='X';
+    }else if ($bulan==11) {
+        $fix='XI';
+    }else{
+        $fix='XII';
+    }
+    $tahun = date('Y');
+    $hasil =$no.'//MJS-'.'/'.$fix.'/'.$tahun;
+    return $hasil;
+}
+
 //is_allowed
 function is_allowed($nama_menu, $access=null){
     $ci =& get_instance();

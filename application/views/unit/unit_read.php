@@ -13,6 +13,7 @@
 <div class="panel-body">
 <table id="data-table-default" class="table table-hover table-bordered table-td-valign-middle">
 	    <tr><td>Nama Unit</td><td><?php echo $nama_unit; ?></td></tr>
+	    <tr><td>Keterangan</td><td><?php echo $keterangan; ?></td></tr>
 	    <tr><td></td><td><a href="<?php echo site_url('unit') ?>" class="btn btn-default">Cancel</a></td></tr>
 	</table>
 			</div>

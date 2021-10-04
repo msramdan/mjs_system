@@ -1,8 +1,8 @@
 <div id="content" class="app-content">
-            <h1 class="page-header">KELOLA DATA PELANGGAN</h1>  
+            <h1 class="page-header">KELOLA DATA CUSTOMER</h1>  
             <div class="panel panel-inverse">
               <div class="panel-heading">
-                <h4 class="panel-title">List Data pelanggan </h4>
+                <h4 class="panel-title">List Data Customer </h4>
                     <div class="panel-heading-btn">
                         <a href="javascript:;" class="btn btn-xs btn-icon btn-default" data-toggle="panel-expand"><i class="fa fa-expand"></i></a>
                         <a href="javascript:;" class="btn btn-xs btn-icon btn-success" data-toggle="panel-reload"><i class="fa fa-redo"></i></a>
@@ -28,8 +28,8 @@
          <thead>
             <tr>
                 <th>No</th>
-		<th>Kode Pelanggan</th>
-		<th>Nama Pelanggan</th>
+		<th>Kode Customer</th>
+		<th>Nama Customer</th>
 		<th>Telepon</th>
 		<th>Action</th>
             </tr></thead><tbody><?php $no = 1;

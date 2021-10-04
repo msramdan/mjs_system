@@ -1,4 +1,3 @@
-
 <div id="content" class="app-content">
             <h1 class="page-header">KELOLA DATA UNIT</h1>  
             <div class="panel panel-inverse">
@@ -19,35 +18,34 @@
                                     <div class='row'>
                                         <div class='col-md-9'>
                                             <div style="padding-bottom: 10px;">
-        <?php echo anchor(site_url('unit/create'), '<i class="fas fa-plus-square " aria-hidden="true"></i> Tambah Data', 'class="btn btn-danger btn-sm tambah_data"'); ?>
-		<?php echo anchor(site_url('unit/excel'), '<i class="far fa-file-excel  " aria-hidden="true"></i> Export Ms Excel', 'class="btn btn-success btn-sm export_data"'); ?>
+        <?php echo anchor(site_url('unit/create'), '<i class="fas fa-plus-square" aria-hidden="true"></i> Tambah Data', 'class="btn btn-danger btn-sm tambah_data"'); ?>
+		<?php echo anchor(site_url('unit/excel'), '<i class="far fa-file-excel" aria-hidden="true"></i> Export Ms Excel', 'class="btn btn-success btn-sm export_data"'); ?>
                 </div>
             </div>
         </div>    
         <div class="box-body" style="overflow-x: scroll; ">
-        <div class="panel-body">
         <table id="data-table-default" class="table table-bordered table-hover table-td-valign-middle text-white">
          <thead>
-        <tr>
-            <th width="1%">No</th>
-    		<th>Nama Unit</th>
-    		<th>Action</th>
-        </tr>
-        </thead>
-        <tbody><?php $no = 1;
+            <tr>
+                <th>No</th>
+		<th>Nama Unit</th>
+		<th>Keterangan</th>
+		<th>Action</th>
+            </tr></thead><tbody><?php $no = 1;
             foreach ($unit_data as $unit)
             {
                 ?>
                 <tr>
 			<td><?= $no++?></td>
 			<td><?php echo $unit->nama_unit ?></td>
+			<td><?php echo $unit->keterangan ?></td>
 			<td style="text-align:center" width="200px">
 				<?php 
 				echo anchor(site_url('unit/read/'.encrypt_url($unit->unit_id)),'<i class="fas fa-eye" aria-hidden="true"></i>','class="btn btn-success btn-sm read_data"'); 
 				echo '  '; 
-				echo anchor(site_url('unit/update/'.encrypt_url($unit->unit_id)),'<i class="fas fa-pencil-alt" aria-hidden="true"></i>',' class="btn btn-primary btn-sm update_data"'); 
+				echo anchor(site_url('unit/update/'.encrypt_url($unit->unit_id)),'<i class="fas fa-pencil-alt" aria-hidden="true"></i>','class="btn btn-primary btn-sm update_data"'); 
 				echo '  '; 
-				echo anchor(site_url('unit/delete/'.encrypt_url($unit->unit_id)),'<i class="fas fa-trash-alt" aria-hidden="true"></i>',' class="btn btn-danger btn-sm delete_data" Delete','onclick="javasciprt: return confirm(\'Are You Sure ?\')"'); 
+				echo anchor(site_url('unit/delete/'.encrypt_url($unit->unit_id)),'<i class="fas fa-trash-alt" aria-hidden="true"></i>','class="btn btn-danger btn-sm delete_data" Delete','onclick="javasciprt: return confirm(\'Are You Sure ?\')"'); 
 				?>
 			</td>
 		</tr>
@@ -62,39 +60,37 @@
         </div>
         </div>
         </div>
-        </div>
-
         <?php
         if (is_allowed_button($this->uri->segment(1),'read')<1) { ?>
-            <script type="text/javascript">
+            <script>
                     $('.read_data').css('display','none')
             </script>
         <?php } ?>
 
         <?php
         if (is_allowed_button($this->uri->segment(1),'create')<1) { ?>
-            <script type="text/javascript">
+            <script>
                     $('.tambah_data').css('display','none')
             </script>
         <?php } ?>
 
         <?php
         if (is_allowed_button($this->uri->segment(1),'export')<1) { ?>
-            <script type="text/javascript">
+            <script>
                     $('.export_data').css('display','none')
             </script>
         <?php } ?>
 
         <?php
         if (is_allowed_button($this->uri->segment(1),'update')<1) { ?>
-            <script type="text/javascript">
+            <script>
                     $('.update_data').css('display','none')
             </script>
         <?php } ?>
 
         <?php
         if (is_allowed_button($this->uri->segment(1),'delete')<1) { ?>
-            <script type="text/javascript">
+            <script>
                     $('.delete_data').css('display','none')
             </script>
         <?php } ?>

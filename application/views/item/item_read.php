@@ -12,8 +12,7 @@
 </div>
 <div class="panel-body">
 <table id="data-table-default" class="table table-hover table-bordered table-td-valign-middle">
-	    <tr><td>Kd Internal Item</td><td><?php echo $kd_internal_item; ?></td></tr>
-	    <tr><td>Kd External Item</td><td><?php echo $kd_external_item; ?></td></tr>
+	    <tr><td>Kode Internal Item</td><td><?php echo $kd_internal_item; ?></td></tr>
 	    <tr><td>Nama Item</td><td><?php echo $nama_item; ?></td></tr>
 	    <tr><td>Type</td><td><?php echo $type; ?></td></tr>
 	    <tr><td>Kategori</td><td><?php echo $kategori_id; ?></td></tr>
