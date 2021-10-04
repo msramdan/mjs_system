@@ -28,7 +28,8 @@
                                             <thead>
                                                 <tr>
                                                     <th rowspan="2">Nama Karyawan</th>
-                                                    <th colspan="5" style="text-align: center;"><?php echo date('F', mktime(0, 0, 0, $bulan, 10));  ?></th>
+                                                    <th colspan="5" style="text-align: center;"><?php echo date('F', mktime(0, 0, 0, $month, 10));  ?></th>
+                                                    <th rowspan="2">Export</th>
                                                 </tr>
                                                 <tr>
                                                     <th>M</th>
@@ -46,11 +47,12 @@
                                                             <td>
                                                                 <?php echo $v->nama_karyawan ?>
                                                             </td>
-                                                            <td><a href="#modal-<?php echo $v->karyawan_id ?>-masuk" data-bs-toggle="modal"><?php echo $classnyak->countMasuk($v->karyawan_id, $bulan, $tahun, $lokasi_id)->num_rows() ?></a></td>
-                                                            <td><a href="#modal-<?php echo $v->karyawan_id ?>-sakit" data-bs-toggle="modal"><?php echo $classnyak->countSakit($v->karyawan_id, $bulan, $tahun, $lokasi_id)->num_rows() ?></a></td>
-                                                            <td><a href="#modal-<?php echo $v->karyawan_id ?>-izin" data-bs-toggle="modal"><?php echo $classnyak->countIzin($v->karyawan_id, $bulan, $tahun, $lokasi_id)->num_rows() ?></a></td>
-                                                            <td><a href="#modal-<?php echo $v->karyawan_id ?>-alpa" data-bs-toggle="modal"><?php echo $classnyak->countAlpa($v->karyawan_id, $bulan, $tahun, $lokasi_id)->num_rows() ?></a></td>
-                                                            <td><a href="#modal-<?php echo $v->karyawan_id ?>-cuti" data-bs-toggle="modal"><?php echo $classnyak->countCuti($v->karyawan_id, $bulan, $tahun, $lokasi_id)->num_rows() ?></a></td>
+                                                            <td><a href="#modal-<?php echo $v->karyawan_id ?>-masuk" data-bs-toggle="modal"><?php echo $classnyak->countMasuk($v->karyawan_id, $month, $year, $lokasi_id)->num_rows() ?></a></td>
+                                                            <td><a href="#modal-<?php echo $v->karyawan_id ?>-sakit" data-bs-toggle="modal"><?php echo $classnyak->countSakit($v->karyawan_id, $month, $year, $lokasi_id)->num_rows() ?></a></td>
+                                                            <td><a href="#modal-<?php echo $v->karyawan_id ?>-izin" data-bs-toggle="modal"><?php echo $classnyak->countIzin($v->karyawan_id, $month, $year, $lokasi_id)->num_rows() ?></a></td>
+                                                            <td><a href="#modal-<?php echo $v->karyawan_id ?>-alpa" data-bs-toggle="modal"><?php echo $classnyak->countAlpa($v->karyawan_id, $month, $year, $lokasi_id)->num_rows() ?></a></td>
+                                                            <td><a href="#modal-<?php echo $v->karyawan_id ?>-cuti" data-bs-toggle="modal"><?php echo $classnyak->countCuti($v->karyawan_id, $month, $year, $lokasi_id)->num_rows() ?></a></td>
+                                                            <td><a class="btn btn-sm btn-success" target="_blank" rel="noopener noreferrer" href="<?php echo base_url().'rekap_absen/detail_recap/'.$month.'/'.$year.'/'.$v->karyawan_id ?>"><i class="fas fa-eye"></i></a></td>
                                                         </tr>
                                                         <?php
                                                     }
@@ -88,7 +90,7 @@
                     </tr>
                 </table>
                 <div class="box-body">
-                      <?php $classnyak->showCalendar($bulan, $tahun, $value->karyawan_id, 'Masuk') ?>  
+                      <?php $classnyak->showCalendar($month, $year, $value->karyawan_id, 'Masuk') ?>  
                 </div>
               </div>
               <div class="modal-footer">
@@ -115,7 +117,7 @@
                     </tr>
                 </table>
                 <div class="box-body">
-                      <?php $classnyak->showCalendar($bulan, $tahun, $value->karyawan_id, 'Sakit') ?>  
+                      <?php $classnyak->showCalendar($month, $year, $value->karyawan_id, 'Sakit') ?>  
                 </div>
               </div>
               <div class="modal-footer">
@@ -142,7 +144,7 @@
                     </tr>
                 </table>
                 <div class="box-body">
-                      <?php $classnyak->showCalendar($bulan, $tahun, $value->karyawan_id, 'Izin') ?>  
+                      <?php $classnyak->showCalendar($month, $year, $value->karyawan_id, 'Izin') ?>  
                 </div>
               </div>
               <div class="modal-footer">
@@ -169,7 +171,7 @@
                     </tr>
                 </table>
                 <div class="box-body">
-                      <?php $classnyak->showCalendar($bulan, $tahun, $value->karyawan_id, 'Alpa') ?>  
+                      <?php $classnyak->showCalendar($month, $year, $value->karyawan_id, 'Alpa') ?>  
                 </div>
               </div>
               <div class="modal-footer">
@@ -196,7 +198,7 @@
                     </tr>
                 </table>
                 <div class="box-body">
-                      <?php $classnyak->showCalendar($bulan, $tahun, $value->karyawan_id, 'Cuti') ?>  
+                      <?php $classnyak->showCalendar($month, $year, $value->karyawan_id, 'Cuti') ?>  
                 </div>
               </div>
               <div class="modal-footer">

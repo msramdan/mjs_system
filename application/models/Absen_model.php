@@ -220,16 +220,16 @@ class Absen_model extends CI_Model
         return $this->db->get('absen');
     }
 
-    function getdatabystatus($karyawan_id,$statustocount,$year,$month)
+    function getdatabystatus($karyawan_id,$statustocount='',$year,$month)
     {
         $where = array(
             'karyawan_id' => $karyawan_id,
-            'status' => $statustocount,
             'year(tanggal)' => $year,
             'month(tanggal)' => $month
         );
-        $this->db->select('tanggal');
+        $this->db->select('*');
         $this->db->where($where);
+        $this->db->like('status',$statustocount);
         return $this->db->get('absen')->result();
     }
 }

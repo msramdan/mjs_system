@@ -407,17 +407,17 @@
 							      { 
 							      	extend: 'csv', 
 							      	className: 'btn-sm',
-							      	title: 'Export data rekap absensi'
+							      	title: 'Export data rekap absensi tahun <?php echo $tahun ?>'
 							      },
 							      { 
 							      	extend: 'excel', 
 							      	className: 'btn-sm',
-							      	title: 'Export data rekap absensi'
+							      	title: 'Export data rekap absensi tahun <?php echo $tahun ?>'
 							      },
 							      { 
 							      	extend: 'pdf', 
 							      	className: 'btn-sm',
-							      	title: 'Export data rekap absensi'
+							      	title: 'Export data rekap absensi tahun <?php echo $tahun ?>'
 							      },
 							      { 
 							      	extend: 'print', 
@@ -446,7 +446,7 @@
   	<?php
   }
 
-  if ($this->uri->segment(2) == 'rekap_bulanan') {
+  if ($this->uri->segment(2) == 'rekap_bulanan' || $this->uri->segment(2) == 'detail_recap') {
   	?>
   		//it's not posible to see this in mobile version!
 		 		var tabel = $('#tabel-rekap-absensi').DataTable({
@@ -459,17 +459,17 @@
 							      { 
 							      	extend: 'csv', 
 							      	className: 'btn-sm',
-							      	title: 'Export data rekap absensi'
+							      	title: 'Export data rekap absensi bulan <?php echo $month ?>'
 							      },
 							      { 
 							      	extend: 'excel', 
 							      	className: 'btn-sm',
-							      	title: 'Export data rekap absensi'
+							      	title: 'Export data rekap absensi bulan <?php echo $month ?>'
 							      },
 							      { 
 							      	extend: 'pdf', 
 							      	className: 'btn-sm',
-							      	title: 'Export data rekap absensi'
+							      	title: 'Export data rekap absensi bulan <?php echo $month ?>'
 							      },
 							      { 
 							      	extend: 'print', 

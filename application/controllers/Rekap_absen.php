@@ -51,8 +51,8 @@ class Rekap_absen extends CI_Controller
             'sett_apps' =>$this->Setting_app_model->get_by_id(1),
             'datakaryawan' => $getkaryawanbasedonloc,
             'lokasi_id' =>$lokasi_id,
-            'bulan' => $bulan,
-            'tahun' => $tahun,
+            'month' => $bulan,
+            'year' => $tahun,
             'classnyak' => $this
         );
                                                     
@@ -317,6 +317,77 @@ class Rekap_absen extends CI_Controller
         if($weekday != 7) $calendar  .= '<td id="emptydays" colspan="' . (7-$weekday) . '">&nbsp;</td>'; //remaining "empty" days
 
         return $calendar . "</tr>\n</table>\n</div>\n";
+    }
+
+    public function detail_recap($month,$year,$karyawan_id)
+    {
+        is_allowed($this->uri->segment(1),'read');
+
+        $getkaryawan = $this->Karyawan_model->get_by_id($karyawan_id);
+
+        $data = array(
+            'month' => $month,
+            'year' => $year,
+            'karyawan_id' => $karyawan_id,
+            'nama_karyawan' => $getkaryawan->nama_karyawan,
+            'sett_apps' =>$this->Setting_app_model->get_by_id(1),
+        );
+
+        $this->template->load('template','rekap_absen/rekap_bulanan_karyawan.php', $data);
+
+        // $first_day_this_month = 1; // hard-coded '01' for first day
+        // $last_day_this_month  = date('t',strtotime($year.'-'.$month.'-01'));
+
+        // // echo 'firstday = '.$first_day_this_month. ' and last day = '.$last_day_this_month;
+
+        // $tanggal_arr = array();
+        // $statusnya = array();
+
+        // $statustocount = '';
+        // $a = $this->Absen_model->getdatabystatus($karyawan_id,$statustocount,$year,$month);
+
+        // foreach ($a as $key => $value) {
+        //     $tanggal = date('d', strtotime($value->tanggal));
+        //     $status = date('d', strtotime($value->status));
+        //     $tanggal_arr[] = $tanggal;
+        //     $statusnya[] = $status;
+        // }
+
+
+
+
+        // $this->load->helper('exportexcel');
+        // $namaFile = "rekap_absen.xls";
+        // $judul = "dokumen";
+        
+        // //penulisan header
+        // header("Pragma: public");
+        // header("Expires: 0");
+        // header("Cache-Control: must-revalidate, post-check=0,pre-check=0");
+        // header("Content-Type: application/force-download");
+        // header("Content-Type: application/octet-stream");
+        // header("Content-Type: application/download");
+        // header("Content-Disposition: attachment;filename=" . $namaFile . "");
+        // header("Content-Transfer-Encoding: binary ");
+
+        // xlsBOF();
+
+        // xlsWriteLabel(1, 0, "Nama Karyawan");
+        // for ($i = $first_day_this_month; $i <= $last_day_this_month; $i++) { 
+        //     xlsWriteLabel(1, $i, $i);
+
+        //     // if (in_array($i, $tanggal_arr)) {
+        //     //     $indexfromtglarray = array_search($i, $tanggal_arr);
+
+        //     //     $getstatusbasedontglarray = $statusnya[$indexfromtglarray];
+        //     //     xlsWriteLabel($tablebody, $i, $getstatusbasedontglarray);
+        //     // } else {
+        //     //     xlsWriteLabel($tablebody, $i, 'N/A');
+        //     // }
+
+        // }
+        // xlsEOF();
+        // exit();
     }
 }
 
