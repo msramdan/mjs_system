@@ -138,53 +138,32 @@
             <div class="panel-body" id="informasi_pembelian">
                 <h4 style="text-align: left;">Informasi Pembelian</h4>
                 <div class="box-body" style="overflow-x: scroll; ">
+                    
+                    <!-- jika action update -->
                     <?php if ($this->uri->segment(2)=='update' || $this->uri->segment(2)=='update_action' ) { ?>
-                        <?php
-                        $fucking_id = decrypt_url($this->uri->segment(3));
-                        $sql = "select item_supplier.*,supplier.nama_supplier from item_supplier
-                        join supplier on supplier.supplier_id = item_supplier.supplier_id
-                        where item_id='$fucking_id'";
-                        $data_gabut = $this->db->query($sql)->result_array();
-                         ?>
-                    <table class="table table-bordered">
+                        <div style="padding-bottom: 10px;">
+                        <a href="#" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#ModalaAdd"><span class="fa fa-plus"></span> Tambah</a>
+                    </div> 
+                    <table class="table table-bordered" id="mydata">
                         <thead>
                             <tr>
                                 <th style="width: 22%">Nama Supplier</th>
                                 <th style="width: 22%">Kode Eksternal Supplier</th>
                                 <th  style="width: 22%">Estimasi Harga</th>
                                 <th  style="width: 22%">Update Tanggal</th>
-                                <!-- <th  style="width: 12%">Action</th> -->
+                                <th  style="width: 12%">Action</th>
                             </tr>
                         </thead>
                         <tbody id="show_data">
-                            <?php foreach ($data_gabut as $list) :  ?>
-                                <tr>
-                                    <td><?= $list['nama_supplier'] ?></td>
-                                    <td><?= $list['kd_eksternal'] ?></td>
-                                    <td><?= $list['estimasi_harga_supplier'] ?></td>
-                                    <td><?= $list['update_tgl'] ?></td>
-                                    <!-- <td>
-                                        <button type="button" name="" id="" class="btn btn-primary"><i class="fas fa-pencil-alt" aria-hidden="true"></i></button>
-                                        <a href="javascript:;" class="btn btn-danger btn-xs data_hapus"
-                                        data="<?= $list['item_supplier_id'] ?>"
-                                        ><i class="fas fa-trash-alt" aria-hidden="true"></i></a>
-
-
-                                        </button>
-                                    </td> -->
-                                </tr>
-                            <?php endforeach; ?>
                         </tbody>
                     </table>
-
-                    <?php } ?>
-
+                    <?php } else{ ?>
                         <table class="table table-bordered" id="dynamic_field">
                                     <tr>
                                         <td style="width: 22%">
                                             <select class="form-control" name="supplier_id[]">
                                                 <option style="color: black" value="">-- Pilih -- </option>
-                                                <?php foreach ($supplier as $key => $data) { ?>
+                                                <?php  foreach ($supplier as $key => $data) { ?>
                                                     <option style="color: black" value="<?php echo $data->supplier_id ?>"><?php echo $data->nama_supplier ?></option>
                                                 <?php } ?>
                                               </select>
@@ -200,7 +179,11 @@
                                         </td>
                                         <td style="width: 12%"><button type="button" name="add_supplier_data" id="add_supplier_data" class="btn btn-success">Add</button></td>
                                      </tr>
-                        </table> 
+                        </table>
+
+                    <?php } ?>
+
+                         
                 </div>
             </div>            
         </div>
@@ -306,17 +289,105 @@
         </div>
         </div>
 
+        <!--MODAL Tambah-->
+            <div class="modal fade" id="ModalaAdd">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h4 class="modal-title">Tambah Data</h4>
+                        <button type="button" class="btn-close" data-dismiss="modal" aria-hidden="true"></button>
+                      </div>
+                      <div class="modal-body">
+                        <table class="table  table-bordered table-hover table-td-valign-middle text-black" style="border-color: #d3d3d3">
+                        <thead>
+                                <tr><td >Nama Supplier</td><td>
+                                    <select style="border-color: #d3d3d3; color: black" class="form-control" name="supplier_id_modal" id="supplier_id_modal">
+                                                <option style="color: black" value="">-- Pilih -- </option> 
+                                                <?php  foreach ($supplier as $key => $data) { ?>
+                                                    <option style="color: black" value="<?php echo $data->supplier_id ?>"><?php echo $data->nama_supplier ?></option>
+                                                <?php } ?>
+                                              </select>
+                                </td></tr>
+
+                                <tr><td >Kode Eksternal</td><td><input style="border-color: #d3d3d3; color: black" type="text" class="form-control" name="kd_eksternal_modal" id="kd_eksternal_modal" placeholder="Kode Eksternal" value="" /></td></tr>
+
+                                <tr><td >Estimasi Harga</td><td><input style="border-color: #d3d3d3; color: black" type="number" class="form-control" name="estimasi_harga_supplier_modal" id="estimasi_harga_supplier_modal" placeholder="Estimasi Harga Supplier" value="" /></td></tr>
+
+                                <tr><td >Update Tanggal</td><td><input style="border-color: #d3d3d3; color: black" type="date" class="form-control" name="update_tgl_modal" id="update_tgl_modal" placeholder="Update Tanggal" value="" /></td></tr>
+
+                                <input style="border-color: #d3d3d3; color: black" type="hidden" class="form-control" name="item_id_modal" id="item_id_modal" placeholder="" value="<?= decrypt_url($this->uri->segment(3) )?>" />
+                        </thead>
+                </table>
+
+                  </div>
+                  <div class="modal-footer">
+                    <button class="btn btn-white" data-dismiss="modal" aria-hidden="true">Close</button>
+                    <button class="btn btn-success" id="btn_simpan"> Simpan</button>
+                  </div>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+        <!--END MODAL Tambah-->
+
+        <!--MODAL EDIT-->
+                <div class="modal fade" id="ModalaEdit">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h4 class="modal-title">Edit Data</h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
+                      </div>
+                      <div class="modal-body">
+                        <div class="modal-body">
+                        <table class="table  table-bordered table-hover table-td-valign-middle text-black" style="border-color: #d3d3d3">
+                        <thead>
+                            <tr><td >Nama Supplier</td><td>
+                                    <select style="border-color: #d3d3d3; color: black" class="form-control" name="supplier_id_modal_edit" id="supplier_id_modal_edit">
+                                                <option style="color: black" value="">-- Pilih -- </option> 
+                                                <?php  foreach ($supplier as $key => $data) { ?>
+                                                    <option style="color: black" value="<?php echo $data->supplier_id ?>"><?php echo $data->nama_supplier ?></option>
+                                                <?php } ?>
+                                              </select>
+                                </td></tr>
+
+                                <tr><td >Kode Eksternal</td><td><input style="border-color: #d3d3d3; color: black" type="text" class="form-control" name="kd_eksternal_modal_edit" id="kd_eksternal_modal_edit" placeholder="Kode Eksternal" value="" /></td></tr>
+
+                                <tr><td >Estimasi Harga</td><td><input style="border-color: #d3d3d3; color: black" type="number" class="form-control" name="estimasi_harga_supplier_modal_edit" id="estimasi_harga_supplier_modal_edit" placeholder="Estimasi Harga Supplier" value="" /></td></tr>
+
+                                <tr><td >Update Tanggal</td><td><input style="border-color: #d3d3d3; color: black" type="date" class="form-control" name="update_tgl_modal_edit" id="update_tgl_modal_edit" placeholder="Update Tanggal" value="" /></td></tr>
+
+                                <input style="border-color: #d3d3d3; color: black" type="hidden" class="form-control" name="item_supplier_id_model_edit" id="item_supplier_id_model_edit" placeholder="" value="" />                                
+                                <input style="border-color: #d3d3d3; color: black" type="hidden" class="form-control" name="item_id_modal_edit" id="item_id_modal_edit" placeholder="" value="" />
+
+                        </thead>
+                </table>
+
+                  </div>
+                      </div>
+                      <div class="modal-footer">
+                        <a href="javascript:;" class="btn btn-white" data-bs-dismiss="modal">Close</a>
+                        <button class="btn btn-success" id="btn_update"> Update</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+        <!--END MODAL EDIT-->
+
+
+
         <!--MODAL HAPUS-->
             <div class="modal fade" id="ModalHapus">
               <div class="modal-dialog">
                 <div class="modal-content">
                   <div class="modal-header">
-                    <h4 class="modal-title">Hapus Informasi Supplier</h4>
+                    <h4 class="modal-title">Data Item Supplier</h4>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
                   </div>
                   <div class="modal-body">
                     <input type="hidden" name="kode" id="textkode" value="">
-                            <div class="alert alert-warning"><p>Apakah Anda yakin mau memhapus kontak ini?</p></div>
+                            <div class="alert alert-warning"><p>Apakah Anda yakin mau memhapus item Supplier?</p></div>
 
                   </div>
                   <div class="modal-footer">
@@ -329,6 +400,8 @@
 
         <!--END MODAL HAPUS-->
 
+        
+
 
 
 <script>
@@ -336,7 +409,6 @@
 
     $(".theSelect").select2();
     $(".theSelect2").select2();
-
     //Get Hapus supplier item
     //GET HAPUS
         $('#show_data').on('click','.data_hapus',function(){
@@ -344,7 +416,6 @@
             $('#ModalHapus').modal('show');
             $('[name="kode"]').val(id);
         });
-    
     
     //Regex nilai uang
     $('#estimasi_harga_txt').keyup(function() {
@@ -423,4 +494,155 @@ $(document).ready(function() {
 });
 
 
+</script>
+
+
+
+
+<script type="text/javascript">
+    $(document).ready(function(){
+
+        tampilkan_data();   
+          
+        //fungsi tampil data
+        function tampilkan_data(){
+            $.ajax({
+                type  : 'GET',
+                url   : '<?php echo base_url()?>Item_supplier/data/<?= decrypt_url($this->uri->segment(3) )?>',
+                async : true,
+                dataType : 'json',
+                success : function(data){
+                    var html = '';
+                    var i;
+                    for(i=0; i<data.length; i++){
+                        html += '<tr>'+
+                                '<td>'+data[i].nama_supplier+'</td>'+
+                                '<td>'+data[i].kd_eksternal+'</td>'+
+                                '<td>'+data[i].estimasi_harga_supplier+'</td>'+
+                                '<td>'+data[i].update_tgl+'</td>'+
+                                '<td>'+
+                                    '<a href="javascript:;" class="btn btn-info btn-xs item_edit" data="'+data[i].item_supplier_id+'"><i class="fas fa-pencil-alt" aria-hidden="true"></i></a>'+' '+
+                                    '<a href="javascript:;" class="btn btn-danger btn-xs data_hapus" data="'+data[i].item_supplier_id+'"><i class="fas fa-trash-alt" aria-hidden="true"></i></a>'+
+                                '</td>'+
+                                '</tr>';
+                    }
+                    $('#show_data').html(html);
+                }
+ 
+            });
+        }
+
+        //Simpan Barang
+        $('#btn_simpan').on('click',function(){
+            var supplier_id_modal=$('#supplier_id_modal').val();
+            var kd_eksternal_modal=$('#kd_eksternal_modal').val();
+            var estimasi_harga_supplier_modal=$('#estimasi_harga_supplier_modal').val();
+            var update_tgl_modal=$('#update_tgl_modal').val();
+            var item_id_modal=$('#item_id_modal').val();
+            $.ajax({
+                type : "POST",
+                url  : "<?php echo base_url('Item_supplier/simpan_data')?>",
+                dataType : "JSON",
+                data : {item_id_modal:item_id_modal,update_tgl_modal:update_tgl_modal , estimasi_harga_supplier_modal:estimasi_harga_supplier_modal, kd_eksternal_modal:kd_eksternal_modal,supplier_id_modal:supplier_id_modal},
+                success: function(data){
+                    // $('[name="pelanggan_id"]').val("");
+                    $('[name="supplier_id_modal"]').val("");
+                    $('[name="kd_eksternal_modal"]').val("");
+                    $('[name="estimasi_harga_supplier_modal"]').val("");
+                    $('[name="update_tgl_modal"]').val("");
+                    // $('[name="item_id_modal"]').val("");
+                    $('#ModalaAdd > div > div > div.modal-header > button').click();
+                    tampilkan_data();
+                }
+            });
+            return false;
+        });
+
+
+        //GET UPDATE
+        $('#show_data').on('click','.item_edit',function(){
+            var id=$(this).attr('data');
+            $.ajax({
+                type : "GET",
+                url  : "<?php echo base_url('Item_supplier/get_data')?>",
+                dataType : "JSON",
+                data : {id:id},
+                success: function(data){
+                    $.each(data,function(item_supplier_id,item_id,supplier_id,kd_eksternal,estimasi_harga_supplier,update_tgl){
+                        $('#ModalaEdit').modal('show');
+                        $('[name="item_supplier_id_model_edit"]').val(data.item_supplier_id);
+                        $('[name="item_id_modal_edit"]').val(data.item_id);
+                        $('[name="supplier_id_modal_edit"]').val(data.supplier_id);
+                        $('[name="kd_eksternal_modal_edit"]').val(data.kd_eksternal);
+                        $('[name="estimasi_harga_supplier_modal_edit"]').val(data.estimasi_harga_supplier);
+                        $('[name="update_tgl_modal_edit"]').val(data.update_tgl);
+                        
+                    });
+                }
+            });
+            return false;
+        });
+
+        //Update data
+        $('#btn_update').on('click',function(){
+            var item_supplier_id_model_edit=$('#item_supplier_id_model_edit').val();
+            var supplier_id_modal_edit=$('#supplier_id_modal_edit').val();
+            var item_id_modal_edit=$('#item_id_modal_edit').val();
+            var kd_eksternal_modal_edit=$('#kd_eksternal_modal_edit').val();
+            var estimasi_harga_supplier_modal_edit=$('#estimasi_harga_supplier_modal_edit').val();
+            var update_tgl_modal_edit=$('#update_tgl_modal_edit').val();
+
+            $.ajax({
+                type : "POST",
+                url  : "<?php echo base_url('Item_supplier/update_data')?>",
+                data : {
+                    item_supplier_id_model_edit:item_supplier_id_model_edit,
+                    supplier_id_modal_edit:supplier_id_modal_edit,
+                    item_id_modal_edit:item_id_modal_edit,
+                    kd_eksternal_modal_edit:kd_eksternal_modal_edit,
+                    estimasi_harga_supplier_modal_edit:estimasi_harga_supplier_modal_edit,
+                    update_tgl_modal_edit:update_tgl_modal_edit
+                },
+                success: function(data){
+                    $('[name="item_supplier_id_model_edit"]').val("");
+                    $('[name="supplier_id_modal_edit"]').val("");
+                    $('[name="item_id_modal_edit"]').val("");
+                    $('[name="kd_eksternal_modal_edit"]').val("");
+                    $('[name="estimasi_harga_supplier_modal_edit"]').val("");
+                    $('[name="update_tgl_modal_edit"]').val("");
+
+                    $('#ModalaEdit').modal('hide');
+                    tampilkan_data();
+                }
+            });
+            return false;
+        });
+
+
+        //GET HAPUS
+        $('#show_data').on('click','.data_hapus',function(){
+            var id=$(this).attr('data');
+            $('#ModalHapus').modal('show');
+            $('[name="kode"]').val(id);
+        });
+
+        //Hapus Barang
+        $('#btn_hapus').on('click',function(){
+            var kode=$('#textkode').val();
+            $.ajax({
+            type : "POST",
+            url  : "<?php echo base_url('Item_supplier/hapus')?>",
+            dataType : "JSON",
+                    data : {kode: kode},
+                    success: function(data){
+
+                            $('#ModalHapus > div > div > div.modal-header > button').click();
+                            tampilkan_data();
+                    }
+                });
+                return false;
+            });
+ 
+    });
+ 
 </script>

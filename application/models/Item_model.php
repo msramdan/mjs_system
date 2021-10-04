@@ -24,6 +24,15 @@ class Item_model extends CI_Model
         return $this->db->get($this->table)->result();
     }
 
+    function get_all_service()
+    {
+        $this->db->join('kategori', 'kategori.kategori_id = item.kategori_id', 'left');
+        $this->db->join('unit', 'unit.unit_id = item.unit_id', 'left');
+        $this->db->where('type','Service');
+        $this->db->order_by($this->id, $this->order);
+        return $this->db->get($this->table)->result();
+    }
+
     // get data by id
     function get_by_id($id)
     {

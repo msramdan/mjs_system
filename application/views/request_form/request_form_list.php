@@ -28,10 +28,10 @@
          <thead>
             <tr>
                 <th>No</th>
-		<th>Kode Request Form</th>
-		<th>User Penginput</th>
-		<th>Tanggal Request</th>
-		<th>Categori Request</th>
+		<th>Kode RF</th>
+		<th>User</th>
+		<th>Tanggal RF</th>
+		<th>Categori RF</th>
 		<th>Berita Acara</th>
 		<th>Action</th>
             </tr></thead><tbody><?php $no = 1;
