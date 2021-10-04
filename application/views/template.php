@@ -24,14 +24,21 @@
 <link href="<?= base_url() ?>assets/assets/plugins/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css" rel="stylesheet" />
 <link href="<?= base_url() ?>assets/assets/plugins/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.min.css" rel="stylesheet" />
 <link href="<?= base_url() ?>assets/assets/plugins/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.min.css" rel="stylesheet" />
+
+<link href="<?= base_url() ?>assets/assets/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker.css" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/css/select2.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
 <script src="<?= base_url() ?>assets/assets/ckeditor/ckeditor.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="<?= base_url() ?>assets/assets/js/jquery.idle.js"></script>
 <script src="<?= base_url() ?>assets/assets/js/jquery.idle.min.js"></script>
 <script src="<?= base_url() ?>assets/assets/plugins/bootstrap3-wysihtml5-bower/dist/bootstrap3-wysihtml5.all.min.js"></script>
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/css/select2.min.css">
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/js/select2.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/js/select2.min.js"></script>
+
+<link href="<?= base_url() ?>assets/assets/plugins/jstree/dist/themes/default/style.min.css" rel="stylesheet" />
+<script src="<?= base_url() ?>assets/assets/plugins/jstree/dist/jstree.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.8/js/select2.min.js"></script>
 
   <script>
     $(document).idle({
@@ -334,7 +341,6 @@
 
 </div>
 
-
 <script src="<?= base_url() ?>assets/assets/js/vendor.min.js" type="beba54df5f87d24c2458d535-text/javascript"></script>
 <script src="<?= base_url() ?>assets/assets/js/app.min.js" type="beba54df5f87d24c2458d535-text/javascript"></script>
 <script src="<?= base_url() ?>assets/assets/js/theme/transparent.min.js" type="beba54df5f87d24c2458d535-text/javascript"></script>
@@ -342,26 +348,34 @@
 <script src="<?= base_url() ?>assets/assets/plugins/nvd3/build/nv.d3.min.js" type="beba54df5f87d24c2458d535-text/javascript"></script>
 <script src="<?= base_url() ?>assets/assets/plugins/jvectormap-next/jquery-jvectormap.min.js" type="beba54df5f87d24c2458d535-text/javascript"></script>
 <script src="<?= base_url() ?>assets/assets/plugins/jvectormap-next/jquery-jvectormap-world-mill.js" type="beba54df5f87d24c2458d535-text/javascript"></script>
-<script src="<?= base_url() ?>assets/assets/plugins/bootstrap-calendar/js/bootstrap_calendar.min.js" type="beba54df5f87d24c2458d535-text/javascript"></script>
+
 <!-- <script src="<?= base_url() ?>assets/assets/plugins/gritter/js/jquery.gritter.js" type="beba54df5f87d24c2458d535-text/javascript"></script> -->
-<script src="<?= base_url() ?>assets/assets/js/demo/dashboard-v2.js" type="beba54df5f87d24c2458d535-text/javascript"></script>
+<!-- <script src="<?= base_url() ?>assets/assets/js/demo/dashboard-v2.js" type="beba54df5f87d24c2458d535-text/javascript"></script> -->
+<script src="<?= base_url() ?>assets/assets/js/demo/custom-calendar.js" type="beba54df5f87d24c2458d535-text/javascript"></script>
+<script src="<?= base_url() ?>assets/assets/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.js"></script>
 <script src="<?= base_url() ?>assets/assets/js/rocket-loader.min.js" data-cf-settings="beba54df5f87d24c2458d535-|49" defer=""></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script> <!-- untuk sweet alret -->
+<script src="<?php echo base_url();?>assets/assets/js/dataflash.js"></script>
+<script src="<?= base_url() ?>assets/assets/js/number_format.js"></script>
+<script src="<?= base_url() ?>assets/assets/plugins/select-picker/dist/picker.min.js"></script>
 
 <script src="<?= base_url() ?>assets/assets/plugins/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="<?= base_url() ?>assets/assets/plugins/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
 <script src="<?= base_url() ?>assets/assets/plugins/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
 <script src="<?= base_url() ?>assets/assets/plugins/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
-<script type="text/javascript" src="<?php echo base_url();?>assets/assets/js/sweetalert.min.js"></script>
-<script type="text/javascript" src="<?php echo base_url();?>assets/assets/js/sweetalert.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script> <!-- untuk sweet alret -->
-<script src="<?php echo base_url();?>assets/assets/js/dataflash.js"></script>
-<script src="<?= base_url() ?>assets/assets/js/number_format.js"></script>
-<script src="<?= base_url() ?>assets/assets/plugins/select-picker/dist/picker.min.js"></script>
-</body>
-</html>
 
-
-
+<script src="<?php echo base_url() ?>assets/assets/plugins/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+<script src="<?php echo base_url() ?>assets/assets/plugins/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js"></script>
+<script src="<?php echo base_url() ?>assets/assets/plugins/datatables.net-buttons/js/buttons.colVis.min.js"></script>
+<script src="<?php echo base_url() ?>assets/assets/plugins/datatables.net-buttons/js/buttons.flash.min.js"></script>
+<script src="<?php echo base_url() ?>assets/assets/plugins/datatables.net-buttons/js/buttons.html5.min.js"></script>
+<script src="<?php echo base_url() ?>assets/assets/plugins/datatables.net-buttons/js/buttons.print.min.js"></script>
+<script src="<?php echo base_url() ?>assets/assets/plugins/pdfmake/build/pdfmake.min.js"></script>
+<script src="<?php echo base_url() ?>assets/assets/plugins/pdfmake/build/vfs_fonts.js"></script>
+<script src="<?php echo base_url() ?>assets/assets/plugins/jszip/dist/jszip.min.js"></script>
+<script>
+    
+</script>
 <script>
     //datatable
   $('#data-table-default').DataTable({
@@ -372,5 +386,105 @@
   });
   //ckeditor
   $('#wysihtml5').wysihtml5();
+
+  $('.datepicker-inline').datepicker({
+      todayHighlight:true
+  });
+
+  <?php
+
+  if ($this->uri->segment(2) == 'rekap_tahunan') {
+  	?>
+  		//it's not posible to see this in mobile version!
+		 		var tabel = $('#tabel-rekap-absensi').DataTable({
+							    dom: '<"row"<"col-sm-5"B><"col-sm-7"fr>>t<"row"<"col-sm-5"i><"col-sm-7"p>>',
+							    buttons: [
+							      { 
+							      	extend: 'copy', 
+							      	className: 'btn-sm'
+							      },
+							      { 
+							      	extend: 'csv', 
+							      	className: 'btn-sm',
+							      	title: 'Export data rekap absensi tahun <?php echo $tahun ?>'
+							      },
+							      { 
+							      	extend: 'excel', 
+							      	className: 'btn-sm',
+							      	title: 'Export data rekap absensi tahun <?php echo $tahun ?>'
+							      },
+							      { 
+							      	extend: 'pdf', 
+							      	className: 'btn-sm',
+							      	title: 'Export data rekap absensi tahun <?php echo $tahun ?>'
+							      },
+							      { 
+							      	extend: 'print', 
+							      	className: 'btn-sm'
+							      }
+							    ],
+							    processing: true,
+							    language: {
+							        'loadingRecords': '',
+							        'processing': '<i class="fas fa-sync fa-spin"></i>'
+							    },
+							    "ajax": {
+							    	type: "POST",
+								    url: "<?php echo base_url() ?>Rekap_absen/get_data_yearly",
+								    data: {
+								        id_lokasi:'<?php echo $lokasi_id ?>',
+								        tahun: '<?php echo $tahun ?>'
+									},
+								},
+							 });
+
+
+	        	$('#btn-filter-date').click(function() {
+	        		tabel.ajax.reload();
+	        	})
+  	<?php
+  }
+
+  if ($this->uri->segment(2) == 'rekap_bulanan' || $this->uri->segment(2) == 'detail_recap') {
+  	?>
+  		//it's not posible to see this in mobile version!
+		 		var tabel = $('#tabel-rekap-absensi').DataTable({
+							    dom: '<"row"<"col-sm-5"B><"col-sm-7"fr>>t<"row"<"col-sm-5"i><"col-sm-7"p>>',
+							    buttons: [
+							      { 
+							      	extend: 'copy', 
+							      	className: 'btn-sm'
+							      },
+							      { 
+							      	extend: 'csv', 
+							      	className: 'btn-sm',
+							      	title: 'Export data rekap absensi bulan <?php echo $month ?>'
+							      },
+							      { 
+							      	extend: 'excel', 
+							      	className: 'btn-sm',
+							      	title: 'Export data rekap absensi bulan <?php echo $month ?>'
+							      },
+							      { 
+							      	extend: 'pdf', 
+							      	className: 'btn-sm',
+							      	title: 'Export data rekap absensi bulan <?php echo $month ?>'
+							      },
+							      { 
+							      	extend: 'print', 
+							      	className: 'btn-sm'
+							      }
+							    ],
+								});
+
+
+	        	$('#btn-filter-date').click(function() {
+	        		tabel.ajax.reload();
+	        	})
+  	<?php
+  }
+  ?>
 </script>
+</body>
+</html>
 
