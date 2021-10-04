@@ -73,7 +73,6 @@ class Item extends CI_Controller
 	    'deskripsi' => set_value('deskripsi'),
         'type' => set_value('type'),
 	    'estimasi_harga' => set_value('estimasi_harga'),
-        'diskon' => set_value('diskon'),
 	    'stok' => set_value('stok'),
         'akun_beban' => set_value('akun_beban'),
         'akun_return_pembelian' => set_value('akun_return_pembelian'),
@@ -103,7 +102,6 @@ class Item extends CI_Controller
                         'deskripsi' => $this->input->post('deskripsi',TRUE),
                         'type' => $this->input->post('type',TRUE),
                         'estimasi_harga' => $this->input->post('estimasi_harga',TRUE),
-                        'diskon' => $this->input->post('diskon',TRUE),
                         'akun_beban' => $this->input->post('akun_beban',TRUE),
                         'akun_return_pembelian' => $this->input->post('akun_return_pembelian',TRUE),
                         'akun_penjualan' => $this->input->post('akun_penjualan',TRUE),
@@ -136,7 +134,6 @@ class Item extends CI_Controller
                         'deskripsi' => $this->input->post('deskripsi',TRUE),
                         'type' => $this->input->post('type',TRUE),
                         'estimasi_harga' => $this->input->post('estimasi_harga',TRUE),
-                        'diskon' => $this->input->post('diskon',TRUE),
                         'akun_beban' => $this->input->post('akun_beban',TRUE),
                         'akun_return_pembelian' => $this->input->post('akun_return_pembelian',TRUE),
                         'akun_penjualan' => $this->input->post('akun_penjualan',TRUE),
@@ -174,7 +171,6 @@ class Item extends CI_Controller
 		'unit_id' => set_value('unit_id', $row->unit_id),
         'type' => set_value('type', $row->type),
 		'deskripsi' => set_value('deskripsi', $row->deskripsi),
-        'diskon' => set_value('diskon', $row->diskon),
 		'estimasi_harga' => set_value('estimasi_harga', $row->estimasi_harga),
 		'stok' => set_value('stok', $row->stok),
         'akun_beban' => set_value('akun_beban', $row->akun_beban),
@@ -213,7 +209,6 @@ class Item extends CI_Controller
                 'deskripsi' => $this->input->post('deskripsi',TRUE),
                 'type' => $this->input->post('type',TRUE),
                 'estimasi_harga' => $this->input->post('estimasi_harga',TRUE),
-                'diskon' => $this->input->post('diskon',TRUE),
                 'akun_beban' => $this->input->post('akun_beban',TRUE),
                 'akun_return_pembelian' => $this->input->post('akun_return_pembelian',TRUE),
                 'akun_penjualan' => $this->input->post('akun_penjualan',TRUE),
@@ -237,7 +232,6 @@ class Item extends CI_Controller
                             $arr['update_tgl'] = $update_tgl[$i];
                             $this->db->insert('item_supplier',$arr);       
                         }
-
         }else{
             $data = array(
                 'kd_internal_item' => $this->input->post('kd_internal_item',TRUE),
@@ -247,7 +241,6 @@ class Item extends CI_Controller
                 'deskripsi' => $this->input->post('deskripsi',TRUE),
                 'type' => $this->input->post('type',TRUE),
                 'estimasi_harga' => $this->input->post('estimasi_harga',TRUE),
-                'diskon' => $this->input->post('diskon',TRUE),
                 'akun_beban' => $this->input->post('akun_beban',TRUE),
                 'akun_return_pembelian' => $this->input->post('akun_return_pembelian',TRUE),
                 'akun_penjualan' => $this->input->post('akun_penjualan',TRUE),

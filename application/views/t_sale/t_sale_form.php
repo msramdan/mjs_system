@@ -3,7 +3,7 @@
 <div class="panel panel-inverse" data-sortable-id="form-stuff-1" style="" data-init="true">
 
 <div class="panel-heading ui-sortable-handle">
-<h4 class="panel-title">KELOLA DATA T_SALE</h4>
+<h4 class="panel-title">KELOLA DATA TRANSAKSI</h4>
 <div class="panel-heading-btn">
 <a href="javascript:;" class="btn btn-xs btn-icon btn-default" data-toggle="panel-expand" data-bs-original-title="" title="" data-tooltip-init="true"><i class="fa fa-expand"></i></a>
 <a href="javascript:;" class="btn btn-xs btn-icon btn-success" data-toggle="panel-reload"><i class="fa fa-redo"></i></a>
@@ -112,8 +112,7 @@
                     </div>
                   </td>   
                 </tr>
-                <input type="hidden" id="estimasi_harga" name="estimasi_harga" value="" class="form-control">
-                <input type="hidden" id="default_diskon" name="default_diskon" value="" class="form-control">                                   
+                <input type="hidden" id="estimasi_harga" name="estimasi_harga" value="" class="form-control">                               
         
                 <tr>
                   <td style="vertical-align: top">
@@ -164,7 +163,6 @@
                     <th>Barang / Jasa</th>
                     <th>Estimasi Harga</th>
                     <th>QTY</th>
-                    <th width="10%">Discount</th>
                     <th width="15%">Subtotal </th>
                     <th>Actions</th>
                   </tr>
@@ -269,8 +267,7 @@
               <i class="fa fa-refresh"></i>Cancel
             </button><br><br>
             <button id="process_payment" class="btn btn-flat btn-lg btn-success">
-              <i class="fa fa-paper-plane-o"></i>Proccess Payment
-            </button>
+              <i class="fa fa-paper-plane-o"></i>Proccess </button>
           </div>
         </div>
       </div>
@@ -292,18 +289,16 @@
                       <div class="modal-body">
                         <table class="table  table-bordered table-hover table-td-valign-middle text-black" style="border-color: #d3d3d3">
                         <thead>
+                                <input style="border-color: #d3d3d3; color: black" type="hidden" class="form-control" name="cartid_item_modal" id="cartid_item_modal" placeholder="EStimasi Harga" value="" />
+
                                 <tr><td >Kode Internal</td><td><input style="border-color: #d3d3d3; color: black" type="text" class="form-control" name="kd_internal_item_modal" id="kd_internal_item_modal" placeholder="kd_internal_item_modal" value="" readonly="" /></td></tr>
-                                <tr><td >Barang / Jasa</td><td><input style="border-color: #d3d3d3; color: black" type="text" class="form-control" name="nama_barang" id="nama_barang" placeholder="nama_barang" value="" /></td></tr>
+                                <tr><td >Barang / Jasa</td><td><input style="border-color: #d3d3d3; color: black" type="text" class="form-control" name="nama_barang" id="nama_barang" placeholder="nama_barang" value="" readonly="" /></td></tr>
 
                                 <tr><td >Estimasi Harga</td><td><input style="border-color: #d3d3d3; color: black" type="text" class="form-control" name="estimasi_harga_modal" id="estimasi_harga_modal" placeholder="EStimasi Harga" value="" /></td></tr>
 
                                 <tr><td >QTY</td><td><input style="border-color: #d3d3d3; color: black" type="text" class="form-control" name="qty_modal" id="qty_modal" placeholder="QTY" value="" /></td></tr>
 
-                                <tr><td >Total Before Discount</td><td><input style="border-color: #d3d3d3; color: black" type="text" class="form-control" name="total_before_modal" id="total_before_modal" placeholder="discount_item_modal" value="" /></td></tr>
-
-                                <tr><td >Discount</td><td><input style="border-color: #d3d3d3; color: black" type="text" class="form-control" name="discount_item_modal" id="discount_item_modal" placeholder="discount_item_modal" value="" /></td></tr>
-
-                                <tr><td >Subtotal</td><td><input style="border-color: #d3d3d3; color: black" type="text" class="form-control" name="total_item_modal" id="total_item_modal" placeholder="total_item_modal" value="" /></td></tr>
+                                <tr><td >Subtotal</td><td><input style="border-color: #d3d3d3; color: black" type="text" class="form-control" name="total_item_modal" id="total_item_modal" placeholder="total_item_modal" value="" readonly="" /></td></tr>
 
                                 <input style="border-color: #d3d3d3; color: black" type="hidden" class="form-control" name="supplier_id" id="supplier_id" placeholder="Telepon" value="<?= decrypt_url($this->uri->segment(3) )?>" />
                         </thead>
@@ -312,7 +307,7 @@
                   </div>
                   <div class="modal-footer">
                     <button class="btn btn-white" data-dismiss="modal" aria-hidden="true">Close</button>
-                    <button class="btn btn-success" id="edit_cart"> Update</button>
+                    <button class="btn btn-primary" id="edit_cart"> Update</button>
                   </div>
                       </div>
 
@@ -386,7 +381,7 @@
                     var json = data,
                     obj = JSON.parse(json);
                     $('#estimasi_harga').val(obj.estimasi_harga);
-                    $('#default_diskon').val(obj.diskon);
+
                   }
 
                 });
@@ -400,7 +395,6 @@
           var item_id = $('#item_id').val()
           var qty = $('#qty').val()
           var estimasi_harga = $('#estimasi_harga').val()
-          var default_diskon = $('#default_diskon').val()
           if (item_id == '') {
             alert('Barang / Jasa Belum dipilih')
             $('#item_id').focus()
@@ -411,7 +405,7 @@
             $.ajax({
                 type:'POST',
                 url : '<?=site_url('T_sale/process') ?>',
-                data :{'add_cart' : true, 'item_id' : item_id, 'estimasi_harga' : estimasi_harga, 'default_diskon' : default_diskon, 'qty' : qty},
+                data :{'add_cart' : true, 'item_id' : item_id, 'estimasi_harga' : estimasi_harga,'qty' : qty},
                 dataType : 'json',
                 success: function(result){
                     if (result.success == true) {
@@ -454,17 +448,65 @@
         })
   //Get data update
   $(document).on('click','#update_cart',function(){
-          $('#cartid_item').val($(this).data('cartid'))
+          $('#cartid_item_modal').val($(this).data('cartid'))
           $('#kd_internal_item_modal').val($(this).data('kd_internal_item'))
           $('#nama_barang').val($(this).data('product'))
           $('#estimasi_harga_modal').val($(this).data('price'))
           $('#qty_modal').val($(this).data('qty'))
-          $('#total_before_modal').val($(this).data('price')*$(this).data('qty'))
-          $('#discount_item_modal').val($(this).data('discount'))
           $('#total_item_modal').val($(this).data('total'))
           //data kaNaN ini dari data yang ada di button
         })
+  $(document).on('keyup mouseup','#estimasi_harga_modal,#qty_modal',function(){
+            count_edit_modal()
+        })
 
+  //simpan edit data
+  $(document).on('click','#edit_cart', function(){
+          var cart_id = $('#cartid_item_modal').val()
+          var price = $('#estimasi_harga_modal').val()
+          var qty = $('#qty_modal').val()
+          var total = $('#total_item_modal').val()
+
+          if (price == '' || price <1) {
+            alert('Harga tidak boleh kosong')
+            $('#estimasi_harga_modal').focus()
+          }else if(qty == '' || qty <1){
+            alert('QTY minimal 1')
+            $('#qty_modal').focus()
+          }else {
+            $.ajax({
+                type:'POST',
+                url : '<?=site_url('T_sale/process') ?>',
+                data :{'edit_cart' : true, 'cart_id' : cart_id, 'price' : price, 'qty' : qty,'total': total},
+                dataType : 'json',
+                success: function(result){
+                    if (result.success) {
+                    $('#cart_table').load('<?=site_url('T_sale/cart_data') ?>',function(){
+                        // calculate()
+                    })
+                    alert('Item cart berhasil ter-Update');
+                    $('#modal-item-edit > div > div > div.modal-header > button').click();
+                    }else{
+                        alert('Data Item Cart tidak terupdate')
+                    }
+
+                }
+            })
+          }
+        })
+
+  function count_edit_modal(){
+            var price = $('#estimasi_harga_modal').val();
+            var qty = $('#qty_modal').val();
+
+
+            total_before = price * qty
+            $('#total_item_modal').val(total_before)
+
+            if(discount == ''){
+            $('#discount_item').val(0)
+          }
+        }
 
   });
 </script>

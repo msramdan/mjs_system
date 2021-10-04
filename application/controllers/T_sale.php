@@ -51,18 +51,16 @@ class T_sale extends CI_Controller
             $item_id = $this->input->post('item_id');
 
             if ($item_id!='' || $item_id !=null) {
-                $sql2 = "SELECT estimasi_harga,diskon from item where item_id='$item_id'";
+                $sql2 = "SELECT estimasi_harga from item where item_id='$item_id'";
                 $query_kode2 = $this->db->query($sql2);
                 $kd2 = $query_kode2->row();
                 $data = array(
-                    'estimasi_harga'      =>  $kd2->estimasi_harga,
-                    'diskon'              =>  $kd2->diskon
+                    'estimasi_harga'      =>  $kd2->estimasi_harga
                 );
                 echo json_encode($data);
             }else{
                 $data = array(
                     'estimasi_harga'      =>  0,
-                    'diskon'              =>  0
                 );
                 echo json_encode($data);
             }            

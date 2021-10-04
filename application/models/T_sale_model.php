@@ -86,16 +86,7 @@ class T_sale_model extends CI_Model
     }
 
     public function add_cart($post){
-        // $query = $this->db->query("SELECT MAX(cart_id) as cart_no FROM t_cart");
-        // if ($query->num_rows() > 0) {
-        //     $row = $query->row();
-        //     $cart_no = ((int)$row->cart_no)+1;
-        // }else{
-        //     $cart_no = "1";
-        // }
-
         $params=array(
-            // 'cart_id' =>$cart_no,
             'item_id' =>$post['item_id'],
             'price' =>$post['estimasi_harga'],
             'qty' =>$post['qty'],
@@ -111,6 +102,18 @@ class T_sale_model extends CI_Model
             $this->db->where($params);
         }
         $this->db->delete('t_cart');
+    }
+
+    public function edit_cart_data($post){
+        $params =array(
+            'price' =>$post['price'],
+            'qty' =>$post['qty'],
+            'total' =>$post['total'],
+
+        );
+        $this->db->where('cart_id',$post['cart_id']);
+        $this->db->update('t_cart',$params);
+
     }
 
 }
