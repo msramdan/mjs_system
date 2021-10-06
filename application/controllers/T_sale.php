@@ -30,10 +30,89 @@ class T_sale extends CI_Controller
 
     public function gey_by_spal(){
         $spal_id = $this->input->post('spal_id');
-        $row = $this->Spal_model->get_by_id($spal_id);
-        echo json_encode($row);
+        if ($spal_id !='' || $spal_id !=null)  {
+            $row = $this->Spal_model->get_by_id($spal_id);
+            echo json_encode($row);
+        }else{
+            $row='nodata';
+            echo json_encode($row);
+        }
+
+        
 
     }
+
+    public function gen_no_so(){
+        $tahun = date('Y');
+        $spal_id = $this->input->post('spal_id');
+        if ($spal_id !='' || $spal_id !=null)  {
+            $sql = "SELECT pelanggan_id from spal where spal_id='$spal_id'";
+            $query_kode = $this->db->query($sql);
+            $kd1 = $query_kode->row();
+            $pelanggan_id = $kd1->pelanggan_id;            
+        }else{
+            $pelanggan_id ='';
+        }
+
+        if ($pelanggan_id !='' || $pelanggan_id !=null)  {
+                $sql1 = "SELECT kode_pelanggan from pelanggan where pelanggan_id='$pelanggan_id'";
+                $query_kode2 = $this->db->query($sql1);
+                $kd1 = $query_kode2->row();
+                $kd = $kd1->kode_pelanggan;
+
+                    $sql2= "SELECT MAX(LEFT(no_so,3)) AS no_so FROM t_sale where Left(tanggal,4)='$tahun'";
+                    $query = $this->db->query($sql2);
+
+                    if ($query->num_rows()>0) {
+                        $row = $query->row();
+                        $n = ((int)$row->no_so)+1;
+                        $no = sprintf("%'.03d", $n);
+                    }else{
+                        $no = "001";
+                    }
+
+                    $bulan = date('m');
+                    if ($bulan==1) {
+                        $fix='I';
+                    }else if ($bulan==2) {
+                        $fix='II';
+                    }else if ($bulan==3) {
+                        $fix='III';
+                    }else if ($bulan==4) {
+                        $fix='IV';
+                    }else if ($bulan==5) {
+                        $fix='V';
+                    }else if ($bulan==6) {
+                        $fix='VI';
+                    }else if ($bulan==7) {
+                        $fix='VII';
+                    }else if ($bulan==8) {
+                        $fix='VIII';
+                    }else if ($bulan==9) {
+                        $fix='IX';
+                    }else if ($bulan==10) {
+                        $fix='X';
+                    }else if ($bulan==11) {
+                        $fix='XI';
+                    }else{
+                        $fix='XII';
+                    }
+                    $tahun = date('Y');
+                    $hasil =$no.'/SO/MJS-'.$kd.'/'.$fix.'/'.$tahun;
+                    echo json_encode($hasil);
+
+        }else{
+             $hasil ='';
+            echo json_encode($hasil);
+
+
+        }
+
+
+        
+
+    }
+
 
 
 

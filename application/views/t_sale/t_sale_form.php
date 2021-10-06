@@ -19,8 +19,78 @@
           <div class="box box-widget">
             <div class="box-body">
               <div align="right">
-                <h2>Tanggal <b><font id="tanggal"><?php echo date('Y-m-d') ?></font></b></h2>
-                <h2>No. <b><font id="invoice"></font></b></h2>
+             
+
+<script type="text/javascript">    
+    //fungsi displayTime yang dipanggil di bodyOnLoad dieksekusi tiap 1000ms = 1detik
+    function tampilkanwaktu(){
+        //buat dataect date berdasarkan waktu saat ini
+        var waktu = new Date();
+        //ambil nilai jam, 
+        //tambahan script + "" supaya variable sh bertipe string sehingga bisa dihitung panjangnya : sh.length
+        var sh = waktu.getHours() + ""; 
+        //ambil nilai menit
+        var sm = waktu.getMinutes() + "";
+        //ambil nilai detik
+        var ss = waktu.getSeconds() + "";
+        //tampilkan jam:menit:detik dengan menambahkan angka 0 jika angkanya cuma satu digit (0-9)
+        document.getElementById("clock").innerHTML = (sh.length==1?"0"+sh:sh) + ":" + (sm.length==1?"0"+sm:sm) + ":" + (ss.length==1?"0"+ss:ss);
+    }
+</script>
+<body onload="tampilkanwaktu();setInterval('tampilkanwaktu()', 1000);"> 
+<h1>              
+<span id="clock"></span></h1> 
+<?php
+$hari = date('l');
+/*$new = date('l, F d, Y', strtotime($Today));*/
+if ($hari=="Sunday") {
+  echo "Minggu";
+}elseif ($hari=="Monday") {
+  echo "Senin";
+}elseif ($hari=="Tuesday") {
+  echo "Selasa";
+}elseif ($hari=="Wednesday") {
+  echo "Rabu";
+}elseif ($hari=="Thursday") {
+  echo("Kamis");
+}elseif ($hari=="Friday") {
+  echo "Jum'at";
+}elseif ($hari=="Saturday") {
+  echo "Sabtu";
+}
+?>,
+<?php
+$tgl =date('d');
+echo $tgl;
+$bulan =date('F');
+if ($bulan=="January") {
+  echo " Januari ";
+}elseif ($bulan=="February") {
+  echo " Februari ";
+}elseif ($bulan=="March") {
+  echo " Maret ";
+}elseif ($bulan=="April") {
+  echo " April ";
+}elseif ($bulan=="May") {
+  echo " Mei ";
+}elseif ($bulan=="June") {
+  echo " Juni ";
+}elseif ($bulan=="July") {
+  echo " Juli ";
+}elseif ($bulan=="August") {
+  echo " Agustus ";
+}elseif ($bulan=="September") {
+  echo " September ";
+}elseif ($bulan=="October") {
+  echo " Oktober ";
+}elseif ($bulan=="November") {
+  echo " November ";
+}elseif ($bulan=="December") {
+  echo " Desember ";
+}
+$tahun=date('Y');
+echo $tahun;
+?>     <h2>No. <b><font id="no_so"></font></b></h2>
               </div>
             </div>
         </div>
@@ -50,11 +120,11 @@
                                     <?php } ?>
                               </select>
 
-                      <span class="input-group-btn">
+                      <!-- <span class="input-group-btn">
                         <button type="button" class="btn btn-info btn-flat" data-toggle="modal" data-target="#modal-item">
                           <i class="fa fa-search"></i>
                         </button>
-                      </span>
+                      </span> -->
                     </div>
 
                   </td>
@@ -66,12 +136,11 @@
                   </td>
                   <td>
                     <div class="form-group input-group">
-                      <input type="text" id="dokumen" name="dokumen" class="form-control" value="" readonly="" placeholder="Dokumen SPAL">    
-
+                      <input type="text" id="dokumen" name="dokumen" class="form-control" value="" readonly="" >    
                       <span class="input-group-btn">
-                        <button type="button" class="btn btn-success btn-flat" data-toggle="modal" data-target="#modal-item">
+                        <a href="#modal-spal-dokumen" data-toggle="modal" id="view_gambar" class="btn btn-success btn-flat">
                           <i class="fa fa-eye"></i>
-                        </button>
+                        </a>
                       </span>
                     </div>
                   </td>
@@ -83,7 +152,8 @@
                   </td>
                   <td>
                     <div class="form-group">
-                      <input type="text" id="customer" name="customer" class="form-control" value="" readonly="" placeholder="Customer">
+                      <input type="text" id="customer" name="customer" class="form-control" value="" readonly="" >
+                      <input type="hidden" id="pelanggan_id" name="pelanggan_id" class="form-control" value="">
                     </div>
                   </td>
                 </tr>
@@ -94,7 +164,7 @@
                   </td>
                   <td>
                     <div class="form-group">
-                      <input type="text" id="attn" name="attn" class="form-control" readonly="" value="" placeholder="Attn.">
+                      <input type="text" id="attn" name="attn" class="form-control" readonly="" value="" >
                     </div>
                   </td>
                 </tr>
@@ -117,7 +187,7 @@
                   </td>
                   <td>
                     <div class="form-group">
-                      <input type="text" id="kapal" name="kapal" value="" placeholder="Nama Kapal" class="form-control" readonly="">
+                      <input type="text" id="kapal" name="kapal" value="" class="form-control" readonly="">
                     </div>
                   </td>
                 </tr>
@@ -127,7 +197,7 @@
                   </td>
                   <td>
                     <div class="form-group">
-                      <input type="text" id="tongkang" name="tongkang" value="" placeholder="Nama Muatan" class="form-control" readonly="">
+                      <input type="text" id="tongkang" name="tongkang" value="" class="form-control" readonly="">
                     </div>
                   </td>
                 </tr>
@@ -137,7 +207,7 @@
                   </td>
                   <td>
                     <div class="form-group">
-                      <input type="text" id="pelabuhan_muat" name="pelabuhan_muat" value="" placeholder="Pelabuhan Muat" class="form-control" readonly="">
+                      <input type="text" id="pelabuhan_muat" name="pelabuhan_muat" value="" class="form-control" readonly="">
                     </div>
                   </td>
                 </tr>
@@ -147,7 +217,7 @@
                   </td>
                   <td>
                     <div class="form-group">
-                      <input type="text" id="pelabuhan_bongkar" name="pelabuhan_bongkar" placeholder="Pelabuhan Bongkar" value="" class="form-control" readonly="">
+                      <input type="text" id="pelabuhan_bongkar" name="pelabuhan_bongkar" value="" class="form-control" readonly="">
                     </div>
                   </td>
                 </tr>
@@ -178,12 +248,6 @@
                                       <?php } ?>
                                     <?php } ?>
                               </select>
-
-                      <span class="input-group-btn">
-                        <button type="button" class="btn btn-info btn-flat" data-toggle="modal" data-target="#modal-item">
-                          <i class="fa fa-search"></i>
-                        </button>
-                      </span>
                     </div>
                   </td>   
                 </tr>
@@ -367,14 +431,47 @@
                     </div>
                   </div>
 
+        <!-- #modal-dialog -->
+            <div class="modal fade" id="modal-spal-dokumen">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h4 class="modal-title">SPAL <span id="dokumen_nama"></span></h4>
+                    <button type="button" class="btn-close" data-dismiss="modal" aria-hidden="true"></button>
+                  </div>
+                  <div class="modal-body">
+                    <embed src="" id="data_dokumen" width="100%" frameborder="0" width="100%" height="400px" />
+                  </div>
+                  <div class="modal-footer">
+                    <a href="javascript:;" class="btn btn-white" data-dismiss="modal">Close</a>
+                    <!-- <a class="btn btn-primary" id="download" href=""><i class="ace-icon fa fa-download"></i> Download</a> -->`
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
 
 <script>
   $(document).ready(function() {
-    $(".theSelect").select2();
+  $(".theSelect").select2();
 
-    //autofill data dari spal
-    $( ".berubah_spal" ).change(function() {
-  		var spal_id=$('#spal_id').val();
+  // $(document).on('click','#view_gambar',function(){
+  //         var dokumen=$('#dokumen').val();
+  //         console.log(dokumen)
+  //         // var dokumen = 'No';
+  //         if (dokumen=='' || dokumen==null ) {
+  //           $('#modal-spal-dokumen #dokumen_nama').text('');
+  //         }else{
+  //           $('#modal-spal-dokumen #dokumen_nama').text(dokumen);
+  //           $('#modal-spal-dokumen #data_dokumen').attr("src", "../assets/assets/img/spal/"+dokumen);
+  //         }
+          
+  //   })
+
+
+  $( ".berubah_spal" ).change(function() {
+      var spal_id=$('#spal_id').val();
             $.ajax({
             type : "POST",
             url  : "<?php echo base_url('T_sale/gey_by_spal')?>",
@@ -383,16 +480,57 @@
                     success: function(data){
                         var json = data,
                         obj = JSON.parse(json);
-                        $('#attn').val(obj.attn);
-                        $('#nama_barang').val(obj.nama_barang);
-                        $('#kapal').val(obj.kapal);
-                        $('#tongkang').val(obj.tongkang);
-                        $('#pelabuhan_muat').val(obj.pelabuhan_muat);
-                        $('#pelabuhan_bongkar').val(obj.pelabuhan_bongkar);
-                        $('#customer').val(obj.nama_pelanggan);
-                        $('#dokumen').val(obj.dokumen);
-                        $('#estimasi_harga').val(obj.harga_muatan);
-                        $('#qty').val(obj.jumlah_muatan);
+                        if (obj.dokumen=='' || obj.dokumen==null ) {
+                          $('#modal-spal-dokumen #dokumen_nama').text('');
+                        }else{
+                          $('#modal-spal-dokumen #dokumen_nama').text(obj.dokumen);
+                          $('#modal-spal-dokumen #data_dokumen').attr("src", "../assets/assets/img/spal/"+obj.dokumen);
+                        }
+
+
+                      }
+                });
+
+                return false;
+    });
+
+    //autofill data dari spal
+    $( ".berubah_spal" ).change(function() {
+  		var spal_id=$('#spal_id').val();
+            $.ajax({
+            type : "POST",
+            url  : "<?php echo base_url('T_sale/gey_by_spal')?>",
+            dataType : "JSON",
+            data : {spal_id: spal_id},
+                    success: function(data){
+                        $('#attn').val(data.attn);
+                        $('#nama_barang').val(data.nama_barang);
+                        $('#kapal').val(data.kapal);
+                        $('#tongkang').val(data.tongkang);
+                        $('#pelabuhan_muat').val(data.pelabuhan_muat);
+                        $('#pelabuhan_bongkar').val(data.pelabuhan_bongkar);
+                        $('#customer').val(data.nama_pelanggan);
+                        $('#dokumen').val(data.dokumen);
+                        $('#estimasi_harga').val(data.harga_muatan);
+                        $('#qty').val(data.jumlah_muatan);
+                        $('#pelanggan_id').val(data.pelanggan_id);                      
+                      }
+                });
+
+                return false;
+    });
+    //Generate auto SO
+    $( ".berubah_spal" ).change(function() {
+      var spal_id=$('#spal_id').val();
+            $.ajax({
+            type : "POST",
+            url  : "<?php echo base_url('T_sale/gen_no_so')?>",
+            dataType : "",
+            data : {spal_id: spal_id},
+                    success: function(data){
+                        var json = data,
+                        obj = JSON.parse(json);
+                        $('#no_so').html(obj);
 
                       }
                 });
@@ -422,7 +560,7 @@
                     $('#cart_table').load('<?=site_url('T_sale/cart_data') ?>',function(){
                         // calculate()
                     })
-                    $('#qty').val(1)
+                    // $('#qty').val(1)
                     // $('#item_id').val('') 
                     }else{
                         alert('Gagal tambah item cart')
@@ -464,7 +602,6 @@
           $('#estimasi_harga_modal').val($(this).data('price'))
           $('#qty_modal').val($(this).data('qty'))
           $('#total_item_modal').val($(this).data('total'))
-          //data kaNaN ini dari data yang ada di button
         })
   $(document).on('keyup mouseup','#estimasi_harga_modal,#qty_modal',function(){
             count_edit_modal()
