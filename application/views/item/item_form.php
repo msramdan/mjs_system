@@ -126,10 +126,6 @@
                             <input type="hidden" class="form-control" name="estimasi_harga" id="estimasi_harga" placeholder="Estimasi Harga" value="<?php echo $estimasi_harga; ?>" />
                             
                           <input type="text" class="form-control" name="estimasi_harga_txt" id="estimasi_harga_txt" placeholder="Harga Jual" value="<?php echo $estimasi_harga; ?>" />
-                        </td></tr>
-                        <tr><td style="width: 40%" >Default Diskon (%) <?php echo form_error('diskon') ?></td><td>
-                          <input type="number" class="form-control" name="diskon" step="any" id="diskon" placeholder="Diskon dalam %" value="<?php echo $diskon; ?>" />
-                        </td></tr>
                         </thead>
                     </table>
                 </div>

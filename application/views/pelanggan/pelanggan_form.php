@@ -87,6 +87,8 @@
                                     </div>
                                   </div>
                                 </td></tr>
+
+                                
                                 <tr><td  id="tengah" >Telepon <?php echo form_error('telepon') ?></td><td><input type="text" class="form-control" name="telepon" id="telepon" placeholder="Telepon" value="<?php echo $telepon; ?>" /></td></tr>
 
                                 <tr><td  id="tengah" >Personal Kontak <?php echo form_error('personal_kontak') ?></td><td><input type="text" class="form-control" name="personal_kontak" id="personal_kontak" placeholder="Personal Kontak" value="<?php echo $personal_kontak; ?>" /></td></tr>

@@ -14,69 +14,93 @@
 <div class="panel-body">
 
 	<section class="content">
+    <div class="row">
+
+          <div class="box box-widget">
+            <div class="box-body">
+              <div align="right">
+                <h2>Tanggal <b><font id="tanggal"><?php echo date('Y-m-d') ?></font></b></h2>
+                <h2>No. <b><font id="invoice"></font></b></h2>
+              </div>
+            </div>
+        </div>
+
+
+    </div>
       <div class="row">
         <div class="col-lg-4">
           <div class="box box-widget">
             <div class="box-body">
               <table width="100%">
-                <tr>
-                  <td style="vertical-align: top">
-                    <label for="date">Tanggal</label>
-                  </td>
-                  <td>
-                    <div class="form-group">
-                      <input type="date" id="date" class="form-control" value="<?php echo date('Y-m-d') ?>">
-                    </div>
-                  </td>
-                </tr>
-                   <input readonly="" type="hidden" id="user" class="form-control" value="<?= ucfirst($this->fungsi->user_login()->nama_user) ?>" >
-                            <tr>
-                                <td style="vertical-align: top" width="30%">
-                                    <label for="customer">Customer</label>
-                                </td>
-                                <td>
-                                    <div class="form-group input-group">
-                                        <select class="form-control theSelect berubah_item" name="customer_id" id="customer_id">
-                                                <option value="">-- Pilih -- </option>
-						                        <?php foreach ($pelanggan as $key => $data) { ?>
-						                          <?php if ($pelanggan_id == $data->pelanggan_id) { ?>
-						                            <option  value="<?php echo $data->pelanggan_id ?>" selected><?php echo $data->nama_pelanggan ?></option>
-						                          <?php } else { ?>
-						                            <option value="<?php echo $data->pelanggan_id ?>"><?php echo $data->nama_pelanggan ?></option>
-						                          <?php } ?>
-						                        <?php } ?>
-                                              </select>
-                                        <span class="input-group-btn">
-                                            <button type="button" class="btn btn-info btn-flat" data-toggle="modal" data-target="#modal-customer">
-                                                <i class="fa fa-search"></i>
-                                            </button>
-                                        </span>
-                                    </div>
-                                </td>
-                            </tr>
-
-                  <tr>
-                    <td style="vertical-align: top" width="30%">
-                      <label for="user">Alamat</label>
-                    </td>
-                    <td>
-                      <div class="form-group">
-                        <textarea class="form-control" id="alamat" name="alamat" readonly=""></textarea>
-                      </div>
-                    </td>
-                  </tr>
-
 
                 <tr>
                   <td style="vertical-align: top" width="30%">
-                    <label for="user">Attn.</label>
+                    <label for="barcode">No SPAL</label>
                   </td>
                   <td>
-                    <div class="form-group">
-                      <input type="text" id="attn" name="attn" class="form-control" value="" >
+                    <div class="form-group input-group">
+                      <select class="form-control berubah_spal theSelect" name="spal_id" id="spal_id">
+                         <option value="">-- Pilih -- </option>
+                                    <?php foreach ($spal as $key => $data) { ?>
+                                      <?php if ($spal_id == $data->spal_id) { ?>
+                                        <option  value="<?php echo $data->spal_id ?>" selected><?php echo $data->no_spal ?></option>
+                                      <?php } else { ?>
+                                        <option value="<?php echo $data->spal_id ?>"><?php echo $data->no_spal ?></option>
+                                      <?php } ?>
+                                    <?php } ?>
+                              </select>
+
+                      <span class="input-group-btn">
+                        <button type="button" class="btn btn-info btn-flat" data-toggle="modal" data-target="#modal-item">
+                          <i class="fa fa-search"></i>
+                        </button>
+                      </span>
+                    </div>
+
+                  </td>
+                </tr>
+
+                <tr>
+                  <td style="vertical-align: top" width="30%">
+                    <label for="barcode">Dokumen SPAL</label>
+                  </td>
+                  <td>
+                    <div class="form-group input-group">
+                      <input type="text" id="dokumen" name="dokumen" class="form-control" value="" readonly="" placeholder="Dokumen SPAL">    
+
+                      <span class="input-group-btn">
+                        <button type="button" class="btn btn-success btn-flat" data-toggle="modal" data-target="#modal-item">
+                          <i class="fa fa-eye"></i>
+                        </button>
+                      </span>
                     </div>
                   </td>
                 </tr>
+
+                <tr>
+                  <td style="vertical-align: top" width="30%">
+                    <label for="barcode">Customer</label>
+                  </td>
+                  <td>
+                    <div class="form-group">
+                      <input type="text" id="customer" name="customer" class="form-control" value="" readonly="" placeholder="Customer">
+                    </div>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td style="vertical-align: top" width="30%">
+                    <label for="barcode">Attn.</label>
+                  </td>
+                  <td>
+                    <div class="form-group">
+                      <input type="text" id="attn" name="attn" class="form-control" readonly="" value="" placeholder="Attn.">
+                    </div>
+                  </td>
+                </tr>
+
+
+                <input readonly="" type="hidden" id="user" class="form-control" value="<?= ucfirst($this->fungsi->user_login()->nama_user) ?>" >
               </table>
             </div>
           </div>
@@ -88,20 +112,71 @@
             <div class="box-body">
               <table width="100%">
                 <tr>
+                  <td style="vertical-align: top">
+                    <label for="qty">Nama Kapal</label>
+                  </td>
+                  <td>
+                    <div class="form-group">
+                      <input type="text" id="kapal" name="kapal" value="" placeholder="Nama Kapal" class="form-control" readonly="">
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="vertical-align: top">
+                    <label for="qty">Nama Muatan</label>
+                  </td>
+                  <td>
+                    <div class="form-group">
+                      <input type="text" id="tongkang" name="tongkang" value="" placeholder="Nama Muatan" class="form-control" readonly="">
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="vertical-align: top">
+                    <label for="qty">Pelabuhan Muat</label>
+                  </td>
+                  <td>
+                    <div class="form-group">
+                      <input type="text" id="pelabuhan_muat" name="pelabuhan_muat" value="" placeholder="Pelabuhan Muat" class="form-control" readonly="">
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="vertical-align: top">
+                    <label for="qty">Pelabungan Bongkar</label>
+                  </td>
+                  <td>
+                    <div class="form-group">
+                      <input type="text" id="pelabuhan_bongkar" name="pelabuhan_bongkar" placeholder="Pelabuhan Bongkar" value="" class="form-control" readonly="">
+                    </div>
+                  </td>
+                </tr>
+
+
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4">
+          <div class="box box-widget">
+            <div class="box-body">
+              <table width="100%">
+                <tr>
                   <td style="vertical-align: top" width="30%">
                     <label for="barcode">Barang / Jasa</label>
                   </td>
                   <td>
                     <div class="form-group input-group">
-                    	<select class="form-control theSelect berubah_customer" name="item_id" id="item_id">
-              			     <option value="">-- Pilih -- </option>
-						                        <?php foreach ($jasa as $key => $data) { ?>
-						                          <?php if ($item_id == $data->item_id) { ?>
-						                            <option  value="<?php echo $data->item_id ?>" selected><?php echo $data->nama_item ?></option>
-						                          <?php } else { ?>
-						                            <option value="<?php echo $data->item_id ?>"><?php echo $data->nama_item ?></option>
-						                          <?php } ?>
-						                        <?php } ?>
+                      <select class="form-control theSelect" name="item_id" id="item_id">
+                         <option value="">-- Pilih -- </option>
+                                    <?php foreach ($jasa as $key => $data) { ?>
+                                      <?php if ($item_id == $data->item_id) { ?>
+                                        <option  value="<?php echo $data->item_id ?>" selected><?php echo $data->nama_item ?></option>
+                                      <?php } else { ?>
+                                        <option value="<?php echo $data->item_id ?>"><?php echo $data->nama_item ?></option>
+                                      <?php } ?>
+                                    <?php } ?>
                               </select>
 
                       <span class="input-group-btn">
@@ -112,11 +187,22 @@
                     </div>
                   </td>   
                 </tr>
-                <input type="hidden" id="estimasi_harga" name="estimasi_harga" value="" class="form-control">                               
+
+                <tr>
+                  <td style="vertical-align: top">
+                    <label for="qty">Harga Muatan</label>
+                  </td>
+                  <td>
+                    <div class="form-group">
+                      <input type="number" id="estimasi_harga" name="estimasi_harga" value="" class="form-control">
+                    </div>
+                  </td>
+                </tr>
+
         
                 <tr>
                   <td style="vertical-align: top">
-                    <label for="qty">QTY</label>
+                    <label for="qty">Jumlah Muatan</label>
                   </td>
                   <td>
                     <div class="form-group">
@@ -136,26 +222,20 @@
                   </td>
                 </tr>
               </table>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-4">
-          <div class="box box-widget">
-            <div class="box-body">
-              <div align="right">
-                <h4>Invoice <b><font id="invoice"></font></b></h4>
-                <h1><b><span id="grand_total2" style="font-size: 50pt">0</span></b></h1>
-              </div>
+
+
+              
             </div>
           </div>          
         </div>
+
       </div>
       <br>
       <div class="row">
         <div class="col-lg-12">
           <div class="box box-widget">
             <div class="box-body table-responsive">
-              <table class="table table-bordered table-striped">
+              <table class="table table-bordered table-striped table-sm">
                 <thead>
                   <tr>
                     <th>#</th>
@@ -215,45 +295,18 @@
             </div>
           </div>
         </div>
-        <div class="col-lg-3">
-          <div class="box box-widget">
-            <div class="box-body">
-              <table width="100%">
-                <tr>
-                  <td style="vertical-align: top; width: 30%">
-                    <label for="cash">Cash</label>
-                  </td>
-                  <td>
-                    <div class="form-group">
-                      <input type="number" name="" id="cash" value="0" min="0" class="form-control">
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td style="vertical-align: top">
-                    <label for="change">Change</label>
-                  </td>
-                  <td>
-                    <div>
-                      <input type="number" name="" id="change" class="form-control" readonly="">
-                    </div>
-                  </td>
-                </tr>
-              </table>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-3">
+
+        <div class="col-lg-6">
           <div class="box box-widget">
             <div class="box-body">
               <table width="100%">
                 <tr>
                   <td style="vertical-align: top">
-                    <label for="note">Note</label>
+                    <label for="note" style="vertical-align: middle;">Note</label>
                   </td>
                   <td>
                     <div>
-                      <textarea id="note" rows="3" class="form-control"></textarea>
+                      <textarea id="note" rows="5" class="form-control"></textarea>
                     </div>
                   </td>
                 </tr>
@@ -318,76 +371,33 @@
 <script>
   $(document).ready(function() {
     $(".theSelect").select2();
-    //autifill alamat
-    $( ".berubah_item" ).change(function() {      
-      var kode=$('#customer_id').val();
+
+    //autofill data dari spal
+    $( ".berubah_spal" ).change(function() {
+  		var spal_id=$('#spal_id').val();
             $.ajax({
             type : "POST",
-            url  : "<?php echo base_url('T_sale/cek_alamat')?>",
+            url  : "<?php echo base_url('T_sale/gey_by_spal')?>",
             dataType : "",
-            data : {kode: kode},
+            data : {spal_id: spal_id},
                     success: function(data){
-                      $('#alamat').val(data);
-                      
-                    }
+                        var json = data,
+                        obj = JSON.parse(json);
+                        $('#attn').val(obj.attn);
+                        $('#nama_barang').val(obj.nama_barang);
+                        $('#kapal').val(obj.kapal);
+                        $('#tongkang').val(obj.tongkang);
+                        $('#pelabuhan_muat').val(obj.pelabuhan_muat);
+                        $('#pelabuhan_bongkar').val(obj.pelabuhan_bongkar);
+                        $('#customer').val(obj.nama_pelanggan);
+                        $('#dokumen').val(obj.dokumen);
+                        $('#estimasi_harga').val(obj.harga_muatan);
+                        $('#qty').val(obj.jumlah_muatan);
+
+                      }
                 });
 
                 return false;
-    });          
-    //autofill invoice
-    $( ".berubah_item" ).change(function() {
-  		var kode=$('#customer_id').val();
-      var item_id=$('#item_id').val();
-            $.ajax({
-            type : "POST",
-            url  : "<?php echo base_url('T_sale/coba')?>",
-            dataType : "",
-            data : {kode: kode, item_id:item_id},
-                    success: function(data){
-                      $('#invoice').html(data);
-                    }
-                });
-
-                return false;
-    });
-
-    //perubahan invoice berdasarkan klik jasa
-    $( ".berubah_customer" ).change(function() {
-      var kode=$('#customer_id').val();
-      var item_id=$('#item_id').val();
-            $.ajax({
-            type : "POST",
-            url  : "<?php echo base_url('T_sale/coba')?>",
-            dataType : "",
-            data : {kode: kode, item_id:item_id},
-
-                    success: function(data){
-                      $('#invoice').html(data);
-                      
-                    }
-
-                });
-                return false;
-    });
-
-    //isi data berdasarkan input jasa
-    $( ".berubah_customer" ).change(function() {
-      var item_id=$('#item_id').val();
-          $.ajax({
-                    type : "POST",
-                    url: "<?php echo base_url('T_sale/data_item')?>",
-                    data : {item_id:item_id},
-                    success: function (data) {
-                    var json = data,
-                    obj = JSON.parse(json);
-                    $('#estimasi_harga').val(obj.estimasi_harga);
-
-                  }
-
-                });
-
-            return false;
-
     });
 
     //Add_cart

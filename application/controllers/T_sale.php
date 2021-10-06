@@ -11,6 +11,7 @@ class T_sale extends CI_Controller
         is_login();
         $this->load->model('T_sale_model');
         $this->load->model('Item_model');
+        $this->load->model('Spal_model');
         $this->load->model('Pelanggan_model');
         $this->load->model('Setting_app_model');
         $this->load->library('form_validation');
@@ -27,114 +28,74 @@ class T_sale extends CI_Controller
         $this->template->load('template','t_sale/t_sale_list', $data);
     }
 
-        public function cek_alamat()
+    public function gey_by_spal(){
+        $spal_id = $this->input->post('spal_id');
+        $row = $this->Spal_model->get_by_id($spal_id);
+        echo json_encode($row);
+
+    }
+
+
+
+    public function gen_no_spal()
         {
 
-            $pelanggan_id = $this->input->post('kode');
-
-            if ($pelanggan_id !='' || $pelanggan_id !=null)  {
-                $sql1 = "SELECT alamat from pelanggan where pelanggan_id='$pelanggan_id'";
-                $query_kode = $this->db->query($sql1);
-                $kd1 = $query_kode->row();
-                $alamat = $kd1->alamat;
-                
-            }else{
-                $alamat = '-';
-            }
-            echo "$alamat";
-
-        }
-
-    public function data_item()
-        {
-
-            $item_id = $this->input->post('item_id');
-
-            if ($item_id!='' || $item_id !=null) {
-                $sql2 = "SELECT estimasi_harga from item where item_id='$item_id'";
-                $query_kode2 = $this->db->query($sql2);
-                $kd2 = $query_kode2->row();
-                $data = array(
-                    'estimasi_harga'      =>  $kd2->estimasi_harga
-                );
-                echo json_encode($data);
-            }else{
-                $data = array(
-                    'estimasi_harga'      =>  0,
-                );
-                echo json_encode($data);
-            }            
-        }
-
-    public function coba()
-        {
             $tahun_bulan = date('Y-m');
 
             $pelanggan_id = $this->input->post('kode');
-            $item_id = $this->input->post('item_id');
 
             if ($pelanggan_id !='' || $pelanggan_id !=null)  {
                 $sql1 = "SELECT kode_pelanggan from pelanggan where pelanggan_id='$pelanggan_id'";
                 $query_kode = $this->db->query($sql1);
                 $kd1 = $query_kode->row();
                 $kd = $kd1->kode_pelanggan;
-                
-            }else{
-                $kd = '-';
-            }
+                    $sql= "SELECT LEFT(no_spal,3) AS no_spal FROM spal where Left(tanggal,7)='$tahun_bulan'";
+                    $query = $this->db->query($sql);
 
-            if ($item_id!='' || $item_id !=null) {
-                $sql2 = "SELECT kd_internal_item from item where item_id='$item_id'";
-                $query_kode2 = $this->db->query($sql2);
-                $kd2 = $query_kode2->row();
-                $kd2 = $kd2->kd_internal_item;
-                
-            }else{
-                $kd2 = '-';
-            }
+                    if ($query->num_rows()>0) {
+                        $row = $query->row();
+                        $n = ((int)$row->no_spal)+1;
+                        $no = sprintf("%'.03d", $n);
+                    }else{
+                        $no = "001";
+                    }
 
-            $sql= "SELECT LEFT(invoice,3) AS invoice_no FROM t_sale where Left(tanggal,7)='$tahun_bulan'";
-            $query = $this->db->query($sql);
+                    $bulan = date('m');
+                    if ($bulan==1) {
+                        $fix='I';
+                    }else if ($bulan==2) {
+                        $fix='II';
+                    }else if ($bulan==3) {
+                        $fix='III';
+                    }else if ($bulan==4) {
+                        $fix='IV';
+                    }else if ($bulan==5) {
+                        $fix='V';
+                    }else if ($bulan==6) {
+                        $fix='VI';
+                    }else if ($bulan==7) {
+                        $fix='VII';
+                    }else if ($bulan==8) {
+                        $fix='VIII';
+                    }else if ($bulan==9) {
+                        $fix='IX';
+                    }else if ($bulan==10) {
+                        $fix='X';
+                    }else if ($bulan==11) {
+                        $fix='XI';
+                    }else{
+                        $fix='XII';
+                    }
+                    $tahun = date('Y');
+                    $hasil =$no.'/SPAL/MJS-'.$kd.'/'.$fix.'/'.$tahun;
+                    echo json_encode($hasil);
 
-            if ($query->num_rows()>0) {
-                $row = $query->row();
-                $n = ((int)$row->invoice_no)+1;
-                $no = sprintf("%'.03d", $n);
             }else{
-                $no = "001";
-            }
-            $invoice = $no;
+                $hasil ='';
+                echo json_encode($hasil);
 
-            $bulan = date('m');
-            if ($bulan==1) {
-                $fix='I';
-            }else if ($bulan==2) {
-                $fix='II';
-            }else if ($bulan==3) {
-                $fix='III';
-            }else if ($bulan==4) {
-                $fix='IV';
-            }else if ($bulan==5) {
-                $fix='V';
-            }else if ($bulan==6) {
-                $fix='VI';
-            }else if ($bulan==7) {
-                $fix='VII';
-            }else if ($bulan==8) {
-                $fix='VIII';
-            }else if ($bulan==9) {
-                $fix='IX';
-            }else if ($bulan==10) {
-                $fix='X';
-            }else if ($bulan==11) {
-                $fix='XI';
-            }else{
-                $fix='XII';
-            }
-            $tahun = date('Y');
-            $hasil =$no.'/'.$kd2.'/MJS-'.$kd.'/'.$fix.'/'.$tahun;
-            echo "$hasil";
         }
+    }
 
     public function cart_data(){
             $data['cart'] = $this->T_sale_model->get_cart();
@@ -173,7 +134,7 @@ class T_sale extends CI_Controller
         $data = array(
             'button' => 'Create',
             'cart' =>$cart,
-            'pelanggan' =>$this->Pelanggan_model->get_all(),
+            'spal' =>$this->Spal_model->get_all(),
             'jasa' =>$this->Item_model->get_all_service(),
             'sett_apps' =>$this->Setting_app_model->get_by_id(1),
             'action' => site_url('t_sale/create_action'),
