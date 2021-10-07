@@ -102,6 +102,7 @@ echo $tahun;
           <div class="box box-widget">
             <div class="box-body">
               <table width="100%">
+                <input type="hidden" id="date" class="form-control" value="<?php echo date('Y-m-d') ?>">
 
                 <tr>
                   <td style="vertical-align: top" width="30%">
@@ -119,12 +120,6 @@ echo $tahun;
                                       <?php } ?>
                                     <?php } ?>
                               </select>
-
-                      <!-- <span class="input-group-btn">
-                        <button type="button" class="btn btn-info btn-flat" data-toggle="modal" data-target="#modal-item">
-                          <i class="fa fa-search"></i>
-                        </button>
-                      </span> -->
                     </div>
 
                   </td>
@@ -168,9 +163,6 @@ echo $tahun;
                     </div>
                   </td>
                 </tr>
-
-
-                <input readonly="" type="hidden" id="user" class="form-control" value="<?= ucfirst($this->fungsi->user_login()->nama_user) ?>" >
               </table>
             </div>
           </div>
@@ -351,7 +343,7 @@ echo $tahun;
                   </td>
                   <td>
                     <div class="form-group">
-                      <input type="number" id="grand_total" class="form-control" readonly="">
+                      <input type="number" id="grand_total" name="grand_total" class="form-control" readonly="">
                     </div>
                   </td>
                 </tr>
@@ -558,10 +550,8 @@ echo $tahun;
                 success: function(result){
                     if (result.success == true) {
                     $('#cart_table').load('<?=site_url('T_sale/cart_data') ?>',function(){
-                        // calculate()
+                        calculate()
                     })
-                    // $('#qty').val(1)
-                    // $('#item_id').val('') 
                     }else{
                         alert('Gagal tambah item cart')
                     }
@@ -582,7 +572,7 @@ echo $tahun;
                     success:function(result){
                         if (result.success == true) {
                             $('#cart_table').load('<?=site_url('T_sale/cart_data') ?>',function(){
-                                // calculate()
+                                calculate()
                             })
                         }else{
                             alert('Gagal hapus item cart');
@@ -629,7 +619,7 @@ echo $tahun;
                 success: function(result){
                     if (result.success) {
                     $('#cart_table').load('<?=site_url('T_sale/cart_data') ?>',function(){
-                        // calculate()
+                        calculate()
                     })
                     alert('Item cart berhasil ter-Update');
                     $('#modal-item-edit > div > div > div.modal-header > button').click();
@@ -649,11 +639,94 @@ echo $tahun;
 
             total_before = price * qty
             $('#total_item_modal').val(total_before)
-
-            if(discount == ''){
-            $('#discount_item').val(0)
-          }
         }
+  //hitung sub total dan total
+  function calculate(){
+            var subtotal = 0;
+            $('#cart_table tr').each(function(){
+                subtotal += parseInt($(this).find('#total123').text())
+            })
+            isNaN(subtotal) ? $('#sub_total').val(0) : $('#sub_total').val(subtotal)
+            var discount = $('#discount').val()
+            var grand_total = subtotal - discount
+            if (isNaN(grand_total)) {
+                $('#grand_total').val(0) 
+            }else{
+                $('#grand_total').val(grand_total) 
+            }
+        }
+        $(document).ready(function(){ //pertamakan document di load function ini d panggil
+            calculate()
+        })
+
+        $(document).on('keyup mouseup','#discount',function(){
+            calculate()
+        })
+
+        //cancel payment
+        $(document).on('click','#cancel_payment', function(){
+            if (confirm('Apakah Anda yakin cancel SO ?')) {
+                $.ajax({
+                type:'POST',
+                url : '<?=site_url('T_sale/del_cart') ?>',
+                data :{'cancel_payment': true},
+                dataType : 'json',
+                success: function(result){
+                    if (result.success == true) {
+                         $('#cart_table').load('<?=site_url('T_sale/cart_data') ?>',function(){
+                                calculate()
+                            })
+                    }
+                }
+            })
+                $('#discount').val(0)
+                $('#spal_id').val(0)
+                $('#spal_id').focus()
+
+            }
+        })
+
+        //proses SO
+
+          $(document).on('click','#process_payment', function(){
+          var spal_id = $('#spal_id').val()
+          var no_so = $('#no_so').html()
+          var subtotal = $('#sub_total').val()
+          var discount = $('#discount').val()
+          var grandtotal = $('#grand_total').val()
+          var note = $('#note').val()
+          var date = $('#date').val()
+
+          if (spal_id =='' || spal_id==null) {
+            alert('Pilih spal terlebih dahulu')
+            $('#spal_id').focus()
+
+          }else if (subtotal <1){
+            alert('Belum ada barang / jasa yang dipilih')
+            $('#item_id').focus()
+          }else {
+            if (confirm('Yakin proses transaksi ini ?')) {
+                $.ajax({
+                type:'POST',
+                url : '<?=site_url('T_sale/process') ?>',
+                data :{'process_payment' : true,'subtotal' : subtotal,'no_so' : no_so, 'discount' : discount, 'grandtotal': grandtotal,'note': note, 'date': date,'spal_id': spal_id  },
+                dataType : 'json',
+                success: function(result){
+                    if (result.success) {
+                        alert('Transaksi berhasil');
+                    }else{
+                        alert('Transaksi gagal');
+                    }
+                    location.href='<?=site_url('T_sale') ?>'
+
+                }
+            })
+
+            }
+          }
+        })
+
+
 
   });
 </script>

@@ -11,17 +11,31 @@
 </div>
 </div>
 <div class="panel-body">
-<table id="data-table-default" class="table table-hover table-bordered table-td-valign-middle">
-	    <tr><td>Invoice</td><td><?php echo $invoice; ?></td></tr>
-	    <tr><td>Customer Id</td><td><?php echo $pelanggan_id; ?></td></tr>
-	    <tr><td>User Id</td><td><?php echo $user_id; ?></td></tr>
+<table class="table table-hover table-bordered">
+	<thead>
+		<tr><td>No SO</td><td><?php echo $no_so; ?></td></tr>
+		<tr><td>SPAL</td><td>
+			<table class="table table-sm table-bordered">
+	    		<tr><td>NO SPAL</td><td><?php echo $no_spal; ?></td></tr>
+	   			<tr><td>Customer</td><td><?php echo $nama_pelanggan; ?></td></tr>
+	   			<tr><td>Attn.</td><td><?php echo $attn; ?></td></tr>
+	   			<tr><td>Informasi Tongkang & Kapal</td><td><?php echo $kapal; ?> & <?php echo $tongkang; ?></td></tr>
+	   			<tr><td>Informasi Pelabuhan</td><td>Pelabuhan Muat : <?php echo $pelabuhan_muat; ?> - Pelabuhan Bongkar : <?php echo $pelabuhan_bongkar; ?></td></tr>
+	   			<tr><td>Nama Muatan</td><td><?php echo $nama_muatan; ?></td></tr>
+	   			<tr><td>Dokumen SPAL</td><td><a href="<?= base_url()?>T_sale/download/<?= $dokumen ?>" class="btn btn-success btn-xs"> <i class="fas fa-download" aria-hidden="true"></i> Download</a></tr>
+	    	</table>
+	    		
+		</td></tr>
+	    <tr><td>User Penginput</td><td>
+	    	<?php echo $nama_user; ?>
+	    	</td></tr>
 	    <tr><td>Tanggal</td><td><?php echo $tanggal; ?></td></tr>
-	    <tr><td>Attn</td><td><?php echo $attn; ?></td></tr>
-	    <tr><td>Sub Price</td><td><?php echo $sub_price; ?></td></tr>
-	    <tr><td>Discount</td><td><?php echo $discount; ?></td></tr>
-	    <tr><td>Final Price</td><td><?php echo $final_price; ?></td></tr>
+	    <tr><td>Sub Price</td><td><?php echo rupiah($sub_price); ?></td></tr>
+	    <tr><td>Discount</td><td><?php echo rupiah($discount); ?></td></tr>
+	    <tr><td>Final Price</td><td><?php echo rupiah($final_price); ?></td></tr>
 	    <tr><td>Note</td><td><?php echo $note; ?></td></tr>
 	    <tr><td></td><td><a href="<?php echo site_url('t_sale') ?>" class="btn btn-default">Cancel</a></td></tr>
+	    </thead>
 	</table>
 			</div>
         </div>

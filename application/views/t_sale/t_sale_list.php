@@ -27,32 +27,26 @@
          <thead>
             <tr>
                 <th>No</th>
-		<th>Invoice</th>
-		<th>Customer</th>
-		<th>User</th>
-		<th>Tanggal</th>
-		<th>Attn</th>
-		<th>Sub Price</th>
-		<th>Discount</th>
-		<th>Final Price</th>
-		<th>Note</th>
-		<th>Action</th>
+                <th>NO SO</th>
+                <th>SPAL</th>
+        		<th>Sub Price</th>
+        		<th>Discount</th>
+        		<th>Final Price</th>
+        		<th>Note</th>
+        		<th>Action</th>
             </tr></thead><tbody><?php $no = 1;
             foreach ($t_sale_data as $t_sale)
             {
                 ?>
                 <tr>
 			<td><?= $no++?></td>
-			<td><?php echo $t_sale->invoice ?></td>
-			<td><?php echo $t_sale->pelanggan_id ?></td>
-			<td><?php echo $t_sale->user_id ?></td>
-			<td><?php echo $t_sale->tanggal ?></td>
-			<td><?php echo $t_sale->attn ?></td>
-			<td><?php echo $t_sale->sub_price ?></td>
-			<td><?php echo $t_sale->discount ?></td>
-			<td><?php echo $t_sale->final_price ?></td>
+            <td><?php echo $t_sale->no_so ?></td>
+            <td><?php echo $t_sale->no_spal ?></td>
+			<td><?php echo rupiah($t_sale->sub_price) ?></td>
+			<td><?php echo rupiah($t_sale->discount) ?></td>
+			<td><?php echo rupiah($t_sale->final_price) ?></td>
 			<td><?php echo $t_sale->note ?></td>
-			<td style="text-align:center" width="200px">
+			<td>
 				<?php 
 				echo anchor(site_url('t_sale/read/'.encrypt_url($t_sale->t_sale_id)),'<i class="fas fa-eye" aria-hidden="true"></i>','class="btn btn-success btn-sm read_data"'); 
 				echo '  '; 

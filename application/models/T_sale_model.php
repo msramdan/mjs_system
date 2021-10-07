@@ -18,6 +18,7 @@ class T_sale_model extends CI_Model
     // get all
     function get_all()
     {
+        $this->db->join('spal', 'spal.spal_id = t_sale.spal_id', 'left');
         $this->db->order_by($this->id, $this->order);
         return $this->db->get($this->table)->result();
     }
@@ -25,6 +26,9 @@ class T_sale_model extends CI_Model
     // get data by id
     function get_by_id($id)
     {
+        $this->db->join('spal', 'spal.spal_id = t_sale.spal_id', 'left');
+        $this->db->join('user', 'user.user_id = t_sale.user_id', 'left');
+        $this->db->join('pelanggan', 'pelanggan.pelanggan_id = spal.pelanggan_id', 'left');
         $this->db->where($this->id, $id);
         return $this->db->get($this->table)->row();
     }
@@ -97,6 +101,10 @@ class T_sale_model extends CI_Model
         $this->db->insert('t_cart',$params);
     }
 
+     public function add_sale_detail($params){
+        $this->db->insert_batch('t_sale_detail',$params);
+    }
+
     public function cart_del($params = null){
         if ($params != null) {
             $this->db->where($params);
@@ -114,6 +122,22 @@ class T_sale_model extends CI_Model
         $this->db->where('cart_id',$post['cart_id']);
         $this->db->update('t_cart',$params);
 
+    }
+
+    public function add_sale($post){
+        $params=array(
+            'no_so' =>$post['no_so'],
+            'sub_price' =>$post['subtotal'],
+            'discount' =>$post['discount'],
+            'final_price' =>$post['grandtotal'],
+            'note' =>$post['note'],
+            'tanggal' =>$post['date'],
+            'user_id' =>$this->fungsi->user_login()->user_id,
+            'spal_id' =>$post['spal_id']
+
+        );
+        $this->db->insert('t_sale',$params);
+        return $this->db->insert_id();
     }
 
 }

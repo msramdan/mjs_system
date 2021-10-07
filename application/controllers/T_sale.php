@@ -188,16 +188,25 @@ class T_sale extends CI_Controller
         $row = $this->T_sale_model->get_by_id(decrypt_url($id));
         if ($row) {
             $data = array(
+        'sett_apps' =>$this->Setting_app_model->get_by_id(1),
 		't_sale_id' => $row->t_sale_id,
-		'invoice' => $row->invoice,
-		'pelanggan_id' => $row->pelanggan_id,
-		'user_id' => $row->user_id,
+        'no_so' => $row->no_so,
+        'no_spal' => $row->no_spal,
+        'nama_user' => $row->nama_user,
+        'nama_pelanggan' => $row->nama_pelanggan,
+        'attn' => $row->attn,
 		'tanggal' => $row->tanggal,
-		'attn' => $row->attn,
 		'sub_price' => $row->sub_price,
 		'discount' => $row->discount,
 		'final_price' => $row->final_price,
 		'note' => $row->note,
+        'kapal' => $row->kapal,
+        'tongkang' => $row->tongkang,
+        'pelabuhan_muat' => $row->pelabuhan_muat,
+        'pelabuhan_bongkar' => $row->pelabuhan_bongkar,
+        'nama_muatan' => $row->nama_muatan,
+        'dokumen' => $row->dokumen,
+        'metode_pembayaran' => $row->metode_pembayaran
 	    );
             $this->template->load('template','t_sale/t_sale_read', $data);
         } else {
@@ -386,9 +395,6 @@ class T_sale extends CI_Controller
                     'item_id' =>$value->item_id,
                     'price' =>$value->cart_price,
                     'qty' =>$value->qty,
-                    'qty_asli' =>$value->qty_asli,
-                    'unit' =>$value->unit,
-                    'discount_item' =>$value->discount_item,
                     'total' =>$value->total,
                 ));
             }
@@ -420,6 +426,10 @@ class T_sale extends CI_Controller
                 $params = array("success" => false);
             }
             echo json_encode($params);
+    }
+
+    public function download($gambar){
+        force_download('assets/assets/img/spal/'.$gambar,NULL);
     }
 
 }

@@ -223,5 +223,6 @@
       $('#gaji_pokok').val(jumlah.replace(/\,/g, '', ));
       $('#gaji_pokok_txt').val(number_format(jumlah));
     });
+    
   });
 </script>
