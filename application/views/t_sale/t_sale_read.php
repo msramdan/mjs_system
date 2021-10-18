@@ -13,8 +13,8 @@
 <div class="panel-body">
 <table class="table table-hover table-bordered">
 	<thead>
-		<tr><td>No SO</td><td><?php echo $no_so; ?></td></tr>
-		<tr><td>SPAL</td><td>
+		<tr><td style="vertical-align: middle;">No SO</td><td><?php echo $no_so; ?></td></tr>
+		<tr><td style="vertical-align: middle;">SPAL</td><td>
 			<table class="table table-sm table-bordered">
 	    		<tr><td>NO SPAL</td><td><?php echo $no_spal; ?></td></tr>
 	   			<tr><td>Customer</td><td><?php echo $nama_pelanggan; ?></td></tr>
@@ -26,15 +26,45 @@
 	    	</table>
 	    		
 		</td></tr>
-	    <tr><td>User Penginput</td><td>
+	    <tr><td style="vertical-align: middle;">User Penginput</td><td>
 	    	<?php echo $nama_user; ?>
 	    	</td></tr>
-	    <tr><td>Tanggal</td><td><?php echo $tanggal; ?></td></tr>
-	    <tr><td>Sub Price</td><td><?php echo rupiah($sub_price); ?></td></tr>
-	    <tr><td>Discount</td><td><?php echo rupiah($discount); ?></td></tr>
-	    <tr><td>Final Price</td><td><?php echo rupiah($final_price); ?></td></tr>
-	    <tr><td>Note</td><td><?php echo $note; ?></td></tr>
-	    <tr><td></td><td><a href="<?php echo site_url('t_sale') ?>" class="btn btn-default">Cancel</a></td></tr>
+	    <tr><td style="vertical-align: middle;">Tanggal</td><td><?php echo $tanggal; ?></td></tr>
+	    <tr><td style="vertical-align: middle;">Sub Price</td><td><?php echo rupiah($sub_price); ?></td></tr>
+	    <tr><td style="vertical-align: middle;">Discount</td><td><?php echo rupiah($discount); ?></td></tr>
+	    <tr><td style="vertical-align: middle;">Final Price</td><td><?php echo rupiah($final_price); ?></td></tr>
+	    <tr><td style="vertical-align: middle;">Note</td><td><?php echo $note; ?></td></tr>
+
+	    <tr><td style="vertical-align: middle;">Detail SO</td><td>
+	    	<table class="table table-sm table-bordered">
+	    		<tr>
+	    			<td>No</td>
+	    			<td>Barang / Jasa</td>
+	    			<td>Satuan</td>
+	    			<td>Harga</td>
+	    			<td>QTY</td>
+	    			<td>Total</td>
+	    		</tr>
+	    		<?php $no = 1;
+		            foreach ($detail as $row) { ?>
+		                <tr>
+		                	<td><?= $no++?></td>
+		                	<td><?php echo $row->nama_item ?></td>
+		                	<td><?php echo $row->nama_unit ?></td>
+		                	<td><?php echo rupiah($row->price) ?></td>
+		                	<td><?php echo $row->qty ?></td>
+		                	<td><?php echo rupiah($row->total) ?></td>
+		                </tr>
+                <?php } ?>
+	    	</table>
+	    	
+
+	    </td></tr>
+
+
+	    <tr><td></td><td>
+	    	<a href="<?php echo site_url('t_sale/pdf/'.encrypt_url($t_sale_id)) ?>" class="btn btn-warning" target="_blank"><i class="fas fa-print" aria-hidden="true"></i> Print</a>
+	    	<a href="<?php echo site_url('t_sale') ?>" class="btn btn-default">Cancel</a></td></tr>
 	    </thead>
 	</table>
 			</div>

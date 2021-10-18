@@ -32,6 +32,16 @@ class T_sale_model extends CI_Model
         $this->db->where($this->id, $id);
         return $this->db->get($this->table)->row();
     }
+
+    function get_detail_so($id){
+        $this->db->select('t_sale_detail.*,item.nama_item,unit.nama_unit');
+        $this->db->from('t_sale_detail');
+        $this->db->join('item', 'item.item_id = t_sale_detail.item_id');
+        $this->db->join('unit', 'unit.unit_id = item.unit_id');
+        $this->db->where('sale_id', $id);
+        $query = $this->db->get()->result();
+        return $query;
+    }
     
     // get total rows
     function total_rows($q = NULL) {

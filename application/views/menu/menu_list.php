@@ -31,7 +31,8 @@
         <div class="panel-body">
 
           <div class="table-responsive">
-            <table class="table table-bordered table-hover m-b-0 text-white" id="data-table-default" >
+            <!-- <table class="table table-bordered table-hover m-b-0 text-white" id="data-table-default" > -->
+              <table class="table table-bordered table-hover m-b-0 text-white">
               <thead>
                 <tr>
                   <th width="1%">No</th>
@@ -91,7 +92,7 @@
         <div class="panel-body">
 
           <div class="table-responsive">
-            <table class="table table-bordered table-hover m-b-0 text-white" id="data-table-default2"> 
+            <table class="table table-bordered table-hover m-b-0 text-white"> 
               <thead>
                 <tr>
                   <th width="1%">No</th>

@@ -1,8 +1,8 @@
 <div id="content" class="app-content">
-            <h1 class="page-header">KELOLA DATA T_SALE</h1>  
+            <h1 class="page-header">KELOLA DATA T_PURCHASE</h1>  
             <div class="panel panel-inverse">
               <div class="panel-heading">
-                <h4 class="panel-title">List Data t_sale </h4>
+                <h4 class="panel-title">List Data t_purchase </h4>
                     <div class="panel-heading-btn">
                         <a href="javascript:;" class="btn btn-xs btn-icon btn-default" data-toggle="panel-expand"><i class="fa fa-expand"></i></a>
                         <a href="javascript:;" class="btn btn-xs btn-icon btn-success" data-toggle="panel-reload"><i class="fa fa-redo"></i></a>
@@ -18,7 +18,8 @@
                                     <div class='row'>
                                         <div class='col-md-9'>
                                             <div style="padding-bottom: 10px;">
-        <?php echo anchor(site_url('t_sale/create'), '<i class="fas fa-plus-square" aria-hidden="true"></i> Tambah Data', 'class="btn btn-danger btn-sm tambah_data"'); ?>
+        <?php echo anchor(site_url('t_purchase/create'), '<i class="fas fa-plus-square" aria-hidden="true"></i> Tambah Data', 'class="btn btn-danger btn-sm tambah_data"'); ?>
+		<?php echo anchor(site_url('t_purchase/excel'), '<i class="far fa-file-excel" aria-hidden="true"></i> Export Ms Excel', 'class="btn btn-success btn-sm export_data"'); ?>
                 </div>
             </div>
         </div>    
@@ -27,32 +28,30 @@
          <thead>
             <tr>
                 <th>No</th>
-                <th>NO SO</th>
-                <th>SPAL</th>
-        		<th>Sub Price</th>
-        		<th>Discount</th>
-        		<th>Final Price</th>
-        		<th>Note</th>
-        		<th>Action</th>
+		<th>No Purchase</th>
+		<th>Tanggal Input</th>
+        <th>Subtotal</th>
+        <th>Diskon</th>
+		<th>Final Price</th>
+		<th>Action</th>
             </tr></thead><tbody><?php $no = 1;
-            foreach ($t_sale_data as $t_sale)
+            foreach ($t_purchase_data as $t_purchase)
             {
                 ?>
                 <tr>
 			<td><?= $no++?></td>
-            <td><?php echo $t_sale->no_so ?></td>
-            <td><?php echo $t_sale->no_spal ?></td>
-			<td><?php echo rupiah($t_sale->sub_price) ?></td>
-			<td><?php echo rupiah($t_sale->discount) ?></td>
-			<td><?php echo rupiah($t_sale->final_price) ?></td>
-			<td><?php echo $t_sale->note ?></td>
-			<td>
+			<td><?php echo $t_purchase->no_purchase ?></td>
+			<td><?php echo $t_purchase->tanggal ?></td>
+			<td><?php echo rupiah($t_purchase->subtotal)  ?></td>
+            <td><?php echo rupiah($t_purchase->discount)  ?></td>
+            <td><?php echo rupiah($t_purchase->grandtotal)?></td>
+			<td style="text-align:center" width="200px">
 				<?php 
-				echo anchor(site_url('t_sale/read/'.encrypt_url($t_sale->t_sale_id)),'<i class="fas fa-eye" aria-hidden="true"></i>','class="btn btn-success btn-sm read_data"'); 
+				echo anchor(site_url('t_purchase/read/'.encrypt_url($t_purchase->purchase_id)),'<i class="fas fa-eye" aria-hidden="true"></i>','class="btn btn-success btn-sm read_data"'); 
 				echo '  '; 
-				// echo anchor(site_url('t_sale/update/'.encrypt_url($t_sale->t_sale_id)),'<i class="fas fa-pencil-alt" aria-hidden="true"></i>','class="btn btn-primary btn-sm update_data"'); 
+				// echo anchor(site_url('t_purchase/update/'.encrypt_url($t_purchase->purchase_id)),'<i class="fas fa-pencil-alt" aria-hidden="true"></i>','class="btn btn-primary btn-sm update_data"'); 
 				// echo '  '; 
-				echo anchor(site_url('t_sale/delete/'.encrypt_url($t_sale->t_sale_id)),'<i class="fas fa-trash-alt" aria-hidden="true"></i>','class="btn btn-danger btn-sm delete_data" Delete','onclick="javasciprt: return confirm(\'Are You Sure ?\')"'); 
+				echo anchor(site_url('t_purchase/delete/'.encrypt_url($t_purchase->purchase_id)),'<i class="fas fa-trash-alt" aria-hidden="true"></i>','class="btn btn-danger btn-sm delete_data" Delete','onclick="javasciprt: return confirm(\'Are You Sure ?\')"'); 
 				?>
 			</td>
 		</tr>

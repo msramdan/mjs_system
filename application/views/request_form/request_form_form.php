@@ -45,7 +45,7 @@
 	    <?php } ?>  
 
 	    <tr><td  style="vertical-align: middle;">Categori Request<?php echo form_error('categori_request_id') ?></td><td>
-	    	<select class="form-control" id="ex-basic"  name="categori_request_id">
+	    	<select class="form-control theSelect" id="ex-basic"  name="categori_request_id">
 				<option value="">-- Pilih --</option>
 	    		<?php
 
@@ -139,6 +139,10 @@
 
 <script>
 $(document).ready(function() {
+
+  $(".theSelect").select2();
+
+
     var i = 1;
     $('#add_berkas').click(function() {
         i++;

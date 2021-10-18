@@ -28,7 +28,8 @@
 
 	    <tr>
             <td >level <?php echo form_error('level_id') ?></td>
-            <td style="width: 70%"><select name="level_id" class="form-control theSelect">
+            <td style="width: 70%">
+              <select name="level_id" class="form-control theSelect">
                 <option value="">-- Pilih -- </option>
                 <?php foreach ($level as $key => $data) { ?>
                   <?php if ($level_id == $data->level_id) { ?>

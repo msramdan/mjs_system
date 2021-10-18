@@ -186,10 +186,12 @@ class T_sale extends CI_Controller
     {
         is_allowed($this->uri->segment(1),'read');
         $row = $this->T_sale_model->get_by_id(decrypt_url($id));
+        $detail_so = $this->T_sale_model->get_detail_so(decrypt_url($id));
         if ($row) {
             $data = array(
         'sett_apps' =>$this->Setting_app_model->get_by_id(1),
 		't_sale_id' => $row->t_sale_id,
+        'detail' => $detail_so,
         'no_so' => $row->no_so,
         'no_spal' => $row->no_spal,
         'nama_user' => $row->nama_user,
@@ -431,6 +433,51 @@ class T_sale extends CI_Controller
     public function download($gambar){
         force_download('assets/assets/img/spal/'.$gambar,NULL);
     }
+
+     public function pdf($id)
+    {
+        is_allowed($this->uri->segment(1),'read');
+        $this->load->library('dompdf_gen');
+       $row = $this->T_sale_model->get_by_id(decrypt_url($id));
+       $detail_so = $this->T_sale_model->get_detail_so(decrypt_url($id));
+        if ($row) {
+            $data = array(
+        'sett_apps' =>$this->Setting_app_model->get_by_id(1),
+        't_sale_id' => $row->t_sale_id,
+        'detail' => $detail_so,
+        'no_so' => $row->no_so,
+        'no_spal' => $row->no_spal,
+        'nama_user' => $row->nama_user,
+        'alamat' => $row->alamat,
+        'nama_pelanggan' => $row->nama_pelanggan,
+        'attn' => $row->attn,
+        'tanggal' => $row->tanggal,
+        'sub_price' => $row->sub_price,
+        'discount' => $row->discount,
+        'final_price' => $row->final_price,
+        'note' => $row->note,
+        'kapal' => $row->kapal,
+        'tongkang' => $row->tongkang,
+        'pelabuhan_muat' => $row->pelabuhan_muat,
+        'pelabuhan_bongkar' => $row->pelabuhan_bongkar,
+        'nama_muatan' => $row->nama_muatan,
+        'dokumen' => $row->dokumen,
+        'metode_pembayaran' => $row->metode_pembayaran
+        );
+       $this->load->view('t_sale/pdf',$data);
+       $paper_size = 'A4';
+       $orientation = 'portrait';
+       $html = $this->output->get_output();
+       $this->dompdf->set_paper($paper_size, $orientation);
+       $this->dompdf->load_html($html);
+       $this->dompdf->render();
+       
+       ob_end_clean();
+       
+       $this->dompdf->stream("laporan_sales_order.pdf", array('Attachment' =>0));
+        }
+    }
+
 
 }
 
